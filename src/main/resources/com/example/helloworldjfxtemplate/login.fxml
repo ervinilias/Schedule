@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #f4e500;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.helloworldjfxtemplate.Login">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #f4e500;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.helloworldjfxtemplate.controller.LoginController">
    <children>
       <TextField layoutX="286.0" layoutY="257.0" prefHeight="25.0" prefWidth="215.0" />
       <TextField layoutX="286.0" layoutY="329.0" prefHeight="25.0" prefWidth="215.0" />
