@@ -28,12 +28,13 @@ public class LoginController {
     private Label lbl_username;
 
     @FXML
-    void setBtn_exit(ActionEvent event) {
+    void setBtn_login(ActionEvent event) {
 
     }
 
     @FXML
-    void setBtn_login(ActionEvent event) {
+    void setBtn_exit(ActionEvent event) {
 
     }
+
 }
