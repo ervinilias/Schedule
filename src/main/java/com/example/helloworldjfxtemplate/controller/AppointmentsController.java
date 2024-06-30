@@ -3,11 +3,11 @@ package com.example.helloworldjfxtemplate.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 
-public class AppointmentsController {
-    @FXML
-    private Button btn_addAppoint;
+public class AppointmentsController { @FXML
+private Button btn_addAppoint;
 
     @FXML
     private Button btn_delAppoint;
@@ -47,6 +47,12 @@ public class AppointmentsController {
 
     @FXML
     private TableColumn<?, ?> col_userID;
+
+    @FXML
+    private RadioButton rb_allappoint;
+
+    @FXML
+    private RadioButton rb_week;
 
     @FXML
     void setBtn_addAppoint(ActionEvent event) {

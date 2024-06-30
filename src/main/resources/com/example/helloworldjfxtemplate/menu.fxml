@@ -27,7 +27,7 @@
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btn_menu" layoutX="492.0" layoutY="334.0" mnemonicParsing="false" onAction="#setBtn_menu" style="-fx-background-color: #0800a1; -fx-cursor: hand;" text="TO MENU" textFill="WHITE">
+      <Button fx:id="btn_exit" layoutX="492.0" layoutY="334.0" mnemonicParsing="false" onAction="#setBtn_exit" style="-fx-background-color: #0800a1; -fx-cursor: hand;" text="EXIT" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
