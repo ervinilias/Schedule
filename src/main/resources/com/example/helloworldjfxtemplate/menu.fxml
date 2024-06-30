@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.helloworldjfxtemplate.Menu"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f4e500;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.helloworldjfxtemplate.controller.MenuController">
+   <children>
+      <Label layoutX="25.0" layoutY="28.0" text="MAIN MENU" textFill="#0800a1" underline="true">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="btn_customers" layoutX="221.0" layoutY="127.0" mnemonicParsing="false" onAction="#setBtn_customers" style="-fx-background-color: transparent; -fx-cursor: hand;" text="CUSTOMERS -&gt;" textFill="#0800a1">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_appointments" layoutX="219.0" layoutY="180.0" mnemonicParsing="false" onAction="#setBtn_appointments" style="-fx-background-color: transparent; -fx-cursor: hand;" text="APPOINTMENTS -&gt;" textFill="#0800a1">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_reports" layoutX="221.0" layoutY="234.0" mnemonicParsing="false" onAction="#setBtn_reports" style="-fx-background-color: transparent; -fx-cursor: hand;" text="REPORTS -&gt;" textFill="#0800a1">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_menu" layoutX="492.0" layoutY="334.0" mnemonicParsing="false" onAction="#setBtn_menu" style="-fx-background-color: #0800a1; -fx-cursor: hand;" text="TO MENU" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
 </AnchorPane>

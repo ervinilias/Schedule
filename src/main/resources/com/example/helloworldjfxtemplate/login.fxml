@@ -6,16 +6,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #f4e500;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.helloworldjfxtemplate.controller.LoginController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #f4e500; -fx-border-color: #000000; -fx-border-radius: 20;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.helloworldjfxtemplate.controller.LoginController">
    <children>
       <TextField fx:id="tf_username" layoutX="286.0" layoutY="257.0" prefHeight="25.0" prefWidth="215.0" />
       <TextField fx:id="tf_password" layoutX="286.0" layoutY="329.0" prefHeight="25.0" prefWidth="215.0" />
-      <Button fx:id="btn_login" layoutX="154.0" layoutY="479.0" mnemonicParsing="false" onAction="#setBtn_login" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #0800a1;" text="LOGIN" textFill="WHITE">
+      <Button fx:id="btn_login" layoutX="154.0" layoutY="479.0" mnemonicParsing="false" onAction="#setBtn_login" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #0800a1; -fx-cursor: hand;" text="LOGIN" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btn_exit" layoutX="327.0" layoutY="479.0" mnemonicParsing="false" onAction="#setBtn_exit" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #0800a1;" text="EXIT" textFill="WHITE">
+      <Button fx:id="btn_exit" layoutX="327.0" layoutY="479.0" mnemonicParsing="false" onAction="#setBtn_exit" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #0800a1; -fx-cursor: hand;" text="EXIT" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

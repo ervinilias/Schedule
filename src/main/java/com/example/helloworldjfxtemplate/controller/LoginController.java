@@ -1,6 +1,8 @@
 package com.example.helloworldjfxtemplate.controller;
 
 import com.example.helloworldjfxtemplate.DAO.UserDAO;
+import com.example.helloworldjfxtemplate.MainApplication;
+import com.example.helloworldjfxtemplate.helper.Error;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +21,7 @@ import java.sql.SQLException;
 import java.time.ZoneId;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import com.example.helloworldjfxtemplate.helper.*;
 
 public class LoginController implements Initializable {
     @FXML
@@ -70,16 +73,18 @@ public class LoginController implements Initializable {
         String password = tf_password.getText();
 
         if(username.isBlank() || username.isEmpty()) {
-
+            Error.getError(1);
         } else if (password.isBlank() || password.isEmpty()) {
-
+            Error.getError(2);
         } else if(!UserDAO.userValid(username)) {
-
+            Error.getError(3);
         } else if(!UserDAO.passValid(password)) {
-
+            Error.getError(4);
+        } else if (!UserDAO.userLogin(username, password)) {
+            Error.getError(5);
         } else if(UserDAO.userLogin(username,password)) {
             new FXMLLoader();
-            Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("menu.fxml")));
+            Parent parent = FXMLLoader.load(MainApplication.class.getResource("menu.fxml"));
             Scene scene = new Scene(parent);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
