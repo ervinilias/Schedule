@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.helloworldjfxtemplate.Customers"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #f4e500; -fx-border-color: #000000; -fx-border-radius: 20;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.helloworldjfxtemplate.Customers">
+   <children>
+      <TableView layoutY="83.0" prefHeight="400.0" prefWidth="1200.0">
+        <columns>
+          <TableColumn fx:id="col_custID" prefWidth="170.0" text="Customer ID" />
+          <TableColumn fx:id="col_custName" prefWidth="170.0" text="Customer Name" />
+            <TableColumn fx:id="col_custPhone" prefWidth="170.0" text="Phone #" />
+            <TableColumn fx:id="col_custAddr" prefWidth="170.0" text="Address" />
+            <TableColumn fx:id="col_custPost" prefWidth="170.0" text="Postal Code" />
+            <TableColumn fx:id="col_custState" prefWidth="170.0" text="State / Providence " />
+            <TableColumn fx:id="col_custCountry" prefWidth="170.0" text="Country" />
+        </columns>
+      </TableView>
+      <Label layoutX="1000.0" layoutY="30.0" text="CUSTOMERS" textFill="#0800a1" underline="true">
+         <font>
+            <Font name="Arial Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="btn_addCust" layoutX="46.0" layoutY="525.0" mnemonicParsing="false" onAction="#setBtn_addCust" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: transparent; -fx-cursor: hand;" text="ADD" textFill="#0800a1">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_updtCust" layoutX="201.0" layoutY="525.0" mnemonicParsing="false" onAction="#setBtn_updtCust" prefHeight="25.0" prefWidth="108.0" style="-fx-background-color: transparent; -fx-cursor: hand;" text="UPDATE" textFill="#0800a1">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_delCust" layoutX="365.0" layoutY="525.0" mnemonicParsing="false" onAction="#setBtn_delCust" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: transparent; -fx-cursor: hand;" text="DELETE" textFill="#0800a1">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_menu" layoutX="1082.0" layoutY="525.0" mnemonicParsing="false" onAction="#setBtn_menu" style="-fx-background-color: #0800a1; -fx-cursor: hand;" text="TO MENU" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
 </AnchorPane>
