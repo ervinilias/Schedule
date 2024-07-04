@@ -31,42 +31,41 @@ public class CountryDAO {
     }
 
     public static Country returnCountry(int countryId) {
+        Country c = null;
         try {
             String sql = "SELECT Country_ID, Country FROM countries WHERE Country_ID = ?";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setInt(1, countryId);
             ps.execute();
-
             ResultSet rs = ps.getResultSet();
-
-            rs.next();
-            int searchedCountryId = rs.getInt("Country_ID");
-            String countryName = rs.getString("Country");
-            Country c = new Country(searchedCountryId, countryName);
-            return c;
+            while (rs.next()) {
+                int searchedCountryId = rs.getInt("Country_ID");
+                String countryName = rs.getString("Country");
+                c = new Country(searchedCountryId, countryName);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
+        return c;
     }
 
-    public static ObservableList<Country> totalCountry() {
-        ObservableList<Country> customerCountry = FXCollections.observableArrayList();
-        try {
-            String sql = "SELECT countries.Country, COUNT(customers.Customer_ID) AS Count FROM countries INNER JOIN first_level_divisions ON  countries.Country_ID = first_level_divisions.Country_ID INNER JOIN customers ON customers.Division_ID = first_level_divisions.Division_ID group by countries.Country";
-            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String countryMonth = rs.getString("Country");
-                int countryMonthTotal = rs.getInt("Count");
-                Country results = new Country(countryMonth, countryMonthTotal);
-                customerCountry.add(results);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return customerCountry;
-    }
+//    public static ObservableList<Country> totalCountry() {
+//        ObservableList<Country> customerCountry = FXCollections.observableArrayList();
+//        try {
+//            String sql = "SELECT countries.Country, COUNT(customers.Customer_ID) AS Count FROM countries INNER JOIN first_level_divisions ON  countries.Country_ID = first_level_divisions.Country_ID INNER JOIN customers ON customers.Division_ID = first_level_divisions.Division_ID group by countries.Country";
+//            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                String countryMonth = rs.getString("Country");
+//                int countryMonthTotal = rs.getInt("Count");
+//                Country results = new Country(countryMonth, countryMonthTotal);
+//                customerCountry.add(results);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return customerCountry;
+//    }
 
 }
 

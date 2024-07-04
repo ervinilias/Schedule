@@ -11,8 +11,8 @@ public class Country {
         this.countryMonthTotal = countryMonthTotal;
     }
 
-    public Country(int countryId, String countryName) {
-        this.countryID = countryId;
+    public Country(int countryID, String countryName) {
+        this.countryID = countryID;
         this.countryName = countryName;
     }
 
