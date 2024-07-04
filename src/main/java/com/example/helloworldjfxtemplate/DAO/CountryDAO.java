@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CountryDAO {
+
     public static ObservableList<Country> getAllCountry() {
         ObservableList<Country> countryList = FXCollections.observableArrayList();
         try {
@@ -66,5 +67,6 @@ public class CountryDAO {
         }
         return customerCountry;
     }
-    }
+
 }
+

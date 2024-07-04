@@ -1,5 +1,7 @@
 package com.example.helloworldjfxtemplate.model;
 
+import java.time.LocalDateTime;
+
 public class FirstLVLDivision {
     private int divisionID;
     private String divisionName;
@@ -8,6 +10,13 @@ public class FirstLVLDivision {
     public FirstLVLDivision(int divisionID, String divisionName) {
         this.divisionID = divisionID;
         this.divisionName = divisionName;
+    }
+
+    public FirstLVLDivision(int divisionID, String divisionName, int countryId, LocalDateTime createDate,
+                            String createdBy, LocalDateTime lastUpdated, String lastUpdatedBy) {
+        this.divisionID = divisionID;
+        this.divisionName = divisionName;
+        this.countryID = countryID;
     }
 
     public int getDivisionID() {
