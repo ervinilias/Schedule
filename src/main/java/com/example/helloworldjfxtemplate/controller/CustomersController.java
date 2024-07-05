@@ -1,5 +1,6 @@
 package com.example.helloworldjfxtemplate.controller;
 
+import com.example.helloworldjfxtemplate.model.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,31 +18,31 @@ public class CustomersController implements Initializable {
     private Button btn_delCust;
 
     @FXML
-    private Button btn_menu;
-
-    @FXML
     private Button btn_updtCust;
 
     @FXML
+    private Button btn_menu;
+
+    @FXML
+    private TableColumn<Customer, Integer> col_custID;
+
+    @FXML
+    private TableColumn<Customer, String> col_custName;
+
+    @FXML
+    private TableColumn<Customer, String> col_custPhone;
+
+    @FXML
     private TableColumn<?, ?> col_custAddr;
-
-    @FXML
-    private TableColumn<?, ?> col_custCountry;
-
-    @FXML
-    private TableColumn<?, ?> col_custID;
-
-    @FXML
-    private TableColumn<?, ?> col_custName;
-
-    @FXML
-    private TableColumn<?, ?> col_custPhone;
 
     @FXML
     private TableColumn<?, ?> col_custPost;
 
     @FXML
     private TableColumn<?, ?> col_custState;
+
+    @FXML
+    private TableColumn<?, ?> col_custCountry;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
