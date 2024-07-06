@@ -1,14 +1,18 @@
 package com.example.helloworldjfxtemplate.controller;
 
+import com.example.helloworldjfxtemplate.model.Country;
 import com.example.helloworldjfxtemplate.model.Customer;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import com.example.helloworldjfxtemplate.DAO.*;
 
 public class CustomersController implements Initializable {
     @FXML
@@ -22,6 +26,8 @@ public class CustomersController implements Initializable {
 
     @FXML
     private Button btn_menu;
+    @FXML
+    private TableView<Customer> custTable;
 
     @FXML
     private TableColumn<Customer, Integer> col_custID;
@@ -33,16 +39,18 @@ public class CustomersController implements Initializable {
     private TableColumn<Customer, String> col_custPhone;
 
     @FXML
-    private TableColumn<?, ?> col_custAddr;
+    private TableColumn<Customer, String> col_custAddr;
 
     @FXML
-    private TableColumn<?, ?> col_custPost;
+    private TableColumn<Customer, String> col_custPost;
 
     @FXML
-    private TableColumn<?, ?> col_custState;
+    private TableColumn<Customer, Integer> col_custState;
 
     @FXML
-    private TableColumn<?, ?> col_custCountry;
+    private TableColumn<Country, Integer> col_custCountry;
+
+    ObservableList<Customer> CustomerList = CustomerDAO.getCustomerList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

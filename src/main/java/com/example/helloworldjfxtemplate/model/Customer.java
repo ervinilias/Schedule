@@ -17,7 +17,7 @@ public class Customer {
     private String custDivName;
     private String custCountryName;
 
-    public Customer(int custID, String custName, String custAddr, String custPost, String custPhone, String createdBy, LocalDateTime lastUpdate, String lastUpdatedBy, int custDivID, int custCountryID, String custDivName, String custCountryName) {
+    public Customer(int custID, String custName, String custAddr, String custPost, String custPhone, String createdBy, String lastUpdatedBy, int custDivID, int custCountryID, String custDivName, String custCountryName) {
         this.custID = custID;
         this.custName = custName;
         this.custAddr = custAddr;
