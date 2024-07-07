@@ -77,12 +77,12 @@
             <ComboBox fx:id="cb_custCountry" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
          </children>
       </GridPane>
-      <Button fx:id="btn_cancel" layoutX="349.0" layoutY="352.0" mnemonicParsing="false" onAction="#setBtn_cancel" style="-fx-background-color: #0800a1; -fx-cursor: hand;" text="EXIT" textFill="WHITE">
+      <Button fx:id="btn_cancel" layoutX="349.0" layoutY="352.0" mnemonicParsing="false" onAction="#setBtn_cancel" style="-fx-background-color: #0800a1; -fx-cursor: hand;" text="CANCEL" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btn_save" layoutX="211.0" layoutY="352.0" mnemonicParsing="false" onAction="#setBtn_save" style="-fx-background-color: #0800a1; -fx-cursor: hand;" text="SAVE" textFill="WHITE">
+      <Button fx:id="btn_save" layoutX="193.0" layoutY="352.0" mnemonicParsing="false" onAction="#setBtn_save" prefHeight="25.0" prefWidth="62.0" style="-fx-background-color: #0800a1; -fx-cursor: hand;" text="SAVE" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
