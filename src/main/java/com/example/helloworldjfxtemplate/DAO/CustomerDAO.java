@@ -6,10 +6,7 @@ import com.example.helloworldjfxtemplate.model.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.time.LocalDateTime;
 
 public class CustomerDAO {
@@ -40,12 +37,38 @@ public class CustomerDAO {
                 Customer c = new Customer(customerID, customerName, customerAddress, customerPostalCode, customerPhone,
                         createdBy, lastUpdatedBy, customerDivisionID, customerCountryID, customerDivisionName, customerCountryName);
                 customerList.add(c);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return customerList;
     }
+
+//    public static ObservableList<Customer> getCustomerList(Connection connection) {
+//        ObservableList<Customer> customerObservableList = FXCollections.observableArrayList();
+//        try {
+//            String query = "SELECT customers.Customer_ID, customers.Customer_Name, customers.Address, customers.Postal_Code, customers.Phone, customers.Division_ID, first_level_divisions.Division from customers INNER JOIN  first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID";
+//
+//            PreparedStatement ps = JDBC.connection.prepareStatement(query);
+//            ResultSet rs = ps.executeQuery();
+//
+//            while (rs.next()) {
+//                int customerID = rs.getInt("Customer_ID");
+//                String customerName = rs.getString("Customer_Name");
+//                String customerAddress = rs.getString("Address");
+//                String customerPostalCode = rs.getString("Postal_Code");
+//                String customerPhone = rs.getString("Phone");
+//                int divisionID = rs.getInt("Division_ID");
+//                String divisionName = rs.getString("Division");
+//                Customer customer = new Customer(customerID, customerName, customerAddress, customerPostalCode, customerPhone, divisionID, divisionName);
+//                customerObservableList.add(customer);
+//            }
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return customerObservableList;
+//    }
 
     public static void addCustomer(String customerName, String customerAddress, String customerPostalCode,
                                    String customerPhone, LocalDateTime createdDate, LocalDateTime lastUpdated,

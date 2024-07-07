@@ -3,73 +3,106 @@ package com.example.helloworldjfxtemplate.model;
 import java.time.LocalDateTime;
 
 public class Customer {
-    private int custID;
-    private String custName;
-    private String custAddr;
-    private String custPost;
-    private String custPhone;
-    private LocalDateTime createDate;
-    private String createdBy;
-    private LocalDateTime lastUpdate;
-    private String lastUpdatedBy;
-    private int custDivID;
-    private int custCountryID;
-    private String custDivName;
-    private String custCountryName;
+    private int CustID;
+    private String CustName;
+    private String CustAddr;
+    private String CustPost;
+    private String CustPhone;
+    private LocalDateTime CreateDate;
+    private String CreatedBy;
+    private LocalDateTime LastUpdate;
+    private String LastUpdatedBy;
+    private int CustDivID;
+    private int CustCountryID;
+    private String CustDivName;
+    private String CustCountryName;
 
     public Customer(int custID, String custName, String custAddr, String custPost, String custPhone,
                     String createdBy, String lastUpdatedBy, int custDivID, int custCountryID, String custDivName,
                     String custCountryName) {
-        this.custID = custID;
-        this.custName = custName;
-        this.custAddr = custAddr;
-        this.custPost = custPost;
-        this.custPhone = custPhone;
-        this.createdBy = createdBy;
-        this.lastUpdate = lastUpdate;
-        this.lastUpdatedBy = lastUpdatedBy;
-        this.custDivID = custDivID;
-        this.custCountryID = custCountryID;
-        this.custDivName = custDivName;
-        this.custCountryName = custCountryName;
+        this.CustID = custID;
+        this.CustName = custName;
+        this.CustAddr = custAddr;
+        this.CustPost = custPost;
+        this.CustPhone = custPhone;
+        this.CreatedBy = createdBy;
+        this.LastUpdate = LastUpdate;
+        this.LastUpdatedBy = lastUpdatedBy;
+        this.CustDivID = custDivID;
+        this.CustCountryID = custCountryID;
+        this.CustDivName = custDivName;
+        this.CustCountryName = custCountryName;
     }
 
     public Customer(int custID, String custName) {
-        this.custID = custID;
-        this.custName = custName;
+        this.CustID = custID;
+        this.CustName = custName;
     }
 
-    public int getCustomerID() {
-        return custID;
+    public Customer(int customerID, String customerName, String customerAddress, String customerPostalCode,
+                    String customerPhone, int divisionID, String divisionName) {
+        this.CustID = customerID;
+        this.CustName = customerName;
+        this.CustAddr = customerAddress;
+        this.CustPost = customerPostalCode;
+        this.CustPhone = customerPhone;
+        this.LastUpdate = LastUpdate;
+        this.CustDivID = divisionID;
+        this.CustDivName = divisionName;
+
     }
 
-    public String getCustomerName() {
-        return custName;
+    public int getCustID() {
+        return CustID;
     }
 
-    public String getCustomerAddress() {
-        return custAddr;
+    public String getCustName() {
+        return CustName;
     }
 
-    public String getCustomerPostalCode() {
-        return custPost;
+    public String getCustAddr() {
+        return CustAddr;
     }
 
-    public int getCustomerDivisionID() {
-        return custDivID;
+    public String getCustPost() {
+        return CustPost;
     }
 
-    public int getCustomerCountryID() {
-        return custCountryID;
+    public String getCustPhone() {
+        return CustPhone;
     }
 
-    public String getCustomerPhone() {
-        return custPhone;
+    public String getCreatedBy() {
+        return CreatedBy;
+    }
+
+    public LocalDateTime getLastUpdate() {
+        return LastUpdate;
+    }
+
+    public String getLastUpdatedBy() {
+        return LastUpdatedBy;
+    }
+
+    public int getCustDivID() {
+        return CustDivID;
+    }
+
+    public int getCustCountryID() {
+        return CustCountryID;
+    }
+
+    public String getCustDivName() {
+        return CustDivName;
+    }
+
+    public String getCustCountryName() {
+        return CustCountryName;
     }
 
     @Override
     public String toString() {
-        return "#" + Integer.toString(custID) + " - " + custName;
+        return "#" + Integer.toString(CustID) + " - " + CustName;
     }
 
 

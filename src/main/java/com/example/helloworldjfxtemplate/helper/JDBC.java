@@ -20,7 +20,7 @@ public abstract class JDBC {
 
     public static String connectionStatus;
 
-    public static void makeConnection() {
+    public static Connection makeConnection() {
         try {
             Class.forName(driver); // Locate Driver
             connection = DriverManager.getConnection(jdbcUrl, userName, password); // reference Connection object
@@ -32,6 +32,7 @@ public abstract class JDBC {
         catch(SQLException e) {
             System.out.println("Error:" + e.getMessage());
         }
+        return connection;
     }
 
     public static void closeConnection() {
