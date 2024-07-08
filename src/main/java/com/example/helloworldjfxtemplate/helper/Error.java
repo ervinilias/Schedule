@@ -39,6 +39,13 @@ public class Error {
                 alert.showAndWait();
                 break;
 
+            case 6:
+                alert.setTitle("NoSelection");
+                alert.setContentText("Please select a customer to continue.");
+                alert.showAndWait();
+                break;
+
+
             default:
                 throw new IllegalStateException("Unexpected value: " + numError);
 

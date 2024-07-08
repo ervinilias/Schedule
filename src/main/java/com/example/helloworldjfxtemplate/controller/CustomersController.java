@@ -1,6 +1,7 @@
 package com.example.helloworldjfxtemplate.controller;
 
 import com.example.helloworldjfxtemplate.MainApplication;
+import com.example.helloworldjfxtemplate.helper.Error;
 import com.example.helloworldjfxtemplate.helper.JDBC;
 import com.example.helloworldjfxtemplate.model.Customer;
 import javafx.collections.ObservableList;
@@ -21,6 +22,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import com.example.helloworldjfxtemplate.DAO.*;
+import com.example.helloworldjfxtemplate.helper.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -91,7 +93,21 @@ public class CustomersController implements Initializable {
     }
 
     @FXML
-    void setBtn_updtCust(ActionEvent event) {
+    void setBtn_updtCust(ActionEvent event) throws IOException {
+        if (custTableView.getSelectionModel().getSelectedItem() != null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("customermodify.fxml"));
+            loader.load();
+            CustomerModifyController MCController = loader.getController();
+            MCController.getCustInfo(custTableView.getSelectionModel().getSelectedItem());
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.centerOnScreen();
+            stage.show();
+        } else {
+            Error.getError(6);
+        }
 
     }
 

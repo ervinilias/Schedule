@@ -1,5 +1,8 @@
 package com.example.helloworldjfxtemplate.controller;
 
+import com.example.helloworldjfxtemplate.model.Country;
+import com.example.helloworldjfxtemplate.model.Customer;
+import com.example.helloworldjfxtemplate.model.FirstLVLDivision;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,10 +17,10 @@ public class CustomerModifyController {
     private Button btn_save;
 
     @FXML
-    private ComboBox<?> cb_custCountry;
+    private ComboBox<Country> cb_custCountry;
 
     @FXML
-    private ComboBox<?> cb_custDivision;
+    private ComboBox<FirstLVLDivision> cb_custDivision;
 
     @FXML
     private TextField tf_custAddr;
@@ -47,5 +50,17 @@ public class CustomerModifyController {
     @FXML
     void tf_cust(ActionEvent event) {
 
+    }
+
+    public void getCustInfo(Customer selectedCust) {
+        tf_custID.setText(Integer.toString(selectedCust.getCustID()));
+        tf_custName.setText(selectedCust.getCustName());
+        tf_custPhone.setText(selectedCust.getCustPhone());
+        tf_custAddr.setText(selectedCust.getCustAddr());
+        tf_custPost.setText(selectedCust.getCustPost());
+
+
+       tf_custPhone
+       tf_custPost
     }
 }
