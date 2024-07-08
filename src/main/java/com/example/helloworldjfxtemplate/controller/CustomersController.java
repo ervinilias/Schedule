@@ -93,7 +93,7 @@ public class CustomersController implements Initializable {
     }
 
     @FXML
-    void setBtn_updtCust(ActionEvent event) throws IOException {
+    void setBtn_updtCust(ActionEvent event) throws IOException, SQLException {
         if (custTableView.getSelectionModel().getSelectedItem() != null) {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("customermodify.fxml"));
