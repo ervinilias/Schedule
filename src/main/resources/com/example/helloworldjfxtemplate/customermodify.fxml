@@ -73,7 +73,7 @@
             <TextField fx:id="tf_custPhone" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <TextField fx:id="tf_custAddr" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <TextField fx:id="tf_custPost" onAction="#tf_cust" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <ComboBox fx:id="cb_custDivision" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <ComboBox fx:id="cb_custDivision" onAction="#setCb_custCountry" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             <ComboBox fx:id="cb_custCountry" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
          </children>
       </GridPane>

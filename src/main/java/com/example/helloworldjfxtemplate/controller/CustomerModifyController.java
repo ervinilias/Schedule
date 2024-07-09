@@ -7,13 +7,16 @@ import com.example.helloworldjfxtemplate.model.Customer;
 import com.example.helloworldjfxtemplate.model.FirstLVLDivision;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class CustomerModifyController {
+public class CustomerModifyController implements Initializable {
     @FXML
     private Button btn_cancel;
 
@@ -41,9 +44,18 @@ public class CustomerModifyController {
     @FXML
     private TextField tf_custPost;
 
-    @FXML
-    void setBtn_cancel(ActionEvent event) {
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        cb_custCountry.setItems(CountryDAO.getAllCountry());
+    }
 
+    public void setCb_custCountry(ActionEvent event) {
+        Country c = cb_custCountry.getValue();
+        try {
+            cb_custDivision.setItems(FirstLvlDivisionDAO.displayDivision(c.getCountryID()));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -52,7 +64,7 @@ public class CustomerModifyController {
     }
 
     @FXML
-    void tf_cust(ActionEvent event) {
+    void setBtn_cancel(ActionEvent event) {
 
     }
 

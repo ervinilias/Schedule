@@ -44,6 +44,34 @@ public class Error {
                 alert.setContentText("Please select a customer to continue.");
                 alert.showAndWait();
                 break;
+            case 7:
+                alert.setTitle("Customer Name is blank");
+                alert.setContentText("The Customer Name field is blank.\n" +
+                        "Please enter a valid name.");
+                alert.showAndWait();
+                break;
+            case 8:
+                alert.setTitle("Customer Phone number is blank");
+                alert.setContentText("Please enter a valid phone number.");
+                alert.showAndWait();
+                break;
+            case 9:
+                alert.setTitle("Customer Address is blank");
+                alert.setContentText("The Customer Address field is blank.\n" +
+                        "Please enter a valid address.");
+                alert.showAndWait();
+                break;
+            case 10:
+                alert.setTitle("Customer Postal Code is blank");
+                alert.setContentText("The Customer postal code field is blank.\n" +
+                        "Please enter a valid postal code.");
+                alert.showAndWait();
+                break;
+            case 11:
+                alert.setTitle("Division/Country Field Issue");
+                alert.setContentText("Please check the division and country field.");
+                alert.showAndWait();
+                break;
 
 
             default:
