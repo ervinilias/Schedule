@@ -72,11 +72,20 @@ public class Error {
                 alert.setContentText("Please check the division and country field.");
                 alert.showAndWait();
                 break;
-
-
             default:
                 throw new IllegalStateException("Unexpected value: " + numError);
 
+        }
+    }
+    public static void getConfirm(int numConfirm) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        switch (numConfirm) {
+            case 1:
+                alert.setTitle("Customer has been successfully added");
+                alert.setHeaderText("Success!");
+                alert.setContentText("Customer has been successfully added");
+                alert.showAndWait();
+                break;
         }
     }
 }

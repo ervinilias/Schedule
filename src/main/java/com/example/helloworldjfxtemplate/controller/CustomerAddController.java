@@ -1,6 +1,7 @@
 package com.example.helloworldjfxtemplate.controller;
 
 import com.example.helloworldjfxtemplate.DAO.CountryDAO;
+import com.example.helloworldjfxtemplate.DAO.CustomerDAO;
 import com.example.helloworldjfxtemplate.DAO.FirstLvlDivisionDAO;
 import com.example.helloworldjfxtemplate.MainApplication;
 import com.example.helloworldjfxtemplate.helper.Error;
@@ -22,6 +23,7 @@ import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class CustomerAddController implements Initializable {
@@ -83,12 +85,24 @@ public class CustomerAddController implements Initializable {
                     Error.getError(11);
                 }
             } else {
-
+                String customerName = tf_custName.getText();
+                String customerAddress = tf_custAddr.getText();
+                String customerPostalCode = tf_custPost.getText();
+                String customerPhone = tf_custPhone.getText();
+                FirstLVLDivision divId = cb_custDivision.getValue();
+                LocalDateTime createdDate = LocalDateTime.now();
+                LocalDateTime lastUpdated = LocalDateTime.now();
+                int divisionId = divId.getDivisionID();
+                CustomerDAO.addCustomer(customerName, customerAddress, customerPostalCode, customerPhone, createdDate, lastUpdated, divisionId);
+                Error.getConfirm(1);
+                setBtn_cancel(event);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
+
 
     @FXML
     void setBtn_cancel(ActionEvent event) throws IOException {
