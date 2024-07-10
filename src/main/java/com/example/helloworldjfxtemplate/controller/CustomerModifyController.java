@@ -1,20 +1,31 @@
 package com.example.helloworldjfxtemplate.controller;
 
 import com.example.helloworldjfxtemplate.DAO.CountryDAO;
+import com.example.helloworldjfxtemplate.DAO.CustomerDAO;
 import com.example.helloworldjfxtemplate.DAO.FirstLvlDivisionDAO;
+import com.example.helloworldjfxtemplate.MainApplication;
+import com.example.helloworldjfxtemplate.helper.Error;
 import com.example.helloworldjfxtemplate.model.Country;
 import com.example.helloworldjfxtemplate.model.Customer;
 import com.example.helloworldjfxtemplate.model.FirstLVLDivision;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static java.time.LocalDateTime.now;
 
 public class CustomerModifyController implements Initializable {
     @FXML
@@ -60,12 +71,51 @@ public class CustomerModifyController implements Initializable {
 
     @FXML
     void setBtn_save(ActionEvent event) {
+        try {
+            if (tf_custName.getText().isEmpty() || tf_custName.getText().isBlank()) {
+                Error.getError(7);
+            } else if (tf_custPhone.getText().isEmpty() || tf_custPhone.getText().isBlank()) {
+                Error.getError(8);
+            } else if (tf_custAddr.getText().isEmpty() || tf_custAddr.getText().isBlank()) {
+                Error.getError(9);
+            } else if (tf_custPost.getText().isEmpty() || tf_custPost.getText().isBlank()) {
+                Error.getError(10);
+            } else {
+                int customerID = Integer.parseInt(tf_custID.getText());
+                String customerName = tf_custName.getText();
+                String customerAddress = tf_custAddr.getText();
+                String customerPostalCode = tf_custPost.getText();
+                String customerPhone = tf_custPhone.getText();
+                int customerDivID = cb_custDivision.getValue().getDivisionID();
+                int customerCountryID = cb_custCountry.getValue().getCountryID();
+                String lastUpdatedBy = "script";
+                Timestamp lastUpdate = Timestamp.valueOf(now());
+                CustomerDAO.updateCustomer(customerID, customerName, customerAddress,customerPostalCode, customerPhone,
+                        lastUpdatedBy, lastUpdate, customerDivID, customerCountryID);
 
+                Parent parent = FXMLLoader.load(MainApplication.class.getResource("customers.fxml"));
+                Scene scene = new Scene(parent);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            }
+        } catch (IOException | NumberFormatException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
-    void setBtn_cancel(ActionEvent event) {
+    void setBtn_cancel(ActionEvent event) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Leave Without Saving?");
+        Optional<ButtonType> result = alert.showAndWait();
 
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            Parent parent = FXMLLoader.load(MainApplication.class.getResource("customers.fxml"));
+            Scene scene = new Scene(parent);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     public void getCustInfo(Customer selectedCust) throws SQLException {

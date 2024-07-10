@@ -14,9 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.FilterOutputStream;
@@ -24,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CustomerAddController implements Initializable {
@@ -90,12 +89,12 @@ public class CustomerAddController implements Initializable {
                 String customerPostalCode = tf_custPost.getText();
                 String customerPhone = tf_custPhone.getText();
                 FirstLVLDivision divId = cb_custDivision.getValue();
-                LocalDateTime createdDate = LocalDateTime.now();
-                LocalDateTime lastUpdated = LocalDateTime.now();
-                int divisionId = divId.getDivisionID();
-                CustomerDAO.addCustomer(customerName, customerAddress, customerPostalCode, customerPhone, createdDate, lastUpdated, divisionId);
+                LocalDateTime createDate = LocalDateTime.now();
+                LocalDateTime lastUpdate = LocalDateTime.now();
+                int customerDivID = divId.getDivisionID();
+                CustomerDAO.addCustomer(customerName, customerAddress, customerPostalCode, customerPhone, createDate, lastUpdate, customerDivID);
                 Error.getConfirm(1);
-                setBtn_cancel(event);
+                backToCustomers(event);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -103,14 +102,23 @@ public class CustomerAddController implements Initializable {
     }
 
 
-
-    @FXML
-    void setBtn_cancel(ActionEvent event) throws IOException {
+    public void backToCustomers(ActionEvent event) throws  IOException {
         Parent parent = FXMLLoader.load(MainApplication.class.getResource("customers.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+
+    }
+    @FXML
+    void setBtn_cancel(ActionEvent event) throws IOException {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Leave Without Saving?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            backToCustomers(event);
+        }
     }
 
 

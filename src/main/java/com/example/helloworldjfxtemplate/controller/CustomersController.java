@@ -96,7 +96,7 @@ public class CustomersController implements Initializable {
     void setBtn_updtCust(ActionEvent event) throws IOException, SQLException {
         if (custTableView.getSelectionModel().getSelectedItem() != null) {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("customermodify.fxml"));
+            loader.setLocation(MainApplication.class.getResource("customermodify.fxml"));
             loader.load();
             CustomerModifyController MCController = loader.getController();
             MCController.getCustInfo(custTableView.getSelectionModel().getSelectedItem());
