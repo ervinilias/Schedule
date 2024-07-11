@@ -68,13 +68,13 @@ public class CustomersController implements Initializable {
         Connection connection = JDBC.makeConnection();
 
         custTableView.setItems(CustomerDAO.getCustomerList());
-        col_custID.setCellValueFactory(new PropertyValueFactory<>("CustID"));
-        col_custName.setCellValueFactory(new PropertyValueFactory<>("CustName"));
-        col_custPhone.setCellValueFactory(new PropertyValueFactory<>("CustPhone"));
-        col_custAddr.setCellValueFactory(new PropertyValueFactory<>("CustAddr"));
-        col_custPost.setCellValueFactory(new PropertyValueFactory<>("CustPost"));
-        col_custState.setCellValueFactory(new PropertyValueFactory<>("CustDivName"));
-        col_custCountry.setCellValueFactory(new PropertyValueFactory<>("CustCountryName"));
+        col_custID.setCellValueFactory(new PropertyValueFactory<>("custID"));
+        col_custName.setCellValueFactory(new PropertyValueFactory<>("custName"));
+        col_custPhone.setCellValueFactory(new PropertyValueFactory<>("custPhone"));
+        col_custAddr.setCellValueFactory(new PropertyValueFactory<>("custAddr"));
+        col_custPost.setCellValueFactory(new PropertyValueFactory<>("custPost"));
+        col_custState.setCellValueFactory(new PropertyValueFactory<>("custDivName"));
+        col_custCountry.setCellValueFactory(new PropertyValueFactory<>("custCountryName"));
     }
 
     @FXML
