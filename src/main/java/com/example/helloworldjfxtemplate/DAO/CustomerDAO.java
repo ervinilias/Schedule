@@ -14,12 +14,13 @@ public class CustomerDAO {
     public static ObservableList<Customer> getCustomerList() {
         ObservableList<Customer> customerList = FXCollections.observableArrayList();
         try {
-            String sql = "SELECT customers.Customer_ID, customers.Customer_Name, customers.Address, customers.Create_Date, " +
-                    "customers.Last_Update, customers.Created_By, customers.Last_Updated_By, customers.Postal_Code, " +
-                    "customers.Phone, customers.Division_ID, first_level_divisions.Division, " +
+            String sql = "SELECT customers.Customer_ID, customers.Customer_Name, customers.Address, " +
+                    "customers.Create_Date, customers.Last_Update, customers.Created_By, customers.Last_Updated_By, " +
+                    "customers.Postal_Code, customers.Phone, customers.Division_ID, first_level_divisions.Division, " +
                     "first_level_divisions.Country_ID, countries.Country FROM customers " +
                     "JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID " +
-                    "JOIN countries ON countries.Country_ID = first_level_divisions.Country_ID ORDER BY customers.Customer_ID";
+                    "JOIN countries ON countries.Country_ID = first_level_divisions.Country_ID " +
+                    "ORDER BY customers.Customer_ID ";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -35,7 +36,8 @@ public class CustomerDAO {
                 int customerCountryID = rs.getInt("Country_ID");
                 String customerCountryName = rs.getString("Country");
                 Customer c = new Customer(customerID, customerName, customerAddress, customerPostalCode, customerPhone,
-                        createdBy, lastUpdatedBy, customerDivisionID, customerCountryID, customerDivisionName, customerCountryName);
+                        createdBy, lastUpdatedBy, customerDivisionID, customerCountryID, customerDivisionName,
+                        customerCountryName);
                 customerList.add(c);
 
             }
@@ -71,24 +73,24 @@ public class CustomerDAO {
 //    }
 
     public static void addCustomer(String customerName, String customerAddress, String customerPostalCode,
-                                   String customerPhone, LocalDateTime createdDate, LocalDateTime lastUpdated,
+                                   String customerPhone, LocalDateTime createdDate, String createdBy, LocalDateTime lastUpdated,
                                    int divisionID) throws SQLException {
-        String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Create_Date, Last_Update, Division_ID) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, Division_ID) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement insertCust = JDBC.connection.prepareStatement(sql);
         insertCust.setString(1, customerName);
         insertCust.setString(2, customerAddress);
         insertCust.setString(3, customerPostalCode);
         insertCust.setString(4, customerPhone);
         insertCust.setTimestamp(5, Timestamp.valueOf(createdDate));
-        insertCust.setTimestamp(6, Timestamp.valueOf(lastUpdated));
-        insertCust.setInt(7, divisionID);
+        insertCust.setString(6, createdBy);
+        insertCust.setTimestamp(7, Timestamp.valueOf(lastUpdated));
+        insertCust.setInt(8, divisionID);
         insertCust.executeUpdate();
     }
 
     public static void updateCustomer(int customerID, String customerName, String customerAddress, String customerPostalCode,
-                                      String customerPhone, String lastUpdatedBy, Timestamp lastUpdated, int customerDivisionID,
-                                      int countryID) {
+                                      String customerPhone, String lastUpdatedBy, Timestamp lastUpdated, int customerDivisionID) {
         try {
             String sql = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, " +
                     "Last_Updated_By = ?, Last_Update = ?, Division_ID = ? WHERE Customer_ID = ?";

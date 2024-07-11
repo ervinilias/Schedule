@@ -12,6 +12,12 @@ public class FirstLVLDivision {
         this.divisionName = divisionName;
     }
 
+    public FirstLVLDivision(int divisionID, String divisionName, int countryID) {
+        this.divisionID = divisionID;
+        this.divisionName = divisionName;
+        this.countryID = countryID;
+    }
+
     public FirstLVLDivision(int divisionID, String divisionName, int countryID, LocalDateTime createDate,
                             String createdBy, LocalDateTime lastUpdate, String lastUpdatedBy) {
         this.divisionID = divisionID;

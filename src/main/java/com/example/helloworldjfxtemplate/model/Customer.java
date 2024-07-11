@@ -1,8 +1,10 @@
 package com.example.helloworldjfxtemplate.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Customer {
+
     private int custID;
     private String custName;
     private String custAddr;
@@ -10,12 +12,28 @@ public class Customer {
     private String custPhone;
     private LocalDateTime createDate;
     private String createdBy;
-    private LocalDateTime lastUpdate;
+    private Timestamp lastUpdate;
     private String lastUpdatedBy;
     private int custDivID;
-    private int custCountryID;
-    private String custDivName;
     private String custCountryName;
+    private String custDivName;
+    private  int custCountryID;
+
+    public Customer(int custID, String custName, String custAddr, String custPost, String custPhone, LocalDateTime createDate, String createdBy,
+                    Timestamp lastUpdate, String lastUpdatedBy, int custDivID) {
+        this.custID = custID;
+        this.custName = custName;
+        this.custAddr = custAddr;
+        this.custPost = custPost;
+        this.custPhone = custPhone;
+        this.createDate = createDate;
+        this.createdBy = createdBy;
+        this.lastUpdate = lastUpdate;
+        this.lastUpdatedBy = lastUpdatedBy;
+        this.custDivID = custDivID;
+    }
+
+
 
     public Customer(int custID, String custName, String custAddr, String custPost, String custPhone,
                     String createdBy, String lastUpdatedBy, int custDivID, int custCountryID, String custDivName,
@@ -32,24 +50,6 @@ public class Customer {
         this.custCountryID = custCountryID;
         this.custDivName = custDivName;
         this.custCountryName = custCountryName;
-    }
-
-    public Customer(int custID, String custName) {
-        this.custID = custID;
-        this.custName = custName;
-    }
-
-    public Customer(int customerID, String customerName, String customerAddress, String customerPostalCode,
-                    String customerPhone, int divisionID, String divisionName) {
-        this.custID = customerID;
-        this.custName = customerName;
-        this.custAddr = customerAddress;
-        this.custPost = customerPostalCode;
-        this.custPhone = customerPhone;
-        this.lastUpdate = lastUpdate;
-        this.custDivID = divisionID;
-        this.custDivName = divisionName;
-
     }
 
     public int getCustID() {
@@ -76,7 +76,7 @@ public class Customer {
         return createdBy;
     }
 
-    public LocalDateTime getLastUpdate() {
+    public Timestamp getLastUpdate() {
         return lastUpdate;
     }
 

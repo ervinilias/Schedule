@@ -87,11 +87,10 @@ public class CustomerModifyController implements Initializable {
                 String customerPostalCode = tf_custPost.getText();
                 String customerPhone = tf_custPhone.getText();
                 int customerDivID = cb_custDivision.getValue().getDivisionID();
-                int customerCountryID = cb_custCountry.getValue().getCountryID();
                 String lastUpdatedBy = "script";
                 Timestamp lastUpdate = Timestamp.valueOf(now());
                 CustomerDAO.updateCustomer(customerID, customerName, customerAddress,customerPostalCode, customerPhone,
-                        lastUpdatedBy, lastUpdate, customerDivID, customerCountryID);
+                        lastUpdatedBy, lastUpdate, customerDivID);
 
                 Parent parent = FXMLLoader.load(MainApplication.class.getResource("customers.fxml"));
                 Scene scene = new Scene(parent);
@@ -124,8 +123,8 @@ public class CustomerModifyController implements Initializable {
         tf_custPhone.setText(selectedCust.getCustPhone());
         tf_custAddr.setText(selectedCust.getCustAddr());
         tf_custPost.setText(selectedCust.getCustPost());
-        FirstLVLDivision f = FirstLvlDivisionDAO.returnDivLvl(selectedCust.getCustDivID());
-        cb_custDivision.setValue(f);
+        FirstLVLDivision s = FirstLvlDivisionDAO.returnDivLvl(selectedCust.getCustDivID());
+        cb_custDivision.setValue(s);
         Country c1 = CountryDAO.returnCountry(selectedCust.getCustCountryID());
         cb_custCountry.setValue(c1);
         Country c = cb_custCountry.getValue();

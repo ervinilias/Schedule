@@ -1,5 +1,6 @@
 package com.example.helloworldjfxtemplate.DAO;
 
+import com.example.helloworldjfxtemplate.model.Country;
 import com.example.helloworldjfxtemplate.model.FirstLVLDivision;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,7 +41,7 @@ public class FirstLvlDivisionDAO {
     public static FirstLVLDivision returnDivLvl(int divisionID) {
         FirstLVLDivision s = null;
         try {
-            String sql = "SELECT Division_ID, Division FROM first_level_divisions WHERE Division_ID = ?";
+            String sql = "SELECT Division_ID, Division, Country_ID FROM first_level_divisions WHERE Division_ID = ?";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setInt(1, divisionID);
             ps.execute();
@@ -48,7 +49,8 @@ public class FirstLvlDivisionDAO {
             while(rs.next()) {
                 int searchedDivID = rs.getInt("Division_ID");
                 String divName = rs.getString("Division");
-                s = new FirstLVLDivision(searchedDivID, divName);
+                int countryID = rs.getInt("Country_ID");
+                s = new FirstLVLDivision(searchedDivID, divName, countryID);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

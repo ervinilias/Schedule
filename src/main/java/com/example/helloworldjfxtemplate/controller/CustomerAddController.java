@@ -90,9 +90,10 @@ public class CustomerAddController implements Initializable {
                 String customerPhone = tf_custPhone.getText();
                 FirstLVLDivision divId = cb_custDivision.getValue();
                 LocalDateTime createDate = LocalDateTime.now();
+                String createdBy = "script";
                 LocalDateTime lastUpdate = LocalDateTime.now();
                 int customerDivID = divId.getDivisionID();
-                CustomerDAO.addCustomer(customerName, customerAddress, customerPostalCode, customerPhone, createDate, lastUpdate, customerDivID);
+                CustomerDAO.addCustomer(customerName, customerAddress, customerPostalCode, customerPhone, createDate, createdBy, lastUpdate, customerDivID);
                 Error.getConfirm(1);
                 backToCustomers(event);
             }
