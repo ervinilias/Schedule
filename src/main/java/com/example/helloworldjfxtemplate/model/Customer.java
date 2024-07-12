@@ -10,42 +10,42 @@ public class Customer {
     private String custAddr;
     private String custPost;
     private String custPhone;
-    private LocalDateTime createDate;
-    private String createdBy;
-    private Timestamp lastUpdate;
-    private String lastUpdatedBy;
+    private LocalDateTime custCreateDate;
+    private String custCreatedBy;
+    private Timestamp custLastUpdate;
+    private String custLastUpdatedBy;
     private int custDivID;
     private String custCountryName;
     private String custDivName;
     private  int custCountryID;
 
-    public Customer(int custID, String custName, String custAddr, String custPost, String custPhone, LocalDateTime createDate, String createdBy,
-                    Timestamp lastUpdate, String lastUpdatedBy, int custDivID) {
+    public Customer(int custID, String custName, String custAddr, String custPost, String custPhone, LocalDateTime custCreateDate, String custCreatedBy,
+                    Timestamp custLastUpdate, String custLastUpdatedBy, int custDivID) {
         this.custID = custID;
         this.custName = custName;
         this.custAddr = custAddr;
         this.custPost = custPost;
         this.custPhone = custPhone;
-        this.createDate = createDate;
-        this.createdBy = createdBy;
-        this.lastUpdate = lastUpdate;
-        this.lastUpdatedBy = lastUpdatedBy;
+        this.custCreateDate = custCreateDate;
+        this.custCreatedBy = custCreatedBy;
+        this.custLastUpdate = custLastUpdate;
+        this.custLastUpdatedBy = custLastUpdatedBy;
         this.custDivID = custDivID;
     }
 
 
 
     public Customer(int custID, String custName, String custAddr, String custPost, String custPhone,
-                    String createdBy, String lastUpdatedBy, int custDivID, int custCountryID, String custDivName,
+                    String custCreatedBy, String custLastUpdatedBy, int custDivID, int custCountryID, String custDivName,
                     String custCountryName) {
         this.custID = custID;
         this.custName = custName;
         this.custAddr = custAddr;
         this.custPost = custPost;
         this.custPhone = custPhone;
-        this.createdBy = createdBy;
-        this.lastUpdate = lastUpdate;
-        this.lastUpdatedBy = lastUpdatedBy;
+        this.custCreatedBy = custCreatedBy;
+        this.custLastUpdate = custLastUpdate;
+        this.custLastUpdatedBy = custLastUpdatedBy;
         this.custDivID = custDivID;
         this.custCountryID = custCountryID;
         this.custDivName = custDivName;
@@ -72,16 +72,16 @@ public class Customer {
         return custPhone;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
+    public String getCustCreatedBy() {
+        return custCreatedBy;
     }
 
-    public Timestamp getLastUpdate() {
-        return lastUpdate;
+    public Timestamp getCustLastUpdate() {
+        return custLastUpdate;
     }
 
-    public String getLastUpdatedBy() {
-        return lastUpdatedBy;
+    public String getCustLastUpdatedBy() {
+        return custLastUpdatedBy;
     }
 
     public int getCustDivID() {

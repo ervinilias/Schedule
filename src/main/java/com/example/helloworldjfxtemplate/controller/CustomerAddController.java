@@ -4,7 +4,7 @@ import com.example.helloworldjfxtemplate.DAO.CountryDAO;
 import com.example.helloworldjfxtemplate.DAO.CustomerDAO;
 import com.example.helloworldjfxtemplate.DAO.FirstLvlDivisionDAO;
 import com.example.helloworldjfxtemplate.MainApplication;
-import com.example.helloworldjfxtemplate.helper.Error;
+import com.example.helloworldjfxtemplate.helper.Alerts;
 import com.example.helloworldjfxtemplate.model.Country;
 import com.example.helloworldjfxtemplate.model.FirstLVLDivision;
 import javafx.event.ActionEvent;
@@ -17,7 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -71,17 +70,17 @@ public class CustomerAddController implements Initializable {
     void setBtn_save(ActionEvent event) throws IOException {
         try {
             if (tf_custName.getText().isEmpty() || tf_custName.getText().isBlank()) {
-                Error.getError(7);
+                Alerts.getError(7);
             } else if (tf_custPhone.getText().isEmpty() || tf_custPhone.getText().isBlank()) {
-                Error.getError(8);
+                Alerts.getError(8);
             } else if (tf_custAddr.getText().isEmpty() || tf_custAddr.getText().isBlank()) {
-                Error.getError(9);
+                Alerts.getError(9);
             } else if (tf_custPost.getText().isEmpty() || tf_custPost.getText().isBlank()) {
-                Error.getError(10);
+                Alerts.getError(10);
             } else if (cb_custDivision.getValue() == null) {
                 Country c = cb_custCountry.getValue();
                 if (c == null) {
-                    Error.getError(11);
+                    Alerts.getError(11);
                 }
             } else {
                 String customerName = tf_custName.getText();
@@ -94,7 +93,7 @@ public class CustomerAddController implements Initializable {
                 LocalDateTime lastUpdate = LocalDateTime.now();
                 int customerDivID = divId.getDivisionID();
                 CustomerDAO.addCustomer(customerName, customerAddress, customerPostalCode, customerPhone, createDate, createdBy, lastUpdate, customerDivID);
-                Error.getConfirm(1);
+                Alerts.getConfirm(1);
                 backToCustomers(event);
             }
         } catch (SQLException e) {

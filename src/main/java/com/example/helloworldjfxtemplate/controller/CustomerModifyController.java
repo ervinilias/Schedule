@@ -4,7 +4,7 @@ import com.example.helloworldjfxtemplate.DAO.CountryDAO;
 import com.example.helloworldjfxtemplate.DAO.CustomerDAO;
 import com.example.helloworldjfxtemplate.DAO.FirstLvlDivisionDAO;
 import com.example.helloworldjfxtemplate.MainApplication;
-import com.example.helloworldjfxtemplate.helper.Error;
+import com.example.helloworldjfxtemplate.helper.Alerts;
 import com.example.helloworldjfxtemplate.model.Country;
 import com.example.helloworldjfxtemplate.model.Customer;
 import com.example.helloworldjfxtemplate.model.FirstLVLDivision;
@@ -73,13 +73,13 @@ public class CustomerModifyController implements Initializable {
     void setBtn_save(ActionEvent event) {
         try {
             if (tf_custName.getText().isEmpty() || tf_custName.getText().isBlank()) {
-                Error.getError(7);
+                Alerts.getError(7);
             } else if (tf_custPhone.getText().isEmpty() || tf_custPhone.getText().isBlank()) {
-                Error.getError(8);
+                Alerts.getError(8);
             } else if (tf_custAddr.getText().isEmpty() || tf_custAddr.getText().isBlank()) {
-                Error.getError(9);
+                Alerts.getError(9);
             } else if (tf_custPost.getText().isEmpty() || tf_custPost.getText().isBlank()) {
-                Error.getError(10);
+                Alerts.getError(10);
             } else {
                 int customerID = Integer.parseInt(tf_custID.getText());
                 String customerName = tf_custName.getText();

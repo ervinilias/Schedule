@@ -3,7 +3,7 @@ package com.example.helloworldjfxtemplate.helper;
 import javafx.scene.control.Alert;
 import java.util.ResourceBundle;
 
-public class Error {
+public class Alerts {
     static ResourceBundle langBundle = ResourceBundle.getBundle("lang");
 
     public static void getError(int numError) {
@@ -84,6 +84,27 @@ public class Error {
                 alert.setTitle("Customer has been successfully added");
                 alert.setHeaderText("Success!");
                 alert.setContentText("Customer has been successfully added");
+                alert.showAndWait();
+                break;
+        }
+    }
+
+    public static void getWarning(int numWarning) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        switch (numWarning) {
+            case 1:
+                alert.setTitle("Warning Dialog");
+                alert.setContentText("ERROR: Appointments must not start or end at same time as existing customer appointments");
+                alert.showAndWait();
+                break;
+            case 2:
+                alert.setTitle("Warning Dialog");
+                alert.setContentText("ERROR: Appointment start must not be during existing customer appointments");
+                alert.showAndWait();
+                break;
+            case 3:
+                alert.setTitle("Warning Dialog");
+                alert.setContentText("ERROR: Appointment end must not be during existing customer appointments");
                 alert.showAndWait();
                 break;
         }

@@ -1,5 +1,9 @@
 package com.example.helloworldjfxtemplate.model;
 
+import com.example.helloworldjfxtemplate.DAO.AppointmentDAO;
+import com.example.helloworldjfxtemplate.helper.Alerts;
+import javafx.collections.ObservableList;
+
 import java.time.LocalDateTime;
 
 public class Appointment {
@@ -8,11 +12,201 @@ public class Appointment {
     private String appointDesc;
     private String appointLocation;
     private String appointType;
-    private String appointmentType;
-    private LocalDateTime appointmentStart;
+    private int appointTypeTotal;
+    private LocalDateTime appointStart;
     private LocalDateTime appointEnd;
-    private LocalDateTime createDate;
-    private String createdBy;
+    private LocalDateTime appointCreateDate;
+    private String appointCreatedBy;
+    private LocalDateTime appointUpdateDate;
+    private String appointUpdatedBy;
+    private int appointCustID;
+    private int appointUserID;
+    private int appointContactID;
+    private String appointContactName;
 
+    public Appointment(int appointID, String appointTitle, String appointDesc, String appointLocation, String appointType,
+                       LocalDateTime appointStart, LocalDateTime appointEnd, int appointCustID, int appointUserID,
+                       int appointContactID) {
+        this.appointID = appointID;
+        this.appointTitle = appointTitle;
+        this.appointDesc = appointDesc;
+        this.appointLocation = appointLocation;
+        this.appointType = appointType;
+        this.appointStart = appointStart;
+        this.appointEnd = appointEnd;
+        this.appointCustID = appointCustID;
+        this.appointUserID = appointUserID;
+        this.appointContactID = appointContactID;
+    }
 
+    public Appointment(int appointID, String appointTitle, String appointDesc, String appointLocation, String appointType,
+                       LocalDateTime appointStart, LocalDateTime appointEnd, int appointCustID, int appointUserID,
+                       int appointContactID, String appointContactName) {
+        this.appointID = appointID;
+        this.appointTitle = appointTitle;
+        this.appointDesc = appointDesc;
+        this.appointLocation = appointLocation;
+        this.appointType = appointType;
+        this.appointStart = appointStart;
+        this.appointEnd = appointEnd;
+        this.appointCustID = appointCustID;
+        this.appointUserID = appointUserID;
+        this.appointContactID = appointContactID;
+        this.appointContactName = appointContactName;
+    }
+
+    public Appointment(String appointType, int appointTypeTotal) {
+        this.appointType = appointType;
+        this.appointTypeTotal = appointTypeTotal;
+    }
+
+    public int getAppointID() {
+        return appointID;
+    }
+
+    public void setAppointID(int appointID) {
+        this.appointID = appointID;
+    }
+
+    public String getAppointTitle() {
+        return appointTitle;
+    }
+
+    public void setAppointTitle(String appointTitle) {
+        this.appointTitle = appointTitle;
+    }
+
+    public String getAppointDesc() {
+        return appointDesc;
+    }
+
+    public void setAppointDesc(String appointDesc) {
+        this.appointDesc = appointDesc;
+    }
+
+    public String getAppointLocation() {
+        return appointLocation;
+    }
+
+    public void setAppointLocation(String appointLocation) {
+        this.appointLocation = appointLocation;
+    }
+
+    public String getAppointType() {
+        return appointType;
+    }
+
+    public void setAppointType(String appointType) {
+        this.appointType = appointType;
+    }
+
+    public int getAppointTypeTotal() {
+        return appointTypeTotal;
+    }
+
+    public void setAppointTypeTotal(int appointTypeTotal) {
+        this.appointTypeTotal = appointTypeTotal;
+    }
+
+    public LocalDateTime getAppointStart() {
+        return appointStart;
+    }
+
+    public void setAppointStart(LocalDateTime appointStart) {
+        this.appointStart = appointStart;
+    }
+
+    public LocalDateTime getAppointEnd() {
+        return appointEnd;
+    }
+
+    public void setAppointEnd(LocalDateTime appointEnd) {
+        this.appointEnd = appointEnd;
+    }
+
+    public LocalDateTime getAppointCreateDate() {
+        return appointCreateDate;
+    }
+
+    public void setAppointCreateDate(LocalDateTime appointCreateDate) {
+        this.appointCreateDate = appointCreateDate;
+    }
+
+    public String getAppointCreatedBy() {
+        return appointCreatedBy;
+    }
+
+    public void setAppointCreatedBy(String appointCreatedBy) {
+        this.appointCreatedBy = appointCreatedBy;
+    }
+
+    public LocalDateTime getAppointUpdateDate() {
+        return appointUpdateDate;
+    }
+
+    public void setAppointUpdateDate(LocalDateTime appointUpdateDate) {
+        this.appointUpdateDate = appointUpdateDate;
+    }
+
+    public String getAppointUpdatedBy() {
+        return appointUpdatedBy;
+    }
+
+    public void setAppointUpdatedBy(String appointUpdatedBy) {
+        this.appointUpdatedBy = appointUpdatedBy;
+    }
+
+    public int getAppointCustID() {
+        return appointCustID;
+    }
+
+    public void setAppointCustID(int appointCustID) {
+        this.appointCustID = appointCustID;
+    }
+
+    public int getAppointUserID() {
+        return appointUserID;
+    }
+
+    public void setAppointUserID(int appointUserID) {
+        this.appointUserID = appointUserID;
+    }
+
+    public int getAppointContactID() {
+        return appointContactID;
+    }
+
+    public void setAppointContactID(int appointContactID) {
+        this.appointContactID = appointContactID;
+    }
+
+    public String getAppointContactName() {
+        return appointContactName;
+    }
+
+    public void setAppointContactName(String appointContactName) {
+        this.appointContactName = appointContactName;
+    }
+
+    public static boolean checkOverlap(int custID, LocalDateTime appointStart, LocalDateTime appointEnd) {
+        ObservableList<Appointment> appointList = AppointmentDAO.getAppointmentList();
+        LocalDateTime checkApptStart, checkApptEnd;
+        for (Appointment a : appointList) {
+            checkApptStart = a.getAppointStart();
+            checkApptEnd = a.getAppointEnd();
+            if (custID != a.getAppointCustID()) {
+                continue;
+            } if (checkApptStart.isEqual(appointStart) || checkApptEnd.isEqual(appointEnd)) {
+                Alerts.getWarning(1);
+                return true;
+            } else if (checkApptStart.isAfter(appointStart) && checkApptEnd.isBefore(appointEnd)) {
+                Alerts.getWarning(2);
+                return true;
+            } else if (checkApptEnd.isAfter(appointEnd) && checkApptEnd.isBefore(appointEnd)) {
+                Alerts.getWarning(3);
+                return true;
+            }
+        }
+        return false;
+    }
 }
