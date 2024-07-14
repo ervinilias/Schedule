@@ -3,8 +3,13 @@ package com.example.helloworldjfxtemplate.model;
 import com.example.helloworldjfxtemplate.DAO.AppointmentDAO;
 import com.example.helloworldjfxtemplate.helper.Alerts;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class Appointment {
     private int appointID;
@@ -210,8 +215,54 @@ public class Appointment {
         return false;
     }
 
+    public static LocalTime localStart() {
+        LocalTime openingBusinessTime = LocalTime.of(8, 0);
+        ZoneId easternZone = ZoneId.of("America/New_York");
+        ZoneId localZone = ZoneId.systemDefault();
+
+        LocalDateTime businessEastern = LocalDateTime.of(LocalDate.now(), openingBusinessTime);
+        LocalDateTime businessLocal = businessEastern.atZone(easternZone).withZoneSameInstant(localZone).toLocalDateTime();
+
+        LocalTime businessStartLocal = businessLocal.toLocalTime();
+
+        return businessStartLocal;
+    }
+
+    public static LocalTime localEnd() {
+        LocalTime closingBusinessTime = LocalTime.of(22, 0);
+        ZoneId easternZone = ZoneId.of("America/New_York");
+        ZoneId localZone = ZoneId.systemDefault();
+
+        LocalDateTime businessEndDT = LocalDateTime.of(LocalDate.now(), closingBusinessTime);
+        LocalDateTime businessLocalDT = businessEndDT.atZone(easternZone).withZoneSameInstant(localZone).toLocalDateTime();
+
+        LocalTime businessEndLocal = businessLocalDT.toLocalTime();
+
+        return businessEndLocal;
+    }
 
     public static boolean businessHours(LocalDateTime appointStart, LocalDateTime appointEnd) {
+        ZoneId localZone = ZoneId.systemDefault();
+        ZoneId estZone = ZoneId.of("America/New_York");
 
+        LocalDateTime appStartEST = appointStart.atZone(localZone).withZoneSameInstant(estZone).toLocalDateTime();
+        LocalDateTime appEndEST = appointEnd.atZone(localZone).withZoneSameInstant(estZone).toLocalDateTime();
+
+        LocalDateTime businessStartEST = appStartEST.withHour(8).withMinute(0);
+        LocalDateTime businessEndEST = appEndEST.withHour(22).withMinute(0);
+
+        if (appStartEST.isBefore(businessStartEST) || appEndEST.isAfter(businessEndEST)) {
+            LocalTime localStart = Appointment.localStart();
+            LocalTime localEnd = Appointment.localEnd();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Outside of Business Hours");
+            alert.setContentText(String.format("Appointment is outside of business hours: 8:00AM to 10:00PM EST\n" +
+                    "Please schedule between " + localStart.format(DateTimeFormatter.ofPattern("hh:mm")) + " - " + localEnd.format(DateTimeFormatter.ofPattern("hh:mm")) + "PM local time."));
+
+            alert.showAndWait();
+            return true;
+        } else {
+            return false;
+        }
     }
 }
