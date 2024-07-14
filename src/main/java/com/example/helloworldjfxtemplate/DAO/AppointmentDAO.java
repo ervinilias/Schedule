@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class AppointmentDAO {
@@ -24,13 +25,12 @@ public class AppointmentDAO {
                 String appointmentDescription = rs.getString("Description");
                 String appointmentLocation = rs.getString("Location");
                 int appointmentContactID = rs.getInt("Contact_ID");
-                String appointmentContactName = rs.getString("Contact_Name");
                 String appointmentType = rs.getString("Type");
                 LocalDateTime appointmentStart = rs.getTimestamp("Start").toLocalDateTime();
                 LocalDateTime appointmentEnd = rs.getTimestamp("End").toLocalDateTime();
                 int appointmentCustomerID = rs.getInt("Customer_ID");
                 int appointmentUserID = rs.getInt("User_ID");
-
+                String appointmentContactName = rs.getString("Contact_Name");
 
 
                 Appointment c = new Appointment(appointmentID, appointmentTitle, appointmentDescription, appointmentLocation,
@@ -42,5 +42,56 @@ public class AppointmentDAO {
             throw new RuntimeException(e);
         }
         return appointmentList;
+    }
+
+    public static void addAppointment(String appointmentTitle, String appointmentDescription, String appointmentLocation,
+                                      String appointmentType, LocalDateTime appointmentStart, LocalDateTime appointmentEnd,
+                                      LocalDateTime appointmentCreateDate, String appointmentCreatedBy,LocalDateTime appointmentLastUpdate,
+                                      String appointmentUpdatedBy,int appointmentCustomerID, int appointmentUserID, int appointmentContact)
+            throws SQLException {
+        String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Create_Date, Last_Update_Date, " +
+                "Customer_ID, User_ID, Contact_ID) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement insertAppoint = JDBC.connection.prepareStatement(sql);
+
+        insertAppoint.setString(1, appointmentTitle);
+        insertAppoint.setString(2, appointmentDescription);
+        insertAppoint.setString(3, appointmentLocation);
+        insertAppoint.setString(4, appointmentType);
+        insertAppoint.setTimestamp(5, Timestamp.valueOf(appointmentStart));
+        insertAppoint.setTimestamp(6, Timestamp.valueOf(appointmentEnd));
+        insertAppoint.setTimestamp(7, Timestamp.valueOf(appointmentCreateDate));
+        insertAppoint.setString(8, appointmentCreatedBy);
+        insertAppoint.setTimestamp(9, Timestamp.valueOf(appointmentLastUpdate));
+        insertAppoint.setString(10, appointmentUpdatedBy);
+        insertAppoint.setInt(11, appointmentCustomerID);
+        insertAppoint.setInt(12, appointmentUserID);
+        insertAppoint.setInt(13, appointmentContact);
+        insertAppoint.executeUpdate();
+    }
+
+    public static void updateAppointment(int appointmentId, String appointmentTitle, String appointmentDescription,
+                                         String appointmentLocation, String appointmentType, LocalDateTime appointmentStart,
+                                         LocalDateTime appointmentEnd, int appointmentCustomerId, int appointmentUserId,
+                                         int appointmentContact) {
+        try {
+            String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, " +
+                    "Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
+            PreparedStatement updateAppointment = JDBC.connection.prepareStatement(sql);
+
+            updateAppointment.setString(1, appointmentTitle);
+            updateAppointment.setString(2, appointmentDescription);
+            updateAppointment.setString(3, appointmentLocation);
+            updateAppointment.setString(4, appointmentType);
+            updateAppointment.setTimestamp(5, Timestamp.valueOf(appointmentStart));
+            updateAppointment.setTimestamp(6, Timestamp.valueOf(appointmentEnd));
+            updateAppointment.setInt(7, appointmentCustomerId);
+            updateAppointment.setInt(8, appointmentUserId);
+            updateAppointment.setInt(9, appointmentContact);
+            updateAppointment.setInt(10, appointmentId);
+            updateAppointment.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
