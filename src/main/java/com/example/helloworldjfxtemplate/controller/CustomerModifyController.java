@@ -89,7 +89,7 @@ public class CustomerModifyController implements Initializable {
                 int customerDivID = cb_custDivision.getValue().getDivisionID();
                 String lastUpdatedBy = "script";
                 Timestamp lastUpdate = Timestamp.valueOf(now());
-                CustomerDAO.updtCustomer(customerID, customerName, customerAddress,customerPostalCode, customerPhone,
+                CustomerDAO.updtCust(customerID, customerName, customerAddress,customerPostalCode, customerPhone,
                         lastUpdatedBy, lastUpdate, customerDivID);
 
                 Parent parent = FXMLLoader.load(MainApplication.class.getResource("customers.fxml"));

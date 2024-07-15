@@ -2,6 +2,7 @@ package com.example.helloworldjfxtemplate.model;
 
 import com.example.helloworldjfxtemplate.DAO.AppointmentDAO;
 import com.example.helloworldjfxtemplate.helper.Alerts;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
@@ -264,5 +265,17 @@ public class Appointment {
         } else {
             return false;
         }
+    }
+
+    public static ObservableList<LocalTime> getTime() {
+        ObservableList<LocalTime> appointmentTimeList = FXCollections.observableArrayList();
+        LocalTime start = LocalTime.of(8, 00);
+        LocalTime end = LocalTime.MIDNIGHT.minusHours(2);
+
+        while (start.isBefore(end.minusMinutes(30))) {
+            appointmentTimeList.add(start);
+            start = start.plusMinutes(30);
+        }
+        return appointmentTimeList;
     }
 }

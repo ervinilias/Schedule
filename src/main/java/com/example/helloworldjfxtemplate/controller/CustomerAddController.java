@@ -93,7 +93,7 @@ public class CustomerAddController implements Initializable {
                 LocalDateTime lastUpdate = LocalDateTime.now();
                 String lastUpdatedBy = "script";
                 int customerDivID = divId.getDivisionID();
-                CustomerDAO.addCustomer(customerName, customerAddress, customerPostalCode, customerPhone, createDate, createdBy, lastUpdate, lastUpdatedBy, customerDivID);
+                CustomerDAO.addCust(customerName, customerAddress, customerPostalCode, customerPhone, createDate, createdBy, lastUpdate, lastUpdatedBy, customerDivID);
                 Alerts.getConfirm(1);
                 backToCustomers(event);
             }

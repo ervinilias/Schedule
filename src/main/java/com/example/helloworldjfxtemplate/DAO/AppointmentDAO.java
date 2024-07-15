@@ -46,8 +46,8 @@ public class AppointmentDAO {
 
     public static void addAppointment(String appointmentTitle, String appointmentDescription, String appointmentLocation,
                                       String appointmentType, LocalDateTime appointmentStart, LocalDateTime appointmentEnd,
-                                      LocalDateTime appointmentCreateDate, String appointmentCreatedBy,LocalDateTime appointmentLastUpdate,
-                                      String appointmentUpdatedBy,int appointmentCustomerID, int appointmentUserID, int appointmentContact)
+                                      LocalDateTime appointmentCreateDate, String appointmentCreatedBy, LocalDateTime appointmentLastUpdate,
+                                      String appointmentUpdatedBy, int appointmentCustomerID, int appointmentUserID, int appointmentContact)
             throws SQLException {
         String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Create_Date, Last_Update_Date, " +
                 "Customer_ID, User_ID, Contact_ID) " +
@@ -70,13 +70,14 @@ public class AppointmentDAO {
         insertAppoint.executeUpdate();
     }
 
-    public static void updateAppointment(int appointmentId, String appointmentTitle, String appointmentDescription,
+    public static void updtAppointment(int appointmentId, String appointmentTitle, String appointmentDescription,
                                          String appointmentLocation, String appointmentType, LocalDateTime appointmentStart,
-                                         LocalDateTime appointmentEnd, int appointmentCustomerId, int appointmentUserId,
+                                         LocalDateTime appointmentEnd, LocalDateTime appointmentLastUpdate,
+                                       String appointmentUpdatedBy, int appointmentCustomerId, int appointmentUserId,
                                          int appointmentContact) {
         try {
             String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, " +
-                    "Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
+                    "Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
             PreparedStatement updateAppointment = JDBC.connection.prepareStatement(sql);
 
             updateAppointment.setString(1, appointmentTitle);
@@ -85,13 +86,25 @@ public class AppointmentDAO {
             updateAppointment.setString(4, appointmentType);
             updateAppointment.setTimestamp(5, Timestamp.valueOf(appointmentStart));
             updateAppointment.setTimestamp(6, Timestamp.valueOf(appointmentEnd));
-            updateAppointment.setInt(7, appointmentCustomerId);
-            updateAppointment.setInt(8, appointmentUserId);
-            updateAppointment.setInt(9, appointmentContact);
-            updateAppointment.setInt(10, appointmentId);
+            updateAppointment.setTimestamp(7, Timestamp.valueOf(appointmentLastUpdate));
+            updateAppointment.setString(8, appointmentUpdatedBy);
+            updateAppointment.setInt(9, appointmentCustomerId);
+            updateAppointment.setInt(10, appointmentUserId);
+            updateAppointment.setInt(11, appointmentContact);
+            updateAppointment.setInt(12, appointmentId);
             updateAppointment.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+    public static void delAppoint(int appointmentID) {
+        try {
+            String sqldelete = "DELETE FROM appointments WHERE Appointment_ID = ?";
+            PreparedStatement deleteAppoint = JDBC.connection.prepareStatement(sqldelete);
+            deleteAppoint.setInt(1, appointmentID);
+            deleteAppoint.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

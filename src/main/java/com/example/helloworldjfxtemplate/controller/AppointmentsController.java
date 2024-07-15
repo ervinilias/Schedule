@@ -1,10 +1,17 @@
 package com.example.helloworldjfxtemplate.controller;
 
+import com.example.helloworldjfxtemplate.MainApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Optional;
 
 public class AppointmentsController { @FXML
 private Button btn_addAppoint;
@@ -64,10 +71,6 @@ private Button btn_addAppoint;
 
     }
 
-    @FXML
-    void setBtn_menu(ActionEvent event) {
-
-    }
 
     @FXML
     void setBtn_updtAppoint(ActionEvent event) {
@@ -86,6 +89,22 @@ private Button btn_addAppoint;
 
     @FXML
     void setRb_week(ActionEvent event) {
+
+    }
+
+    @FXML
+    void setBtn_menu(ActionEvent event) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Leave To The Previous Menu?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            Parent parent = FXMLLoader.load(MainApplication.class.getResource("menu.fxml"));
+            Scene scene = new Scene(parent);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("Main Menu");
+            stage.setScene(scene);
+            stage.show();
+        }
 
     }
 }

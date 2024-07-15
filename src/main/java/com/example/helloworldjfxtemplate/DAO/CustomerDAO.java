@@ -47,10 +47,10 @@ public class CustomerDAO {
     }
 
 
-    public static void addCustomer(String customerName, String customerAddress, String customerPostalCode,
-                                   String customerPhone, LocalDateTime createDate, String createdBy,
-                                   LocalDateTime lastUpdate, String lastUpdatedBy,
-                                   int divisionID) throws SQLException {
+    public static void addCust(String customerName, String customerAddress, String customerPostalCode,
+                               String customerPhone, LocalDateTime createDate, String createdBy,
+                               LocalDateTime lastUpdate, String lastUpdatedBy,
+                               int divisionID) throws SQLException {
         String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, " +
                 "Last_Update, Last_Updated_By, Division_ID) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -67,8 +67,8 @@ public class CustomerDAO {
         insertCust.executeUpdate();
     }
 
-    public static void updtCustomer(int customerID, String customerName, String customerAddress, String customerPostalCode,
-                                    String customerPhone, String lastUpdatedBy, Timestamp lastUpdated, int customerDivisionID) {
+    public static void updtCust(int customerID, String customerName, String customerAddress, String customerPostalCode,
+                                String customerPhone, String lastUpdatedBy, Timestamp lastUpdated, int customerDivisionID) {
         try {
             String sql = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, " +
                     "Last_Updated_By = ?, Last_Update = ?, Division_ID = ? WHERE Customer_ID = ?";
@@ -87,7 +87,7 @@ public class CustomerDAO {
         }
     }
 
-    public static void delCustomer(int customerID) {
+    public static void delCust(int customerID) {
         try {
             String sqldelete = "DELETE FROM customers WHERE Customer_ID = ?";
             PreparedStatement deleteCust = JDBC.connection.prepareStatement(sqldelete);
