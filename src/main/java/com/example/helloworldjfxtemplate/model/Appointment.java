@@ -269,10 +269,10 @@ public class Appointment {
 
     public static ObservableList<LocalTime> getTime() {
         ObservableList<LocalTime> appointmentTimeList = FXCollections.observableArrayList();
-        LocalTime start = LocalTime.of(8, 00);
-        LocalTime end = LocalTime.MIDNIGHT.minusHours(2);
+        LocalTime start = LocalTime.of(1, 00);
+        LocalTime end = LocalTime.MIDNIGHT.minusHours(1);
 
-        while (start.isBefore(end.minusMinutes(30))) {
+        while (start.isBefore(end.plusSeconds(2))) {
             appointmentTimeList.add(start);
             start = start.plusMinutes(30);
         }
