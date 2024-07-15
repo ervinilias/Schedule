@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #f4e500; -fx-border-color: #000000; -fx-border-radius: 20;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.helloworldjfxtemplate.AppointmentsController">
+<AnchorPane prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #f4e500; -fx-border-color: #000000; -fx-border-radius: 20;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.helloworldjfxtemplate.AppointmentsController">
    <children>
       <GridPane layoutX="14.0" layoutY="23.0" prefHeight="30.0" prefWidth="407.0">
         <columnConstraints>
@@ -23,7 +23,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <RadioButton fx:id="rb_allappoint" mnemonicParsing="false" onAction="#setRb_allappoint" style="-fx-cursor: hand;" text="ALL APPOINTMENTS" textFill="#0800a1">
+            <RadioButton fx:id="rb_appoint" mnemonicParsing="false" onAction="#setRb_appoint" style="-fx-cursor: hand;" text="ALL APPOINTMENTS" textFill="#0800a1">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></RadioButton>
@@ -31,13 +31,13 @@
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></RadioButton>
-            <RadioButton fx:id="rb_week" mnemonicParsing="false" onAction="#setRb_month" style="-fx-cursor: hand;" text="MONTH" textFill="#0800a1" GridPane.columnIndex="2">
+            <RadioButton fx:id="rb_month" mnemonicParsing="false" onAction="#setRb_month" style="-fx-cursor: hand;" text="MONTH" textFill="#0800a1" GridPane.columnIndex="2">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></RadioButton>
          </children>
       </GridPane>
-      <TableView layoutY="80.0" prefHeight="400.0" prefWidth="1200.0">
+      <TableView fx:id="appointTableView" layoutY="80.0" prefHeight="400.0" prefWidth="1200.0">
         <columns>
           <TableColumn fx:id="col_appointID" prefWidth="120.0" text="Appointment ID" />
           <TableColumn fx:id="col_appointTitle" prefWidth="120.0" text="Title" />

@@ -44,13 +44,13 @@ public class AppointmentDAO {
         return appointmentList;
     }
 
-    public static void addAppointment(String appointmentTitle, String appointmentDescription, String appointmentLocation,
+    public static void addAppoint(String appointmentTitle, String appointmentDescription, String appointmentLocation,
                                       String appointmentType, LocalDateTime appointmentStart, LocalDateTime appointmentEnd,
                                       LocalDateTime appointmentCreateDate, String appointmentCreatedBy, LocalDateTime appointmentLastUpdate,
                                       String appointmentUpdatedBy, int appointmentCustomerID, int appointmentUserID, int appointmentContact)
             throws SQLException {
-        String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Create_Date, Last_Update_Date, " +
-                "Customer_ID, User_ID, Contact_ID) " +
+        String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, " +
+                "Updated_By, Customer_ID, User_ID, Contact_ID) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement insertAppoint = JDBC.connection.prepareStatement(sql);
 
@@ -70,10 +70,10 @@ public class AppointmentDAO {
         insertAppoint.executeUpdate();
     }
 
-    public static void updtAppointment(int appointmentId, String appointmentTitle, String appointmentDescription,
+    public static void updtAppoint(int appointmentID, String appointmentTitle, String appointmentDescription,
                                          String appointmentLocation, String appointmentType, LocalDateTime appointmentStart,
                                          LocalDateTime appointmentEnd, LocalDateTime appointmentLastUpdate,
-                                       String appointmentUpdatedBy, int appointmentCustomerId, int appointmentUserId,
+                                       String appointmentUpdatedBy, int appointmentCustomerID, int appointmentUserID,
                                          int appointmentContact) {
         try {
             String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, " +
@@ -88,10 +88,10 @@ public class AppointmentDAO {
             updateAppointment.setTimestamp(6, Timestamp.valueOf(appointmentEnd));
             updateAppointment.setTimestamp(7, Timestamp.valueOf(appointmentLastUpdate));
             updateAppointment.setString(8, appointmentUpdatedBy);
-            updateAppointment.setInt(9, appointmentCustomerId);
-            updateAppointment.setInt(10, appointmentUserId);
+            updateAppointment.setInt(9, appointmentCustomerID);
+            updateAppointment.setInt(10, appointmentUserID);
             updateAppointment.setInt(11, appointmentContact);
-            updateAppointment.setInt(12, appointmentId);
+            updateAppointment.setInt(12, appointmentID);
             updateAppointment.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -106,5 +106,63 @@ public class AppointmentDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static ObservableList<Appointment> getWeeklyAppointments() {
+        ObservableList<Appointment> weeklyList = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT * FROM appointments INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID WHERE YEARWEEK(START) = YEARWEEK(NOW()) ORDER BY appointments.Appointment_ID";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int appointmentID = rs.getInt("Appointment_ID");
+                String appointmentTitle = rs.getString("Title");
+                String appointmentDescription = rs.getString("Description");
+                String appointmentLocation = rs.getString("Location");
+                int appointmentContactID = rs.getInt("Contact_ID");
+                String appointmentType = rs.getString("Type");
+                LocalDateTime appointmentStart = rs.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime appointmentEnd = rs.getTimestamp("End").toLocalDateTime();
+                int appointmentCustomerID = rs.getInt("Customer_ID");
+                int appointmentUserID = rs.getInt("User_ID");
+                String appointmentContactName = rs.getString("Contact_Name");
+                Appointment weekly = new Appointment(appointmentID, appointmentTitle, appointmentDescription, appointmentLocation,
+                        appointmentType, appointmentStart, appointmentEnd, appointmentCustomerID, appointmentUserID,
+                        appointmentContactID, appointmentContactName);
+                weeklyList.add(weekly);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return weeklyList;
+    }
+
+    public static ObservableList<Appointment> getMonthlyAppointments() {
+        ObservableList<Appointment> monthlyList = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT * FROM appointments INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID WHERE MONTH(START) = MONTH(NOW()) ORDER BY appointments.Appointment_ID";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int appointmentID = rs.getInt("Appointment_ID");
+                String appointmentTitle = rs.getString("Title");
+                String appointmentDescription = rs.getString("Description");
+                String appointmentLocation = rs.getString("Location");
+                int appointmentContactID = rs.getInt("Contact_ID");
+                String appointmentType = rs.getString("Type");
+                LocalDateTime appointmentStart = rs.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime appointmentEnd = rs.getTimestamp("End").toLocalDateTime();
+                int appointmentCustomerID = rs.getInt("Customer_ID");
+                int appointmentUserID = rs.getInt("User_ID");
+                String appointmentContactName = rs.getString("Contact_Name");
+                Appointment weekly = new Appointment(appointmentID, appointmentTitle, appointmentDescription, appointmentLocation,
+                        appointmentType, appointmentStart, appointmentEnd, appointmentCustomerID, appointmentUserID,
+                        appointmentContactID, appointmentContactName);
+                monthlyList.add(weekly);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return monthlyList;
     }
 }
