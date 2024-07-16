@@ -86,6 +86,11 @@ public class Alerts {
                 alert.setContentText("Customer has been successfully added");
                 alert.showAndWait();
                 break;
+            case 2:
+                alert.setTitle(langBundle.getString("Alert"));
+                alert.setContentText(langBundle.getString("noappointin15"));
+                alert.showAndWait();
+                break;
         }
     }
 

@@ -16,12 +16,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -96,7 +98,7 @@ public class LoginController implements Initializable {
             loginSuccess = false;
             loginActivity();
         } else if(UserDAO.userLogin(username, password)) {
-            int userID = UserDAO.getUserID(username);
+            int userID = UserDAO.getUserId(username);
             ObservableList<Appointment> userAppoint = AppointmentDAO.getUserAppointments(userID);
             new FXMLLoader();
             Parent parent = FXMLLoader.load(MainApplication.class.getResource("menu.fxml"));
@@ -116,7 +118,8 @@ public class LoginController implements Initializable {
                     Alert confirmRemoval = new Alert(Alert.AlertType.WARNING);
                     confirmRemoval.setTitle("Alert");
                     confirmRemoval.setContentText("Appointment ");
-                    confirmRemoval.setContentText(langBundle.getString("Appointment") + " " + appoint.getAppointID() + " " + langBundle.getString("beginsat") + " " +  appointment.getAppointmentStart());
+                    confirmRemoval.setContentText(langBundle.getString("Appointment") + " " +
+                            appoint.getAppointID() + " " + langBundle.getString("beginsat") + " " +  appoint.getAppointStart());
                     confirmRemoval.getButtonTypes().clear();
                     confirmRemoval.getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.OK);
                     confirmRemoval.showAndWait();
@@ -125,7 +128,7 @@ public class LoginController implements Initializable {
             }
             // Displays an alert if no appointments exist within 15 minutes
             if (!isValid) {
-                Alerts.getWarning(1);
+                Alerts.getWarning(2);
             }
         }
     }
@@ -146,7 +149,25 @@ public class LoginController implements Initializable {
         }
     }
 
+    interface LogActivity {
+        public String getFileName();
+    }
 
+    LogActivity logActivity = () -> {
+        return "login_activity.txt";
+    };
 
+    public void loginActivity() throws IOException {
+        FileWriter fwritter = new FileWriter(logActivity.getFileName(), true);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy hh:mm:ss");
+        ZoneId localZone = ZoneId.systemDefault();
+        if (loginSuccess) {
+            fwritter.write(tf_username.getText() + " has successfully logged in on " + formatter.format(currentTime));
+        } else if (!loginSuccess) {
+            fwritter.write(tf_username.getText() + " has failed login on " + formatter.format(currentTime));
+        }
+        fwritter.write("\n");
+        fwritter.close();
+    }
 
 }
