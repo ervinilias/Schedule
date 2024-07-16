@@ -98,19 +98,19 @@ public class CustomerDAO {
         }
     }
 
-//    public static Customer returnCustomerList(int customerID) throws SQLException {
-//        String sql = "SELECT * FROM customers WHERE Customer_ID = ?";
-//        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-//        ps.setInt(1, customerID);
-//        ps.execute();
-//        ResultSet rs = ps.executeQuery();
-//
-//        while (rs.next()) {
-//            int searchedCustomerId = rs.getInt("Customer_ID");
-//            String customerName = rs.getString("Customer_Name");
-//            Customer c = new Customer(searchedCustomerId, customerName);
-//            return c;
-//        }
-//        return null;
-//    }
+    public static Customer returnCustomerList(int customerID) throws SQLException {
+        String sql = "SELECT * FROM customers WHERE Customer_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, customerID);
+        ps.execute();
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int searchCustomerID = rs.getInt("Customer_ID");
+            String customerName = rs.getString("Customer_Name");
+            Customer c = new Customer(searchCustomerID, customerName);
+            return c;
+        }
+        return null;
+    }
 }

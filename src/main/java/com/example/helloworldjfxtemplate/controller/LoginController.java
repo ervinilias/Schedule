@@ -1,8 +1,11 @@
 package com.example.helloworldjfxtemplate.controller;
 
+import com.example.helloworldjfxtemplate.DAO.AppointmentDAO;
 import com.example.helloworldjfxtemplate.DAO.UserDAO;
 import com.example.helloworldjfxtemplate.MainApplication;
 import com.example.helloworldjfxtemplate.helper.Alerts;
+import com.example.helloworldjfxtemplate.model.Appointment;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,15 +13,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -48,7 +51,11 @@ public class LoginController implements Initializable {
 
     @FXML
     private TextField tf_username;
-
+    boolean loginSuccess = false;
+    LocalDateTime currentTime = LocalDateTime.now();
+    ZonedDateTime LDTConvert = currentTime.atZone(ZoneId.systemDefault());
+    LocalDateTime currentTimePlus15 = LocalDateTime.now().plusMinutes(15);
+    ZonedDateTime LDTUTC = LDTConvert.withZoneSameInstant(ZoneId.of("Etc/UTC"));
     ResourceBundle langBundle = ResourceBundle.getBundle("lang");
 
     @Override
@@ -74,13 +81,23 @@ public class LoginController implements Initializable {
             Alerts.getError(1);
         } else if (password.isBlank() || password.isEmpty()) {
             Alerts.getError(2);
+            loginSuccess = false;
+            loginActivity();
         } else if(!UserDAO.userValid(username)) {
             Alerts.getError(3);
+            loginSuccess = false;
+            loginActivity();
         } else if(!UserDAO.passValid(password)) {
             Alerts.getError(4);
+            loginSuccess = false;
+            loginActivity();
         } else if (!UserDAO.userLogin(username, password)) {
             Alerts.getError(5);
-        } else if(UserDAO.userLogin(username,password)) {
+            loginSuccess = false;
+            loginActivity();
+        } else if(UserDAO.userLogin(username, password)) {
+            int userID = UserDAO.getUserID(username);
+            ObservableList<Appointment> userAppoint = AppointmentDAO.getUserAppointments(userID);
             new FXMLLoader();
             Parent parent = FXMLLoader.load(MainApplication.class.getResource("menu.fxml"));
             Scene scene = new Scene(parent);
@@ -88,13 +105,45 @@ public class LoginController implements Initializable {
             stage.setTitle("Main Menu");
             stage.setScene(scene);
             stage.show();
+            loginSuccess = true;
+            loginActivity();
 
+            boolean isValid = false;
+            for (Appointment appoint : userAppoint) {
+                LocalDateTime startTime = appoint.getAppointStart();
+                if ((startTime.isAfter(currentTime) || startTime.isEqual(currentTimePlus15)) &&
+                        (startTime.isBefore(currentTimePlus15) || startTime.isEqual(currentTime))) {
+                    Alert confirmRemoval = new Alert(Alert.AlertType.WARNING);
+                    confirmRemoval.setTitle("Alert");
+                    confirmRemoval.setContentText("Appointment ");
+                    confirmRemoval.setContentText(langBundle.getString("Appointment") + " " + appoint.getAppointID() + " " + langBundle.getString("beginsat") + " " +  appointment.getAppointmentStart());
+                    confirmRemoval.getButtonTypes().clear();
+                    confirmRemoval.getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.OK);
+                    confirmRemoval.showAndWait();
+                    isValid = true;
+                }
+            }
+            // Displays an alert if no appointments exist within 15 minutes
+            if (!isValid) {
+                Alerts.getWarning(1);
+            }
         }
     }
 
     @FXML
     void setBtn_exit(ActionEvent event) {
-
+        Alert alert = new Alert(Alert.AlertType.WARNING, langBundle.getString("Cancel"));
+        alert.setTitle(langBundle.getString("Wannaexit"));
+        alert.setContentText(langBundle.getString("oktoexit"));
+        alert.getButtonTypes().clear();
+        alert.getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.OK);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK) {
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            stage.close();
+        } else if (alert.getResult() == ButtonType.CANCEL) {
+            alert.close();
+        }
     }
 
 

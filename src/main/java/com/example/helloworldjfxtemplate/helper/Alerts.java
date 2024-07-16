@@ -107,6 +107,8 @@ public class Alerts {
                 alert.setContentText("ERROR: Appointment end must not be during existing customer appointments");
                 alert.showAndWait();
                 break;
+
+
         }
     }
 }

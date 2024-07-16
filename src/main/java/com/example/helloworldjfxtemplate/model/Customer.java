@@ -52,6 +52,11 @@ public class Customer {
         this.custCountryName = custCountryName;
     }
 
+    public Customer(int searchCustomerID, String customerName) {
+        this.custID = searchCustomerID;
+        this.custName = customerName;
+    }
+
     public int getCustID() {
         return custID;
     }
