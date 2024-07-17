@@ -41,9 +41,10 @@ public class Alerts {
 
             case 6:
                 alert.setTitle("NoSelection");
-                alert.setContentText("Please select a customer to continue.");
+                alert.setContentText("Please select item to continue.");
                 alert.showAndWait();
                 break;
+
             case 7:
                 alert.setTitle("Customer Name is blank");
                 alert.setContentText("The Customer Name field is blank.\n" +

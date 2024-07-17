@@ -1,5 +1,6 @@
 package com.example.helloworldjfxtemplate.controller;
 
+import com.example.helloworldjfxtemplate.model.Appointment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -57,6 +58,10 @@ public class AppointmentModifyController {
 
     @FXML
     void setBtn_save(ActionEvent event) {
+
+    }
+
+    public void getAppointmentInfo(Appointment selectedItem) {
 
     }
 }

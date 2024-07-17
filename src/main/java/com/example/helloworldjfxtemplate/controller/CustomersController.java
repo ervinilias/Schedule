@@ -81,12 +81,8 @@ public class CustomersController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Add Customer");
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
-    }
-
-    @FXML
-    void setBtn_delCust(ActionEvent event) {
-
     }
 
     @FXML
@@ -105,6 +101,11 @@ public class CustomersController implements Initializable {
         } else {
             Alerts.getError(6);
         }
+
+    }
+
+    @FXML
+    void setBtn_delCust(ActionEvent event) {
 
     }
 

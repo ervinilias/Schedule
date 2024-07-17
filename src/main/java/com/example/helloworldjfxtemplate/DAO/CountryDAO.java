@@ -30,18 +30,18 @@ public class CountryDAO {
         return countryList;
     }
 
-    public static Country returnCountry(int countryId) {
+    public static Country returnCountry(int countryID) {
         Country c = null;
         try {
             String sql = "SELECT Country_ID, Country FROM countries WHERE Country_ID = ?";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-            ps.setInt(1, countryId);
+            ps.setInt(1, countryID);
             ps.execute();
             ResultSet rs = ps.getResultSet();
             while (rs.next()) {
-                int searchedCountryId = rs.getInt("Country_ID");
+                int searchedCountryID = rs.getInt("Country_ID");
                 String countryName = rs.getString("Country");
-                c = new Country(searchedCountryId, countryName);
+                c = new Country(searchedCountryID, countryName);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
