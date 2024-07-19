@@ -60,7 +60,9 @@ public class AppointmentAddController {
     private TextField tf_appointType;
     private final int daysToAdd = 0;
 
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        tf_appointID.setId(tf_appointID.getId());
         cb_appointStartTime.setItems(Appointment.getTime());
         cb_appointEndTime.setItems(Appointment.getTime());
         ObservableList<Contact> contactList = ContactDAO.getAllContacts();

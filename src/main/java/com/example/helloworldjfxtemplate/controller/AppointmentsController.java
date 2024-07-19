@@ -146,7 +146,7 @@ public class AppointmentsController {
 
 
     @FXML
-    void setRb_allappoint(ActionEvent event) {
+    void setRb_appoint(ActionEvent event) {
         appointTableView.setItems(AppointmentDAO.getAppointmentList());
     }
 
