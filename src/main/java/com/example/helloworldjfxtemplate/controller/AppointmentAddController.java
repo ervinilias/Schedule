@@ -1,73 +1,82 @@
 package com.example.helloworldjfxtemplate.controller;
 
+import com.example.helloworldjfxtemplate.DAO.AppointmentDAO;
+import com.example.helloworldjfxtemplate.DAO.ContactDAO;
+import com.example.helloworldjfxtemplate.DAO.CustomerDAO;
+import com.example.helloworldjfxtemplate.DAO.UserDAO;
+import com.example.helloworldjfxtemplate.MainApplication;
 import com.example.helloworldjfxtemplate.helper.Alerts;
 import com.example.helloworldjfxtemplate.model.Appointment;
 import com.example.helloworldjfxtemplate.model.Contact;
 import com.example.helloworldjfxtemplate.model.Customer;
 import com.example.helloworldjfxtemplate.model.User;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AppointmentAddController {
     @FXML
     private Button btn_menu;
-
     @FXML
     private Button btn_save;
-
     @FXML
     private ComboBox<Customer> cb_addCustID;
-
     @FXML
     private ComboBox<User> cb_addUserID;
-
     @FXML
     private ComboBox<Contact> cb_addContID;
-
     @FXML
     private ComboBox<LocalTime> cb_appointEndTime;
-
     @FXML
     private ComboBox<LocalTime> cb_appointStartTime;
-
     @FXML
     private DatePicker dp_appointEndDate;
-
     @FXML
     private DatePicker dp_appointStartDate;
-
     @FXML
     private TextField tf_appointDesc;
-
     @FXML
     private TextField tf_appointID;
-
     @FXML
     private TextField tf_appointLoc;
-
     @FXML
     private TextField tf_appointTitle;
-
     @FXML
     private TextField tf_appointType;
+    private final int daysToAdd = 0;
 
-    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        cb_appointStartTime.setItems(Appointment.getTime());
+        cb_appointEndTime.setItems(Appointment.getTime());
+        ObservableList<Contact> contactList = ContactDAO.getAllContacts();
+        cb_addContID.setItems(contactList);
+        ObservableList<User> userList = UserDAO.getUserList();
+        cb_addUserID.setItems(userList);
+        ObservableList<Customer> customerList = CustomerDAO.getCustomerList();
+        cb_addCustID.setItems(customerList);
 
+        //Lambda expressions
+        dp_appointStartDate.valueProperty().addListener((ov, oldValueDate, newValueDate) -> dp_appointEndDate.setValue(newValueDate.plusDays(daysToAdd)));
+        cb_appointStartTime.valueProperty().addListener((ov1, oldValueTime, newValueTime) -> cb_appointEndTime.setValue(newValueTime.plusMinutes(30)));
     }
 
     @FXML
-    void setBtn_save(ActionEvent event) {
+    void setBtn_save(ActionEvent event) throws SQLException, IOException {
         String appointTitle = tf_appointTitle.getText();
         String appointDesc = tf_appointDesc.getText();
         String appointLoc = tf_appointLoc.getText();
@@ -100,6 +109,11 @@ public class AppointmentAddController {
             Alerts.getError(16);
         }
         LocalDateTime appointEnd = LocalDateTime.of(dp_appointEndDate.getValue(), cb_appointEndTime.getValue());
+        LocalDateTime appointCreateDate = LocalDateTime.now();
+        String appointCreatedby = "script";
+        LocalDateTime appointLastUpdate = LocalDateTime.now();
+        String appointUpdatedBy = "script";
+
 
         Customer customer = cb_addCustID.getValue();
         if (customer == null) {
@@ -126,14 +140,30 @@ public class AppointmentAddController {
         } else if (Appointment.checkOverlap(appointCustID, appointStart, appointEnd)) {
             return;
         } else {
-            
+            AppointmentDAO.addAppoint(appointTitle, appointDesc, appointLoc, appointType, appointStart, appointEnd,
+                    appointCreateDate, appointCreatedby, appointLastUpdate, appointUpdatedBy, appointCustID,
+                    appointUserID, appointContID);
+            Alerts.getConfirm(3);
+            backToAppoint(event);
         }
-
-
     }
 
-    @FXML
-    void setBtn_menu(ActionEvent event) {
+    public void backToAppoint(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(MainApplication.class.getResource("appointments.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
 
+    }
+    @FXML
+    void setBtn_cancel(ActionEvent event) throws IOException {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Leave Without Saving?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            backToAppoint(event);
+        }
     }
 }

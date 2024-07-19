@@ -158,9 +158,17 @@ public class Alerts {
                 alert.setContentText("Customer has been successfully added");
                 alert.showAndWait();
                 break;
+
             case 2:
                 alert.setTitle(langBundle.getString("Alert"));
                 alert.setContentText(langBundle.getString("noappointin15"));
+                alert.showAndWait();
+                break;
+
+            case 3:
+                alert.setTitle("Appointment has been successfully added");
+                alert.setHeaderText("Success!");
+                alert.setContentText("Appointment has been successfully added");
                 alert.showAndWait();
                 break;
         }
