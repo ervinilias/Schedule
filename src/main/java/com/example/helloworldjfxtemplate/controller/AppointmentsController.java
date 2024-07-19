@@ -5,6 +5,8 @@ import com.example.helloworldjfxtemplate.MainApplication;
 import com.example.helloworldjfxtemplate.helper.Alerts;
 import com.example.helloworldjfxtemplate.model.Appointment;
 import com.example.helloworldjfxtemplate.model.Customer;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,11 +14,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.util.Optional;
+import java.util.Properties;
+import java.util.ResourceBundle;
 
 public class AppointmentsController {
     @FXML
@@ -65,6 +71,21 @@ public class AppointmentsController {
     @FXML
     private RadioButton rb_week;
 
+    ObservableList<Appointment> appointList = FXCollections.observableArrayList();
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        appointTableView.setItems(AppointmentDAO.getAppointmentList());
+        col_appointID.setCellValueFactory(new PropertyValueFactory<>("appointID"));
+        col_appointTitle.setCellValueFactory(new PropertyValueFactory<>("appointTitle"));
+        col_appointDesc.setCellValueFactory(new PropertyValueFactory<>("appointDesc"));
+        col_appointLoc.setCellValueFactory(new PropertyValueFactory<>("appointLoc"));
+        col_appointType.setCellValueFactory(new PropertyValueFactory<>("appointType"));
+        col_appointCont.setCellValueFactory(new PropertyValueFactory<>("appointContactID"));
+        col_appointStartDate.setCellValueFactory(new PropertyValueFactory<>("appointStart"));
+        col_appointEndDate.setCellValueFactory(new PropertyValueFactory<>("appointEnd"));
+        col_custID.setCellValueFactory(new PropertyValueFactory<>("appointCustID"));
+        col_userID.setCellValueFactory(new PropertyValueFactory<>("appointUserID"));
+    }
+
     @FXML
     void setBtn_addAppoint(ActionEvent event) throws IOException {
         Parent parent = FXMLLoader.load(MainApplication.class.getResource("appointmentsadd.fxml"));
@@ -94,7 +115,33 @@ public class AppointmentsController {
     }
     @FXML
     void setBtn_delAppoint(ActionEvent event) {
+        Appointment selectAppoint = appointTableView.getSelectionModel().getSelectedItem();
+        if (selectAppoint == null) {
+            Alerts.getError(6);
+        } else {
+            Alert confirmDelete = new Alert(Alert.AlertType.WARNING);
+            confirmDelete.setTitle("Alert");
+            confirmDelete.setContentText("Do you want to delete selected appointment?");
+            confirmDelete.getButtonTypes().clear();
+            confirmDelete.getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.OK);
+            confirmDelete.showAndWait();
+            if (confirmDelete.getResult() == ButtonType.OK) {
+                Alert confirmed = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmDelete.setTitle("Alert");
+                confirmDelete.setContentText("Appointment ID# " + appointTableView.getSelectionModel().getSelectedItem().getAppointID() +
+                        " for " + appointTableView.getSelectionModel().getSelectedItem().getAppointType() + " was canceled.");
+                confirmDelete.getButtonTypes().clear();
+                confirmDelete.getButtonTypes().addAll(ButtonType.OK);
+                confirmDelete.showAndWait();
 
+                AppointmentDAO.delAppoint(appointTableView.getSelectionModel().getSelectedItem().getAppointID());
+                appointList = AppointmentDAO.getAppointmentList();
+                appointTableView.setItems(appointList);
+                appointTableView.refresh();
+            } else if (confirmDelete.getResult() == ButtonType.CANCEL) {
+                confirmDelete.close();
+            }
+        }
     }
 
 

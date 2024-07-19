@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #f4e500; -fx-border-color: #000000; -fx-border-radius: 20;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.helloworldjfxtemplate.controller.AppointmentAddController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #f4e500; -fx-border-color: #000000; -fx-border-radius: 20;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.helloworldjfxtemplate.controller.AppointmentAddController">
    <children>
       <Label layoutX="189.0" layoutY="29.0" text="ADD NEW APPOINTMENT" textFill="#17009a" underline="true">
          <font>
@@ -63,7 +63,7 @@
             <TextField fx:id="tf_appointDesc" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <TextField fx:id="tf_appointLoc" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <TextField fx:id="tf_appointType" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <ComboBox fx:id="cb_appointCont" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <ComboBox fx:id="cb_addContID" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
             <Label text="Contact:" textFill="#0800a1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -96,7 +96,7 @@
             </Label>
             <DatePicker fx:id="dp_appointStartDate" GridPane.columnIndex="2" />
             <DatePicker fx:id="dp_appointEndDate" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <ComboBox fx:id="cb_appointStartDate" prefWidth="150.0" GridPane.columnIndex="4" />
+            <ComboBox fx:id="cb_appointStartTime" prefWidth="150.0" GridPane.columnIndex="4" />
             <ComboBox fx:id="cb_appointEndDate" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
          </children>
       </GridPane>

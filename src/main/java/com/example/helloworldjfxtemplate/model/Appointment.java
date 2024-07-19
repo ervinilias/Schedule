@@ -27,12 +27,12 @@ public class Appointment {
     private String appointUpdatedBy;
     private int appointCustID;
     private int appointUserID;
-    private int appointContactID;
-    private String appointContactName;
+    private int appointContID;
+    private String appointContName;
 
     public Appointment(int appointID, String appointTitle, String appointDesc, String appointLocation, String appointType,
                        LocalDateTime appointStart, LocalDateTime appointEnd, int appointCustID, int appointUserID,
-                       int appointContactID) {
+                       int appointContID) {
         this.appointID = appointID;
         this.appointTitle = appointTitle;
         this.appointDesc = appointDesc;
@@ -42,12 +42,12 @@ public class Appointment {
         this.appointEnd = appointEnd;
         this.appointCustID = appointCustID;
         this.appointUserID = appointUserID;
-        this.appointContactID = appointContactID;
+        this.appointContID = appointContID;
     }
 
     public Appointment(int appointID, String appointTitle, String appointDesc, String appointLocation, String appointType,
                        LocalDateTime appointStart, LocalDateTime appointEnd, int appointCustID, int appointUserID,
-                       int appointContactID, String appointContactName) {
+                       int appointContID, String appointContName) {
         this.appointID = appointID;
         this.appointTitle = appointTitle;
         this.appointDesc = appointDesc;
@@ -57,8 +57,8 @@ public class Appointment {
         this.appointEnd = appointEnd;
         this.appointCustID = appointCustID;
         this.appointUserID = appointUserID;
-        this.appointContactID = appointContactID;
-        this.appointContactName = appointContactName;
+        this.appointContID = appointContID;
+        this.appointContName = appointContName;
     }
 
     public Appointment(String appointType, int appointTypeTotal) {
@@ -178,20 +178,20 @@ public class Appointment {
         this.appointUserID = appointUserID;
     }
 
-    public int getAppointContactID() {
-        return appointContactID;
+    public int getAppointContID() {
+        return appointContID;
     }
 
-    public void setAppointContactID(int appointContactID) {
-        this.appointContactID = appointContactID;
+    public void setAppointContID(int appointContID) {
+        this.appointContID = appointContID;
     }
 
-    public String getAppointContactName() {
-        return appointContactName;
+    public String getAppointContName() {
+        return appointContName;
     }
 
-    public void setAppointContactName(String appointContactName) {
-        this.appointContactName = appointContactName;
+    public void setAppointContName(String appointContName) {
+        this.appointContName = appointContName;
     }
 
     public static boolean checkOverlap(int custID, LocalDateTime appointStart, LocalDateTime appointEnd) {

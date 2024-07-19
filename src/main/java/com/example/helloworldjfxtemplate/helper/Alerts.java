@@ -51,28 +51,99 @@ public class Alerts {
                         "Please enter a valid name.");
                 alert.showAndWait();
                 break;
+
             case 8:
                 alert.setTitle("Customer Phone number is blank");
                 alert.setContentText("Please enter a valid phone number.");
                 alert.showAndWait();
                 break;
+
             case 9:
                 alert.setTitle("Customer Address is blank");
                 alert.setContentText("The Customer Address field is blank.\n" +
                         "Please enter a valid address.");
                 alert.showAndWait();
                 break;
+
             case 10:
                 alert.setTitle("Customer Postal Code is blank");
                 alert.setContentText("The Customer postal code field is blank.\n" +
                         "Please enter a valid postal code.");
                 alert.showAndWait();
                 break;
+
             case 11:
                 alert.setTitle("Division/Country Field Issue");
                 alert.setContentText("Please check the division and country field.");
                 alert.showAndWait();
                 break;
+
+            case 12:
+                alert.setTitle("Contact Issue");
+                alert.setContentText("Please select a valid contact.");
+                alert.showAndWait();
+                break;
+
+            case 13:
+                alert.setTitle("Start date cbox Issue");
+                alert.setContentText("The start date field is blank. Please choose a date.");
+                alert.showAndWait();
+                break;
+
+            case 14:
+                alert.setTitle("Start time cbox Issue");
+                alert.setContentText("The start time is blank. Please choose a start time.");
+                alert.showAndWait();
+                break;
+
+            case 15:
+                alert.setTitle("End date cbox Issue");
+                alert.setContentText("The end date field is blank. Please choose a date.");
+                alert.showAndWait();
+                break;
+
+            case 16:
+                alert.setTitle("End time cbox Issue");
+                alert.setContentText("The end time is blank. Please choose an end time.");
+                alert.showAndWait();
+                break;
+
+            case 17:
+                alert.setTitle("Customer Choice Issue");
+                alert.setContentText("Please select a valid customer.");
+                alert.showAndWait();
+                break;
+
+            case 18:
+                alert.setTitle("User Choice Issue");
+                alert.setContentText("Please select a valid user.");
+                alert.showAndWait();
+                break;
+
+            case 19:
+                alert.setTitle("Title Issue");
+                alert.setContentText("Please enter a Title.");
+                alert.showAndWait();
+                break;
+
+            case 20:
+                alert.setTitle("Description Issue");
+                alert.setContentText("Please enter a description.");
+                alert.showAndWait();
+                break;
+
+            case 21:
+                alert.setTitle("Type Issue");
+                alert.setContentText("Please enter a Type.");
+                alert.showAndWait();
+                break;
+
+            case 22:
+                alert.setTitle("Location Issue");
+                alert.setContentText("Please enter a Location.");
+                alert.showAndWait();
+                break;
+
             default:
                 throw new IllegalStateException("Unexpected value: " + numError);
 
