@@ -16,7 +16,7 @@ public class Appointment {
     private int appointID;
     private String appointTitle;
     private String appointDesc;
-    private String appointLocation;
+    private String appointLoc;
     private String appointType;
     private int appointTypeTotal;
     private LocalDateTime appointStart;
@@ -30,13 +30,13 @@ public class Appointment {
     private int appointContID;
     private String appointContName;
 
-    public Appointment(int appointID, String appointTitle, String appointDesc, String appointLocation, String appointType,
+    public Appointment(int appointID, String appointTitle, String appointDesc, String appointLoc, String appointType,
                        LocalDateTime appointStart, LocalDateTime appointEnd, int appointCustID, int appointUserID,
                        int appointContID) {
         this.appointID = appointID;
         this.appointTitle = appointTitle;
         this.appointDesc = appointDesc;
-        this.appointLocation = appointLocation;
+        this.appointLoc = appointLoc;
         this.appointType = appointType;
         this.appointStart = appointStart;
         this.appointEnd = appointEnd;
@@ -45,13 +45,13 @@ public class Appointment {
         this.appointContID = appointContID;
     }
 
-    public Appointment(int appointID, String appointTitle, String appointDesc, String appointLocation, String appointType,
+    public Appointment(int appointID, String appointTitle, String appointDesc, String appointLoc, String appointType,
                        LocalDateTime appointStart, LocalDateTime appointEnd, int appointCustID, int appointUserID,
                        int appointContID, String appointContName) {
         this.appointID = appointID;
         this.appointTitle = appointTitle;
         this.appointDesc = appointDesc;
-        this.appointLocation = appointLocation;
+        this.appointLoc = appointLoc;
         this.appointType = appointType;
         this.appointStart = appointStart;
         this.appointEnd = appointEnd;
@@ -90,12 +90,12 @@ public class Appointment {
         this.appointDesc = appointDesc;
     }
 
-    public String getAppointLocation() {
-        return appointLocation;
+    public String getAppointLoc() {
+        return appointLoc;
     }
 
-    public void setAppointLocation(String appointLocation) {
-        this.appointLocation = appointLocation;
+    public void setAppointLoc(String appointLocation) {
+        this.appointLoc = appointLoc;
     }
 
     public String getAppointType() {

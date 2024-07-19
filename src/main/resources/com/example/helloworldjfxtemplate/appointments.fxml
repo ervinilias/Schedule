@@ -5,6 +5,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -23,15 +24,18 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <RadioButton fx:id="rb_appoint" mnemonicParsing="false" onAction="#setRb_appoint" style="-fx-cursor: hand;" text="ALL APPOINTMENTS" textFill="#0800a1">
+            <RadioButton fx:id="rb_appoint" mnemonicParsing="false" onAction="#setRb_appoint" selected="true" style="-fx-cursor: hand;" text="ALL APPOINTMENTS" textFill="#0800a1">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="appointmentView" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="rb_week" mnemonicParsing="false" onAction="#setRb_week" style="-fx-cursor: hand;" text="WEEK" textFill="#0800a1" toggleGroup="$appointmentView" GridPane.columnIndex="1">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></RadioButton>
-            <RadioButton fx:id="rb_week" mnemonicParsing="false" onAction="#setRb_week" style="-fx-cursor: hand;" text="WEEK" textFill="#0800a1" GridPane.columnIndex="1">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font></RadioButton>
-            <RadioButton fx:id="rb_month" mnemonicParsing="false" onAction="#setRb_month" style="-fx-cursor: hand;" text="MONTH" textFill="#0800a1" GridPane.columnIndex="2">
+            <RadioButton fx:id="rb_month" mnemonicParsing="false" onAction="#setRb_month" style="-fx-cursor: hand;" text="MONTH" textFill="#0800a1" toggleGroup="$appointmentView" GridPane.columnIndex="2">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></RadioButton>

@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -29,7 +30,7 @@ import java.time.LocalTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class AppointmentAddController {
+public class AppointmentAddController implements Initializable {
     @FXML
     private Button btn_menu;
     @FXML
@@ -60,22 +61,20 @@ public class AppointmentAddController {
     private TextField tf_appointType;
     private final int daysToAdd = 0;
 
+    public AppointmentAddController() {
+    }
+
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        tf_appointID.setId(tf_appointID.getId());
+    public void initialize(URL url, ResourceBundle rb) {
         cb_appointStartTime.setItems(Appointment.getTime());
         cb_appointEndTime.setItems(Appointment.getTime());
-        ObservableList<Contact> contactList = ContactDAO.getAllContacts();
-        cb_addContID.setItems(contactList);
-        ObservableList<User> userList = UserDAO.getUserList();
-        cb_addUserID.setItems(userList);
-        ObservableList<Customer> customerList = CustomerDAO.getCustomerList();
-        cb_addCustID.setItems(customerList);
-
+        cb_addContID.setItems(ContactDAO.getAllContacts());
+        cb_addUserID.setItems(UserDAO.getUserList());
+        cb_addCustID.setItems(CustomerDAO.getCustomerList());
         //Lambda expressions
         dp_appointStartDate.valueProperty().addListener((ov, oldValueDate, newValueDate) -> dp_appointEndDate.setValue(newValueDate.plusDays(daysToAdd)));
         cb_appointStartTime.valueProperty().addListener((ov1, oldValueTime, newValueTime) -> cb_appointEndTime.setValue(newValueTime.plusMinutes(30)));
-    }
+       }
 
     @FXML
     void setBtn_save(ActionEvent event) throws SQLException, IOException {

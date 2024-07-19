@@ -128,7 +128,7 @@ public class LoginController implements Initializable {
             }
             // Displays an alert if no appointments exist within 15 minutes
             if (!isValid) {
-                Alerts.getWarning(2);
+                Alerts.getConfirm(2);
             }
         }
     }

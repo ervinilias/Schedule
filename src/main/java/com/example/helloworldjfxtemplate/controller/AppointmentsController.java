@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,12 +20,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-public class AppointmentsController {
+public class AppointmentsController implements Initializable {
     @FXML
     private TableView<Appointment> appointTableView;
     @FXML
@@ -73,17 +75,23 @@ public class AppointmentsController {
 
     ObservableList<Appointment> appointList = FXCollections.observableArrayList();
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        appointTableView.setItems(AppointmentDAO.getAppointmentList());
-        col_appointID.setCellValueFactory(new PropertyValueFactory<>("appointID"));
-        col_appointTitle.setCellValueFactory(new PropertyValueFactory<>("appointTitle"));
-        col_appointDesc.setCellValueFactory(new PropertyValueFactory<>("appointDesc"));
-        col_appointLoc.setCellValueFactory(new PropertyValueFactory<>("appointLoc"));
-        col_appointType.setCellValueFactory(new PropertyValueFactory<>("appointType"));
-        col_appointCont.setCellValueFactory(new PropertyValueFactory<>("appointContactID"));
-        col_appointStartDate.setCellValueFactory(new PropertyValueFactory<>("appointStart"));
-        col_appointEndDate.setCellValueFactory(new PropertyValueFactory<>("appointEnd"));
-        col_custID.setCellValueFactory(new PropertyValueFactory<>("appointCustID"));
-        col_userID.setCellValueFactory(new PropertyValueFactory<>("appointUserID"));
+        if (rb_appoint.isSelected()) {
+            appointTableView.setItems(AppointmentDAO.getAppointmentList());
+            col_appointID.setCellValueFactory(new PropertyValueFactory<>("appointID"));
+            col_appointTitle.setCellValueFactory(new PropertyValueFactory<>("appointTitle"));
+            col_appointDesc.setCellValueFactory(new PropertyValueFactory<>("appointDesc"));
+            col_appointLoc.setCellValueFactory(new PropertyValueFactory<>("appointLoc"));
+            col_appointType.setCellValueFactory(new PropertyValueFactory<>("appointType"));
+            col_appointCont.setCellValueFactory(new PropertyValueFactory<>("appointContID"));
+            col_appointStartDate.setCellValueFactory(new PropertyValueFactory<>("appointStart"));
+            col_appointEndDate.setCellValueFactory(new PropertyValueFactory<>("appointEnd"));
+            col_custID.setCellValueFactory(new PropertyValueFactory<>("appointCustID"));
+            col_userID.setCellValueFactory(new PropertyValueFactory<>("appointUserID"));
+        } else if (rb_week.isSelected()) {
+            appointTableView.setItems(AppointmentDAO.getWeeklyAppointments());
+        } else if (rb_month.isSelected()) {
+            appointTableView.setItems(AppointmentDAO.getMonthlyAppointments());
+        }
     }
 
     @FXML
@@ -98,13 +106,13 @@ public class AppointmentsController {
     }
 
     @FXML
-    void setBtn_updtAppoint(ActionEvent event) throws IOException {
+    void setBtn_updtAppoint(ActionEvent event) throws IOException, SQLException {
         if (appointTableView.getSelectionModel().getSelectedItem() != null) {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/AppointmentsModify.fxml"));
             loader.load();
             AppointmentModifyController MCController = loader.getController();
-            MCController.getAppointmentInfo(appointTableView.getSelectionModel().getSelectedItem());
+            MCController.getAppointInfo(appointTableView.getSelectionModel().getSelectedItem());
             Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             Parent scene = loader.getRoot();
             stage.setScene(new Scene(scene));

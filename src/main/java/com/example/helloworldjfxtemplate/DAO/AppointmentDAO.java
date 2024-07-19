@@ -50,7 +50,7 @@ public class AppointmentDAO {
                                       String appointmentUpdatedBy, int appointmentCustomerID, int appointmentUserID, int appointmentContact)
             throws SQLException {
         String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, " +
-                "Updated_By, Customer_ID, User_ID, Contact_ID) " +
+                "Last_Updated_By, Customer_ID, User_ID, Contact_ID) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement insertAppoint = JDBC.connection.prepareStatement(sql);
 
