@@ -8,6 +8,7 @@ import com.example.helloworldjfxtemplate.model.Appointment;
 import com.example.helloworldjfxtemplate.model.Contact;
 import com.example.helloworldjfxtemplate.model.Customer;
 import com.example.helloworldjfxtemplate.model.User;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,7 +71,12 @@ public class AppointmentModifyController implements Initializable {
     private TextField tf_appointmentType;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        cb_contID.setItems(ContactDAO.getAllContacts());
+        cb_contID.setVisibleRowCount(10);
+        cb_custID.setItems(CustomerDAO.getCustomerList());
+        cb_custID.setVisibleRowCount(10);
+        cb_userID.setItems(UserDAO.getUserList());
+        cb_userID.setVisibleRowCount(10);
     }
     @FXML
     void setBtn_save(ActionEvent event) {
