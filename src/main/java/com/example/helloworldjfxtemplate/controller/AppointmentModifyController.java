@@ -177,6 +177,7 @@ public class AppointmentModifyController implements Initializable {
         Scene scene = new Scene(parent);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
 
     }
