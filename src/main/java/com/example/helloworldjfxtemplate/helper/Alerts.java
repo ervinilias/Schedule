@@ -171,6 +171,16 @@ public class Alerts {
                 alert.setContentText("Appointment has been successfully added");
                 alert.showAndWait();
                 break;
+
+            case 4:
+                alert.setTitle("Appointment has been successfully modified");
+                alert.setHeaderText("Success!");
+                alert.setContentText("Appointment has been successfully modified");
+                alert.showAndWait();
+                break;
+
+            default:
+                throw new IllegalStateException("Unexpected value: " + numConfirm);
         }
     }
 
@@ -192,7 +202,8 @@ public class Alerts {
                 alert.setContentText("ERROR: Appointment end must not be during existing customer appointments");
                 alert.showAndWait();
                 break;
-
+            default:
+                throw new IllegalStateException("Unexpected value: " + numWarning);
 
         }
     }

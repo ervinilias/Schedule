@@ -109,13 +109,14 @@ public class AppointmentsController implements Initializable {
     void setBtn_updtAppoint(ActionEvent event) throws IOException, SQLException {
         if (appointTableView.getSelectionModel().getSelectedItem() != null) {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/AppointmentsModify.fxml"));
+            loader.setLocation(MainApplication.class.getResource("appointmentsmodify.fxml"));
             loader.load();
             AppointmentModifyController MCController = loader.getController();
             MCController.getAppointInfo(appointTableView.getSelectionModel().getSelectedItem());
             Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             Parent scene = loader.getRoot();
             stage.setScene(new Scene(scene));
+            stage.centerOnScreen();
             stage.show();
         } else {
             Alerts.getError(6);

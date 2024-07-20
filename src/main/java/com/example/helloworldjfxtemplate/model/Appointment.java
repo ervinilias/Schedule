@@ -201,18 +201,18 @@ public class Appointment {
             checkApptStart = a.getAppointStart();
             checkApptEnd = a.getAppointEnd();
             if (custID == a.getAppointCustID()) {
-                if (checkApptStart.isEqual(appointStart) || checkApptEnd.isEqual(appointEnd)) {
+                break;
+            } else if (checkApptStart.isEqual(appointStart) || checkApptEnd.isEqual(appointEnd)) {
                     Alerts.getWarning(1);
                     return true;
-                } else if (appointStart.isAfter(checkApptStart) && appointStart.isBefore(checkApptEnd)) {
+            } else if (appointStart.isAfter(checkApptStart) && appointStart.isBefore(checkApptEnd)) {
                     Alerts.getWarning(2);
                     return true;
-                } else if (appointEnd.isAfter(checkApptStart) && appointEnd.isBefore(checkApptEnd)) {
+            } else if (appointEnd.isAfter(checkApptStart) && appointEnd.isBefore(checkApptEnd)) {
                     Alerts.getWarning(3);
                     return true;
                 }
             }
-        }
         return false;
     }
 

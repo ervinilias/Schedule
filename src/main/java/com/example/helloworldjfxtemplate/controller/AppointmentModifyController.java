@@ -1,9 +1,11 @@
 package com.example.helloworldjfxtemplate.controller;
 
+import com.example.helloworldjfxtemplate.DAO.AppointmentDAO;
 import com.example.helloworldjfxtemplate.DAO.ContactDAO;
 import com.example.helloworldjfxtemplate.DAO.CustomerDAO;
 import com.example.helloworldjfxtemplate.DAO.UserDAO;
 import com.example.helloworldjfxtemplate.MainApplication;
+import com.example.helloworldjfxtemplate.helper.Alerts;
 import com.example.helloworldjfxtemplate.model.Appointment;
 import com.example.helloworldjfxtemplate.model.Contact;
 import com.example.helloworldjfxtemplate.model.Customer;
@@ -23,6 +25,8 @@ import java.io.IOException;
 import java.lang.annotation.Inherited;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -79,14 +83,80 @@ public class AppointmentModifyController implements Initializable {
         cb_userID.setVisibleRowCount(10);
     }
     @FXML
-    void setBtn_save(ActionEvent event) {
+    void setBtn_save(ActionEvent event) throws IOException {
+        int appointID = Integer.parseInt(tf_appointID.getText());
+        String appointTitle = tf_appointmentTitle.getText();
+        String appointDesc = tf_appointmentDesc.getText();
+        String appointLoc = tf_appointmentLoc.getText();
+        String appointType = tf_appointmentType.getText();
+
+        Contact contact = cb_contID.getValue();
+        if (contact == null) {
+            Alerts.getError(12);
+        }
+        int appointContID = contact.getContactID();
+
+        LocalDate startPick = dp_appointmentStartDate.getValue();
+        if (startPick == null) {
+            Alerts.getError(13);
+        }
+
+        LocalTime start = cb_appointmentStartTime.getValue();
+        if (start == null) {
+            Alerts.getError(14);
+        }
+        LocalDateTime appointStart = LocalDateTime.of(dp_appointmentStartDate.getValue(), cb_appointmentStartTime.getValue());
+
+        LocalDate endPick = dp_appointmentEndDate.getValue();
+        if (endPick == null) {
+            Alerts.getError(15);
+        }
+
+        LocalTime end = cb_appointmentEndTime.getValue();
+        if (end == null) {
+            Alerts.getError(16);
+        }
+        LocalDateTime appointEnd = LocalDateTime.of(dp_appointmentEndDate.getValue(), cb_appointmentEndTime.getValue());
+        LocalDateTime appointLastUpdate = LocalDateTime.now();
+        String appointUpdatedBy = "script";
+
+        Customer customer = cb_custID.getValue();
+        if (customer == null) {
+            Alerts.getError(17);
+        }
+        int appointCustID = cb_custID.getValue().getCustID();
+
+        User user = cb_userID.getValue();
+        if (user == null) {
+            Alerts.getError(18);
+        }
+        int appointUserID = cb_userID.getValue().getUserID();
+
+        if (appointTitle.isBlank() || appointTitle.isEmpty()) {
+            Alerts.getError(19);
+        } else if (appointDesc.isBlank() || appointDesc.isEmpty()) {
+            Alerts.getError(20);
+        } else if (appointType.isBlank() || appointType.isEmpty()) {
+            Alerts.getError(21);
+        } else if (appointLoc.isBlank() || appointLoc.isEmpty()) {
+            Alerts.getError(22);
+        } else if (Appointment.businessHours(appointStart, appointEnd)) {
+            return;
+        } else if (Appointment.checkOverlap(appointCustID, appointStart, appointEnd)) {
+            return;
+        } else {
+            AppointmentDAO.updtAppoint(appointTitle, appointDesc, appointLoc, appointType, appointStart, appointEnd,
+                    appointLastUpdate, appointUpdatedBy, appointCustID, appointUserID, appointContID, appointID);
+            Alerts.getConfirm(4);
+            backToAppoint(event);
+        }
 
     }
 
     public void getAppointInfo(Appointment selectedAppoint) throws SQLException {
         cb_appointmentStartTime.setItems(Appointment.getTime());
         cb_appointmentEndTime.setItems(Appointment.getTime());
-        tf_appointID.setText(Integer.toString(selectedAppoint.getAppointContID()));
+        tf_appointID.setText(Integer.toString(selectedAppoint.getAppointID()));
         tf_appointmentTitle.setText(selectedAppoint.getAppointTitle());
         tf_appointmentDesc.setText(selectedAppoint.getAppointDesc());
         tf_appointmentLoc.setText(selectedAppoint.getAppointLoc());

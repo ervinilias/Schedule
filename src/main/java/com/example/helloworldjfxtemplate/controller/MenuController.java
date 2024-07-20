@@ -32,6 +32,7 @@ public class MenuController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Main Menu");
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 
@@ -42,6 +43,18 @@ public class MenuController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Main Menu");
         stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
+    @FXML
+    void setBtn_reports(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(MainApplication.class.getResource("reports.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Main Menu");
+        stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 
@@ -49,10 +62,5 @@ public class MenuController {
     void setBtn_exit(ActionEvent event) {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.close();
-    }
-
-    @FXML
-    void setBtn_reports(ActionEvent event) {
-
     }
 }

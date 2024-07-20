@@ -70,11 +70,11 @@ public class AppointmentDAO {
         insertAppoint.executeUpdate();
     }
 
-    public static void updtAppoint(int appointmentID, String appointmentTitle, String appointmentDescription,
+    public static void updtAppoint(String appointmentTitle, String appointmentDescription,
                                          String appointmentLocation, String appointmentType, LocalDateTime appointmentStart,
                                          LocalDateTime appointmentEnd, LocalDateTime appointmentLastUpdate,
                                        String appointmentUpdatedBy, int appointmentCustomerID, int appointmentUserID,
-                                         int appointmentContact) {
+                                         int appointmentContact, int appointmentID) {
         try {
             String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, " +
                     "Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
