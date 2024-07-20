@@ -162,11 +162,13 @@ public class AppointmentsController implements Initializable {
     @FXML
     void setRb_month(ActionEvent event) {
         appointTableView.setItems(AppointmentDAO.getMonthlyAppointments());
+        appointTableView.setPlaceholder(new Label("No appointments within next month"));
     }
 
     @FXML
     void setRb_week(ActionEvent event) {
         appointTableView.setItems(AppointmentDAO.getWeeklyAppointments());
+        appointTableView.setPlaceholder(new Label("No appointments within next week"));
     }
 
     @FXML
@@ -180,6 +182,7 @@ public class AppointmentsController implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("Main Menu");
             stage.setScene(scene);
+            stage.centerOnScreen();
             stage.show();
         }
 

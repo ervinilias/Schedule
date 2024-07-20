@@ -192,4 +192,39 @@ public class AppointmentDAO {
         }
         return userAppointments;
     }
+
+    public static ObservableList<Appointment> getAppointTypeMonth() {
+        ObservableList<Appointment> appTypeMonthTotal = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT DISTINCT(MONTHNAME(Start)) AS Month, Count(*) AS Total FROM appointments GROUP BY Month";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String appType = rs.getString("Month");
+                int appTypeTotal = rs.getInt("Total");
+                Appointment result = new Appointment(appType, appTypeTotal);
+                appTypeMonthTotal.add(result);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return appTypeMonthTotal;
+    }
+    public static ObservableList<Appointment> appointmentType() {
+        ObservableList<Appointment> appointmentListType = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT Type, Count(*) AS Total FROM appointments GROUP BY Type";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String appointmentType = rs.getString("Type");
+                int appointmentTypeTotal = rs.getInt("Total");
+                Appointment result = new Appointment(appointmentType, appointmentTypeTotal);
+                appointmentListType.add(result);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return appointmentListType;
+    }
 }
