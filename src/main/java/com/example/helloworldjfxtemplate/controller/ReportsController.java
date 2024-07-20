@@ -1,8 +1,16 @@
 package com.example.helloworldjfxtemplate.controller;
 
+import com.example.helloworldjfxtemplate.MainApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class ReportsController {
     @FXML
@@ -71,13 +79,20 @@ public class ReportsController {
     @FXML
     private ComboBox<?> contactCombo;
 
-    @FXML
-    void setBtn_menu(ActionEvent event) {
-
-    }
 
     @FXML
     void setCb_contPopulate(ActionEvent event) {
 
+    }
+
+    @FXML
+    void setBtn_menu(ActionEvent event) throws IOException {
+        new FXMLLoader();
+        Parent parent = FXMLLoader.load(MainApplication.class.getResource("menu.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Main Menu");
+        stage.setScene(scene);
+        stage.show();
     }
 }
