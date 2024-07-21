@@ -197,13 +197,14 @@ public class AppointmentDAO {
     public static ObservableList<Appointment> getAppointTypeMonth() {
         ObservableList<Appointment> appTypeMonthTotal = FXCollections.observableArrayList();
         try {
-            String sql = "SELECT DISTINCT(MONTHNAME(NOW())) AS Month, Count(*) AS Total FROM appointments GROUP BY Month";
+            String sql = "SELECT DISTINCT(MONTHNAME(Start)) AS Month, Count(*) AS NUM FROM appointments " +
+                    "GROUP BY Month";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String appMonth = rs.getString("Month");
-                int appMonthTotal = rs.getInt("Total");
-                Appointment result = new Appointment(appMonth, appMonthTotal);
+                String appointType = rs.getString("Month");
+                int appointTypeTotal = rs.getInt("NUM");
+                Appointment result = new Appointment(appointType, appointTypeTotal);
                 appTypeMonthTotal.add(result);
             }
         } catch (SQLException e) {
@@ -214,12 +215,12 @@ public class AppointmentDAO {
     public static ObservableList<Appointment> getAppointmentType() {
         ObservableList<Appointment> appointmentListType = FXCollections.observableArrayList();
         try {
-            String sql = "SELECT Type, Count(*) AS Total FROM appointments GROUP BY Type";
+            String sql = "SELECT Type, Count(*) AS NUM FROM appointments GROUP BY Type";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String appointType = rs.getString("Type");
-                int appointTypeTotal = rs.getInt("Total");
+                int appointTypeTotal = rs.getInt("NUM");
                 Appointment result = new Appointment(appointType, appointTypeTotal);
                 appointmentListType.add(result);
             }

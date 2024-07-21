@@ -90,8 +90,8 @@ public class ReportsController implements Initializable {
         //Appointment Totals Tab -> Appointment by Month and Totals
         appMonthTableView.setItems(AppointmentDAO.getAppointTypeMonth());
         appMonthTableView.setPlaceholder(new Label("No data for month"));
-        appointMonth.setCellValueFactory(new PropertyValueFactory<>("appMonth"));
-        appointMonthTotal.setCellValueFactory(new PropertyValueFactory<>("appMonthTotal"));
+        appointMonth.setCellValueFactory(new PropertyValueFactory<>("appointType"));
+        appointMonthTotal.setCellValueFactory(new PropertyValueFactory<>("appointTypeTotal"));
 
         //Contact Schedule Tab -> get appointments for a specific Contact through combobox
         cb_contact.setItems(contList);
