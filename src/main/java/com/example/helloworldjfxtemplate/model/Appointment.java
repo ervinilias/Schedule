@@ -294,41 +294,75 @@ public class Appointment {
     }
 
     /**
-     *
-     * @return
+     *g etAppointCustID getter for appointment customer ID
+     * @return appointCustID
      */
     public int getAppointCustID() {
         return appointCustID;
     }
 
+    /**
+     * setAppointCustID setter for appointment customer ID
+     * @param appointCustID
+     */
     public void setAppointCustID(int appointCustID) {
         this.appointCustID = appointCustID;
     }
 
+    /**
+     * getAppointUserID getter for appointment User ID
+     * @return appointUserID
+     */
     public int getAppointUserID() {
         return appointUserID;
     }
 
+    /**
+     * setAppointUserID setter for appointment User ID
+     * @param appointUserID
+     */
     public void setAppointUserID(int appointUserID) {
         this.appointUserID = appointUserID;
     }
 
+    /**
+     * getAppointContID getter for appointment contact ID
+     * @return appointContID
+     */
     public int getAppointContID() {
         return appointContID;
     }
 
+    /**
+     * setAppointContID setter for appointment contact ID
+     * @param appointContID
+     */
     public void setAppointContID(int appointContID) {
         this.appointContID = appointContID;
     }
 
+    /**
+     * getAppointContName getter for appointment contact name
+     * @return appointContName
+     */
     public String getAppointContName() {
         return appointContName;
     }
 
+    /**
+     * setAppointContName setter for appointment contact name
+     * @param appointContName
+     */
     public void setAppointContName(String appointContName) {
         this.appointContName = appointContName;
     }
 
+    /**
+     * checkPastDate() method checks specific date to limit it to today and future dates and not let past dates
+     * @param appointStart
+     * @param appointEnd
+     * @return true
+     */
     public static boolean checkPastDate(LocalDateTime appointStart, LocalDateTime appointEnd) {
         LocalDateTime currentDate = LocalDateTime.now();
         if (appointStart.isBefore(currentDate) || appointEnd.isBefore(currentDate)) {
@@ -339,6 +373,13 @@ public class Appointment {
         }
     }
 
+    /**
+     * checkOverlap() method checks if appointment for selected contact is overlaping existing appointment in database
+     * @param custID
+     * @param appointStart
+     * @param appointEnd
+     * @return true
+     */
     public static boolean checkOverlap(int custID, LocalDateTime appointStart, LocalDateTime appointEnd) {
         ObservableList<Appointment> appointList = AppointmentDAO.getAppointmentList();
         LocalDateTime checkApptStart, checkApptEnd;
@@ -361,6 +402,10 @@ public class Appointment {
         return false;
     }
 
+    /**
+     * localStart() method converts start business hour from American time zone to local
+     * @return businessStartLocal
+     */
     public static LocalTime localStart() {
         LocalTime openingBusinessTime = LocalTime.of(8, 0);
         ZoneId easternZone = ZoneId.of("America/New_York");
@@ -374,6 +419,10 @@ public class Appointment {
         return businessStartLocal;
     }
 
+    /**
+     * localEnd() method converts end business hour from American time zone to local
+     * @return businessEndLocal
+     */
     public static LocalTime localEnd() {
         LocalTime closingBusinessTime = LocalTime.of(22, 0);
         ZoneId easternZone = ZoneId.of("America/New_York");
@@ -387,6 +436,13 @@ public class Appointment {
         return businessEndLocal;
     }
 
+    /**
+     * businessHours() method establishes business hours in ET and converts users local time to check they are within
+     * business hours
+     * @param appointStart
+     * @param appointEnd
+     * @return true
+     */
     public static boolean businessHours(LocalDateTime appointStart, LocalDateTime appointEnd) {
         ZoneId localZone = ZoneId.systemDefault();
         ZoneId estZone = ZoneId.of("America/New_York");
@@ -412,6 +468,10 @@ public class Appointment {
         }
     }
 
+    /**
+     * getTime() method generates 30 min gap in appointment time list
+     * @return appointmentTimeList
+     */
     public static ObservableList<LocalTime> getTime() {
         ObservableList<LocalTime> appointmentTimeList = FXCollections.observableArrayList();
         LocalTime start = LocalTime.of(1, 00);

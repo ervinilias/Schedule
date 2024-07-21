@@ -200,6 +200,7 @@ public class CustomersController implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("Main Menu");
             stage.setScene(scene);
+            stage.centerOnScreen();
             stage.show();
         }
     }
