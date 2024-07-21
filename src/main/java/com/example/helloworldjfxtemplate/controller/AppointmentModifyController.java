@@ -142,6 +142,8 @@ public class AppointmentModifyController implements Initializable {
             Alerts.getError(22);
         } else if (Appointment.businessHours(appointStart, appointEnd)) {
             return;
+        } else if (Appointment.checkPastDate(appointStart,appointEnd)) {
+            return;
         } else if (Appointment.checkOverlap(appointCustID, appointStart, appointEnd)) {
             return;
         } else {

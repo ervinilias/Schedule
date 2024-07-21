@@ -194,6 +194,16 @@ public class Appointment {
         this.appointContName = appointContName;
     }
 
+    public static boolean checkPastDate(LocalDateTime appointStart, LocalDateTime appointEnd) {
+        LocalDateTime currentDate = LocalDateTime.now();
+        if (appointStart.isBefore(currentDate) || appointEnd.isBefore(currentDate)) {
+            Alerts.getWarning(4);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static boolean checkOverlap(int custID, LocalDateTime appointStart, LocalDateTime appointEnd) {
         ObservableList<Appointment> appointList = AppointmentDAO.getAppointmentList();
         LocalDateTime checkApptStart, checkApptEnd;

@@ -206,16 +206,25 @@ public class Alerts {
                 alert.setContentText("ERROR: Appointments must not start or end at same time as existing customer appointments");
                 alert.showAndWait();
                 break;
+
             case 2:
                 alert.setTitle("Warning Dialog");
                 alert.setContentText("ERROR: Appointment start must not be during existing customer appointments");
                 alert.showAndWait();
                 break;
+
             case 3:
                 alert.setTitle("Warning Dialog");
                 alert.setContentText("ERROR: Appointment end must not be during existing customer appointments");
                 alert.showAndWait();
                 break;
+
+            case 4:
+                alert.setTitle("Warning Dialog");
+                alert.setContentText("Past Date Issue: Please pick present day or next.");
+                alert.showAndWait();
+                break;
+
             default:
                 throw new IllegalStateException("Unexpected value: " + numWarning);
 
