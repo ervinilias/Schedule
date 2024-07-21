@@ -119,7 +119,7 @@ public class LoginController implements Initializable {
                     Alert confirmRemoval = new Alert(Alert.AlertType.WARNING);
                     confirmRemoval.setTitle(langBundle.getString("Alert"));
                     confirmRemoval.setContentText(langBundle.getString("Appointment") + " " +
-                            appoint.getAppointID() + " " + langBundle.getString("beginsat") + " " +  appoint.getAppointStart());
+                            appoint.getAppointID() + " " + langBundle.getString("beginsat") + " " + appoint.getAppointStart().toLocalTime());
                     confirmRemoval.getButtonTypes().clear();
                     confirmRemoval.getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.OK);
                     confirmRemoval.showAndWait();
