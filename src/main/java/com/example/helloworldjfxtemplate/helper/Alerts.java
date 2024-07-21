@@ -179,6 +179,20 @@ public class Alerts {
                 alert.showAndWait();
                 break;
 
+            case 5:
+                alert.setTitle("Customer has been removed");
+                alert.setHeaderText("Success!");
+                alert.setContentText("Customer has been successfully removed");
+                alert.showAndWait();
+                break;
+
+            case 6:
+                alert.setTitle("Customer has been successfully modified");
+                alert.setHeaderText("Success!");
+                alert.setContentText("Customer has been successfully modified");
+                alert.showAndWait();
+                break;
+
             default:
                 throw new IllegalStateException("Unexpected value: " + numConfirm);
         }

@@ -117,8 +117,7 @@ public class LoginController implements Initializable {
                 if ((startTime.isAfter(currentTime) || startTime.isEqual(currentTimePlus15)) &&
                         (startTime.isBefore(currentTimePlus15) || startTime.isEqual(currentTime))) {
                     Alert confirmRemoval = new Alert(Alert.AlertType.WARNING);
-                    confirmRemoval.setTitle("Alert");
-                    confirmRemoval.setContentText("Appointment ");
+                    confirmRemoval.setTitle(langBundle.getString("Alert"));
                     confirmRemoval.setContentText(langBundle.getString("Appointment") + " " +
                             appoint.getAppointID() + " " + langBundle.getString("beginsat") + " " +  appoint.getAppointStart());
                     confirmRemoval.getButtonTypes().clear();

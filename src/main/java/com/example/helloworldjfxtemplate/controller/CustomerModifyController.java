@@ -91,30 +91,30 @@ public class CustomerModifyController implements Initializable {
                 Timestamp lastUpdate = Timestamp.valueOf(now());
                 CustomerDAO.updtCust(customerID, customerName, customerAddress,customerPostalCode, customerPhone,
                         lastUpdatedBy, lastUpdate, customerDivID);
-
-                Parent parent = FXMLLoader.load(MainApplication.class.getResource("customers.fxml"));
-                Scene scene = new Scene(parent);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.centerOnScreen();
-                stage.show();
+                Alerts.getConfirm(6);
+                backToCustomers(event);
             }
         } catch (IOException | NumberFormatException e) {
             throw new RuntimeException(e);
         }
     }
 
+    public void backToCustomers(ActionEvent event) throws  IOException {
+        Parent parent = FXMLLoader.load(MainApplication.class.getResource("customers.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
+
+    }
     @FXML
     void setBtn_cancel(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Leave Without Saving?");
         Optional<ButtonType> result = alert.showAndWait();
 
         if(result.isPresent() && result.get() == ButtonType.OK) {
-            Parent parent = FXMLLoader.load(MainApplication.class.getResource("customers.fxml"));
-            Scene scene = new Scene(parent);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
+            backToCustomers(event);
         }
     }
 

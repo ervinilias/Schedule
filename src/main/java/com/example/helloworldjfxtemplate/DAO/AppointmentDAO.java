@@ -140,7 +140,8 @@ public class AppointmentDAO {
     public static ObservableList<Appointment> getMonthlyAppointments() {
         ObservableList<Appointment> monthlyList = FXCollections.observableArrayList();
         try {
-            String sql = "SELECT * FROM appointments INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID WHERE MONTH(START) = MONTH(NOW()) ORDER BY appointments.Appointment_ID";
+            String sql = "SELECT * FROM appointments INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID " +
+                    "WHERE MONTH(START) = MONTH(NOW()) ORDER BY appointments.Appointment_ID";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -196,13 +197,13 @@ public class AppointmentDAO {
     public static ObservableList<Appointment> getAppointTypeMonth() {
         ObservableList<Appointment> appTypeMonthTotal = FXCollections.observableArrayList();
         try {
-            String sql = "SELECT DISTINCT(MONTHNAME(Start)) AS Month, Count(*) AS Total FROM appointments GROUP BY Month";
+            String sql = "SELECT DISTINCT(MONTHNAME(NOW())) AS Month, Count(*) AS Total FROM appointments GROUP BY Month";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String appType = rs.getString("Month");
-                int appTypeTotal = rs.getInt("Total");
-                Appointment result = new Appointment(appType, appTypeTotal);
+                String appMonth = rs.getString("Month");
+                int appMonthTotal = rs.getInt("Total");
+                Appointment result = new Appointment(appMonth, appMonthTotal);
                 appTypeMonthTotal.add(result);
             }
         } catch (SQLException e) {
@@ -210,21 +211,51 @@ public class AppointmentDAO {
         }
         return appTypeMonthTotal;
     }
-    public static ObservableList<Appointment> appointmentType() {
+    public static ObservableList<Appointment> getAppointmentType() {
         ObservableList<Appointment> appointmentListType = FXCollections.observableArrayList();
         try {
             String sql = "SELECT Type, Count(*) AS Total FROM appointments GROUP BY Type";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String appointmentType = rs.getString("Type");
-                int appointmentTypeTotal = rs.getInt("Total");
-                Appointment result = new Appointment(appointmentType, appointmentTypeTotal);
+                String appointType = rs.getString("Type");
+                int appointTypeTotal = rs.getInt("Total");
+                Appointment result = new Appointment(appointType, appointTypeTotal);
                 appointmentListType.add(result);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return appointmentListType;
+    }
+
+    public static ObservableList<Appointment> getContactAppoint(int contactID) {
+        ObservableList<Appointment> contactAppointment = FXCollections.observableArrayList();
+        try {
+            String sqlStatement = "SELECT * FROM appointments JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID " +
+                    "WHERE appointments.Contact_ID  = '" + contactID + "'";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sqlStatement);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int appointmentID = rs.getInt("Appointment_ID");
+                String appointmentTitle = rs.getString("Title");
+                String appointmentDescription = rs.getString("Description");
+                int appointmentContact = rs.getInt("Contact_ID");
+                String appointmentContactName = rs.getString("Contact_Name");
+                String appointmentType = rs.getString("Type");
+                LocalDateTime appointmentStart = rs.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime appointmentEnd = rs.getTimestamp("End").toLocalDateTime();
+                int appointmentCustomerID = rs.getInt("Customer_ID");
+                int appointmentUserID = rs.getInt("User_ID");
+                String appointmentLocation = rs.getString("Location");
+                Appointment result = new Appointment(appointmentID, appointmentTitle, appointmentDescription,
+                        appointmentLocation, appointmentType, appointmentStart, appointmentEnd, appointmentCustomerID,
+                        appointmentUserID, appointmentContact, appointmentContactName);
+                contactAppointment.add(result);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return contactAppointment;
     }
 }

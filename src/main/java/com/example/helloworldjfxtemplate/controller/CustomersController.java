@@ -3,7 +3,9 @@ package com.example.helloworldjfxtemplate.controller;
 import com.example.helloworldjfxtemplate.MainApplication;
 import com.example.helloworldjfxtemplate.helper.Alerts;
 import com.example.helloworldjfxtemplate.helper.JDBC;
+import com.example.helloworldjfxtemplate.model.Appointment;
 import com.example.helloworldjfxtemplate.model.Customer;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -58,7 +60,7 @@ public class CustomersController implements Initializable {
 
     @FXML
     private TableColumn<Customer, String> col_custCountry;
-
+    ObservableList<Customer> custList = CustomerDAO.getCustomerList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -106,7 +108,63 @@ public class CustomersController implements Initializable {
 
     @FXML
     void setBtn_delCust(ActionEvent event) {
+        int delCount = 0;
+        ObservableList<Appointment> appointList = AppointmentDAO.getAppointmentList();
+        Customer c = custTableView.getSelectionModel().getSelectedItem();
+        //If no customer selected -> get an error
+        if (c == null) {
+            Alerts.getError(6);
+        }
+        int selectCust = custTableView.getSelectionModel().getSelectedItem().getCustID();
+        for (Appointment a : appointList) {
+            int appointCustID = a.getAppointCustID();
+            if (appointCustID == selectCust) {
+                delCount++;
+            }
+        }
+        //if selected customer has appointments, we remove all associated appointments first, and after the customer
+        if (delCount > 0) {
+            Alert assocAppoint = new Alert(Alert.AlertType.WARNING);
+            assocAppoint.setTitle("Alert");
+            assocAppoint.setContentText("Specific customer has " + delCount + " associated appointments." +
+                    "Pressing OK will delete BOTH customer and associated appointments.");
+            assocAppoint.getButtonTypes().clear();
+            assocAppoint.getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.OK);
+            assocAppoint.showAndWait();
+            if(assocAppoint.getResult() == ButtonType.OK) {
+                for (Appointment a : appointList) {
+                    if (a.getAppointCustID() == selectCust) {
+                        AppointmentDAO.delAppoint(a.getAppointID());
+                    }
+                }
+                CustomerDAO.delCust(custTableView.getSelectionModel().getSelectedItem().getCustID());
+                Alerts.getConfirm(5);
+                custList = CustomerDAO.getCustomerList();
+                custTableView.setItems(custList);
+                custTableView.refresh();
+            } else if (assocAppoint.getResult() == ButtonType.CANCEL) {
+                assocAppoint.close();
+            }
+        }
 
+        //if selected customer has no appointments, we remove the customer
+        if (delCount == 0) {
+            Alert confDelete = new Alert(Alert.AlertType.WARNING);
+            confDelete.setTitle("Alert");
+            confDelete.setContentText("Are you sure you want to remove customer?");
+            confDelete.getButtonTypes().clear();
+            confDelete.getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.OK);
+            confDelete.showAndWait();
+            if (confDelete.getResult() == ButtonType.OK) {
+                CustomerDAO.delCust(custTableView.getSelectionModel().getSelectedItem().getCustID());
+                Alerts.getConfirm(5);
+                custList = CustomerDAO.getCustomerList();
+                custTableView.setItems(custList);
+                custTableView.refresh();
+            } else if (confDelete.getResult() == ButtonType.CANCEL) {
+                confDelete.close();
+            }
+        }
     }
 
     @FXML
@@ -122,8 +180,5 @@ public class CustomersController implements Initializable {
             stage.setScene(scene);
             stage.show();
         }
-
     }
-
-
 }
