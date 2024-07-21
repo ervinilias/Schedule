@@ -1,11 +1,17 @@
 package com.example.helloworldjfxtemplate.helper;
-
 import javafx.scene.control.Alert;
 import java.util.ResourceBundle;
 
+/**
+ * Alerts class has 3 methods that show errors, warnings and confirmations
+ */
 public class Alerts {
     static ResourceBundle langBundle = ResourceBundle.getBundle("lang");
 
+    /**
+     * getError() method alerts with alert type message
+     * @param numError
+     */
     public static void getError(int numError) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         switch (numError){
@@ -149,6 +155,11 @@ public class Alerts {
 
         }
     }
+
+    /**
+     * getConfirm() method alerts with confirmation type messages
+     * @param numConfirm
+     */
     public static void getConfirm(int numConfirm) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         switch (numConfirm) {
@@ -198,6 +209,10 @@ public class Alerts {
         }
     }
 
+    /**
+     * getWarning() method alerts with warning type messages
+     * @param numWarning
+     */
     public static void getWarning(int numWarning) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         switch (numWarning) {

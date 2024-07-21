@@ -9,8 +9,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * CountryDAO has SQL queries that:
+ *  getAllCountrylist
+ *  returnCountry from country ID
+ *  totalCountry from database to populate data in reports tableview
+ */
 public class CountryDAO {
 
+    /**
+     * getAllCountry() method has sql query that gets ObservableList of all countries and ID from database
+     * @return countryList
+     */
     public static ObservableList<Country> getAllCountry() {
         ObservableList<Country> countryList = FXCollections.observableArrayList();
         try {
@@ -30,6 +40,11 @@ public class CountryDAO {
         return countryList;
     }
 
+    /**
+     * returnCountry() method has sql query that gets country from a specific country ID.
+     * @param countryID
+     * @return c
+     */
     public static Country returnCountry(int countryID) {
         Country c = null;
         try {
@@ -49,6 +64,10 @@ public class CountryDAO {
         return c;
     }
 
+    /**
+     * totalCountry() method has sql query that gets total number of customers for a specific country
+     * @return customerCountry
+     */
     public static ObservableList<Country> totalCountry() {
         ObservableList<Country> customerCountry = FXCollections.observableArrayList();
         try {

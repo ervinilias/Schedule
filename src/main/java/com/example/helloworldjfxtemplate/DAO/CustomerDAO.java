@@ -8,8 +8,18 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 import java.time.LocalDateTime;
 
+/**
+ * CustomerDAO class has SQL queries that:
+ * get Customer List
+ * add/modifies/deletes customers
+ * returns customer list from customer ID
+ */
 public class CustomerDAO {
 
+    /**
+     * getCustomerList() method has sql query that get list of all customers from database
+     * @return customerList
+     */
     public static ObservableList<Customer> getCustomerList() {
         ObservableList<Customer> customerList = FXCollections.observableArrayList();
         try {
@@ -46,7 +56,19 @@ public class CustomerDAO {
         return customerList;
     }
 
-
+    /**
+     * addCust() method has sql query that adds customer
+     * @param customerName
+     * @param customerAddress
+     * @param customerPostalCode
+     * @param customerPhone
+     * @param createDate
+     * @param createdBy
+     * @param lastUpdate
+     * @param lastUpdatedBy
+     * @param divisionID
+     * @throws SQLException
+     */
     public static void addCust(String customerName, String customerAddress, String customerPostalCode,
                                String customerPhone, LocalDateTime createDate, String createdBy,
                                LocalDateTime lastUpdate, String lastUpdatedBy,
@@ -87,6 +109,10 @@ public class CustomerDAO {
         }
     }
 
+    /**
+     * delCust() method deletes customer for specific customer ID from database
+     * @param customerID
+     */
     public static void delCust(int customerID) {
         try {
             String sqldelete = "DELETE FROM customers WHERE Customer_ID = ?";
@@ -98,7 +124,14 @@ public class CustomerDAO {
         }
     }
 
+    /**
+     * returnCustomerList() method returns Customer from database for a specific Customer ID
+     * @param customerID
+     * @return c
+     * @throws SQLException
+     */
     public static Customer returnCustomerList(int customerID) throws SQLException {
+        Customer c = null;
         String sql = "SELECT * FROM customers WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setInt(1, customerID);
@@ -108,9 +141,8 @@ public class CustomerDAO {
         while (rs.next()) {
             int searchCustomerID = rs.getInt("Customer_ID");
             String customerName = rs.getString("Customer_Name");
-            Customer c = new Customer(searchCustomerID, customerName);
-            return c;
+            c = new Customer(searchCustomerID, customerName);
         }
-        return null;
+        return c;
     }
 }

@@ -12,6 +12,9 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Model class for Appointment
+ */
 public class Appointment {
     private int appointID;
     private String appointTitle;
@@ -30,6 +33,19 @@ public class Appointment {
     private int appointContID;
     private String appointContName;
 
+    /**
+     * Overloaded constructor for appointments to get information from database
+     * @param appointID
+     * @param appointTitle
+     * @param appointDesc
+     * @param appointLoc
+     * @param appointType
+     * @param appointStart
+     * @param appointEnd
+     * @param appointCustID
+     * @param appointUserID
+     * @param appointContID
+     */
     public Appointment(int appointID, String appointTitle, String appointDesc, String appointLoc, String appointType,
                        LocalDateTime appointStart, LocalDateTime appointEnd, int appointCustID, int appointUserID,
                        int appointContID) {
@@ -45,6 +61,20 @@ public class Appointment {
         this.appointContID = appointContID;
     }
 
+    /**
+     * Overloaded constructor for appointments to get information from database
+     * @param appointID
+     * @param appointTitle
+     * @param appointDesc
+     * @param appointLoc
+     * @param appointType
+     * @param appointStart
+     * @param appointEnd
+     * @param appointCustID
+     * @param appointUserID
+     * @param appointContID
+     * @param appointContName
+     */
     public Appointment(int appointID, String appointTitle, String appointDesc, String appointLoc, String appointType,
                        LocalDateTime appointStart, LocalDateTime appointEnd, int appointCustID, int appointUserID,
                        int appointContID, String appointContName) {
@@ -61,107 +91,212 @@ public class Appointment {
         this.appointContName = appointContName;
     }
 
+    /**
+     * Overloaded constructor for appointments types and totals for a report screen from database
+     * @param appointType
+     * @param appointTypeTotal
+     */
     public Appointment(String appointType, int appointTypeTotal) {
         this.appointType = appointType;
         this.appointTypeTotal = appointTypeTotal;
     }
 
+    /**
+     * getAppointID getter for appointment ID
+     * @return appointID
+     */
     public int getAppointID() {
         return appointID;
     }
 
+    /**
+     * setAppointID setter for appointment ID
+     * @param appointID
+     */
     public void setAppointID(int appointID) {
         this.appointID = appointID;
     }
 
+    /**
+     * getAppointTitle getter for appointment title
+     * @return appointTitle
+     */
     public String getAppointTitle() {
         return appointTitle;
     }
 
+    /**
+     * setAppointTitle setter for appointment title
+     * @param appointTitle
+     */
     public void setAppointTitle(String appointTitle) {
         this.appointTitle = appointTitle;
     }
 
+    /**
+     * getAppointDesc getter for appointment description
+     * @return appointDesc
+     */
     public String getAppointDesc() {
         return appointDesc;
     }
 
+    /**
+     * setAppointDesc setter or appointment description
+     * @param appointDesc
+     */
     public void setAppointDesc(String appointDesc) {
         this.appointDesc = appointDesc;
     }
 
+    /**
+     * getAppointLoc getter for appointment location
+     * @return appointLoc
+     */
     public String getAppointLoc() {
         return appointLoc;
     }
 
+    /**
+     * setAppointLoc setter for appointment location
+     * @param appointLocation
+     */
     public void setAppointLoc(String appointLocation) {
         this.appointLoc = appointLoc;
     }
 
+    /**
+     * getAppointType getter for appointment type
+     * @return appointType
+     */
     public String getAppointType() {
         return appointType;
     }
 
+    /**
+     * setAppointType setter for appointment type
+     * @param appointType
+     */
     public void setAppointType(String appointType) {
         this.appointType = appointType;
     }
 
+    /**
+     * getAppointTypeTotal getter for appointment type total
+     * @return appointTypeTotal
+     */
     public int getAppointTypeTotal() {
         return appointTypeTotal;
     }
 
+    /**
+     * setAppointTypeTotal setter for appointment type total
+     * @param appointTypeTotal
+     */
     public void setAppointTypeTotal(int appointTypeTotal) {
         this.appointTypeTotal = appointTypeTotal;
     }
 
+    /**
+     * getAppointStart getter for appointment start date
+     * @return appointStart
+     */
     public LocalDateTime getAppointStart() {
         return appointStart;
     }
 
+    /**
+     * setAppointStart setter for appointment start date
+     * @param appointStart
+     */
     public void setAppointStart(LocalDateTime appointStart) {
         this.appointStart = appointStart;
     }
 
+    /**
+     * getAppointEnd getter for appointment end date
+     * @return appointEnd
+     */
     public LocalDateTime getAppointEnd() {
         return appointEnd;
     }
 
+    /**
+     * setAppointEnd setter for appointment end date
+     * @param appointEnd
+     */
     public void setAppointEnd(LocalDateTime appointEnd) {
         this.appointEnd = appointEnd;
     }
 
+    /**
+     * getAppointCreateDate getter for appointment create date
+     * @return appointCreateDate
+     */
     public LocalDateTime getAppointCreateDate() {
         return appointCreateDate;
     }
 
+    /**
+     * setAppointCreateDate setter for appointment create date
+     * @param appointCreateDate
+     */
     public void setAppointCreateDate(LocalDateTime appointCreateDate) {
         this.appointCreateDate = appointCreateDate;
     }
 
+    /**
+     * getAppointCreatedBy getter for appointment created by
+     * @return appointCreatedBy
+     */
     public String getAppointCreatedBy() {
         return appointCreatedBy;
     }
 
+    /**
+     * setAppointCreatedBy setter for appointment created by
+     * @param appointCreatedBy
+     */
     public void setAppointCreatedBy(String appointCreatedBy) {
         this.appointCreatedBy = appointCreatedBy;
     }
 
+    /**
+     * getAppointUpdateDate for appointment update date
+     * @return appointUpdateDate
+     */
     public LocalDateTime getAppointUpdateDate() {
         return appointUpdateDate;
     }
 
+    /**
+     * setAppointUpdateDate setter for appointment update date
+     * @param appointUpdateDate
+     */
     public void setAppointUpdateDate(LocalDateTime appointUpdateDate) {
         this.appointUpdateDate = appointUpdateDate;
     }
 
+    /**
+     * getAppointUpdatedBy getter for appointment updated by
+     * @return appointUpdatedBy
+     */
     public String getAppointUpdatedBy() {
         return appointUpdatedBy;
     }
 
+    /**
+     * setAppointUpdatedBy setter for appointment updated by
+     * @param appointUpdatedBy
+     */
     public void setAppointUpdatedBy(String appointUpdatedBy) {
         this.appointUpdatedBy = appointUpdatedBy;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getAppointCustID() {
         return appointCustID;
     }

@@ -173,6 +173,7 @@ public class LoginController implements Initializable {
 
     /**
      * LAMBDA EXPRESSION: LINES 177-179 to get file name for  login activity
+     * @return filename
      */
     LogActivity logActivity = () -> {
         return "login_activity.txt";

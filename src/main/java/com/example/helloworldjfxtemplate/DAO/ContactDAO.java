@@ -9,7 +9,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * ContactDAO class has SQL queries that:
+ * getAllContacts list
+ * returnContactList from contact ID
+ * returnContactID from contact name
+ */
 public class ContactDAO {
+    /**
+     * getAllContacts() method has sql query that get all data from contacts database.
+     * @return contactList
+     */
     public static ObservableList<Contact> getAllContacts() {
         ObservableList<Contact> contactList = FXCollections.observableArrayList();
         try {
@@ -30,6 +40,11 @@ public class ContactDAO {
         return contactList;
     }
 
+    /**
+     * returnContactList() method has sql query that returns contact list from contact ID
+     * @param contactId
+     * @return c
+     */
     public static Contact returnContactList(int contactId) {
         Contact c = null;
         try {
@@ -50,6 +65,12 @@ public class ContactDAO {
         return c;
     }
 
+    /**
+     * returnContactID() method has sql query that returns contact ID using contact name
+     * @param contactName
+     * @return contactID
+     * @throws SQLException
+     */
     public static int returnContactID(String contactName) throws SQLException {
         int contactID = 0;
         String sql = "SELECT * FROM contacts WHERE Contact_Name = ?";

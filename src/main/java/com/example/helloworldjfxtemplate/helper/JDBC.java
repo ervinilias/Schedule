@@ -4,9 +4,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-
+/**
+ * JDBC class that establishes database connection
+ */
 public abstract class JDBC {
-
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";
     private static final String location = "//localhost/";
@@ -17,9 +18,12 @@ public abstract class JDBC {
     private static String password = "Passw0rd!";
     public static Connection connection;
     private static PreparedStatement preparedStatement;
-
     public static String connectionStatus;
 
+    /**
+     * makeConnection() method opens connection and prints successful message and prints error if there is one
+     * @return connection
+     */
     public static Connection makeConnection() {
         try {
             Class.forName(driver); // Locate Driver
@@ -35,6 +39,9 @@ public abstract class JDBC {
         return connection;
     }
 
+    /**
+     * closeConnection() method closes connection
+     */
     public static void closeConnection() {
         try {
             connection.close();

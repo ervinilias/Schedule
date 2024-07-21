@@ -12,7 +12,8 @@ import java.sql.SQLException;
  *  Scheduling Appication
  *  @author Ervin Iliasov C195
  *  Javadoc location: Schedule\src\main\java\com\example\helloworldjfxtemplate\javadoc
- *
+ *  LAMBDAS location: LoginController -> logActivity method LINES 177-179
+ *  LAMBDAS location: AppointmentAddController -> initialize method LINES 86-87
  *  MainAppclication class links model and view of application.
  *  This application defines the login user interface container by means of a stage
  *  and a scene. Also, the main method opens and close JDBC connection.

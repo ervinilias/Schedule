@@ -10,8 +10,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * UserDAO class has sql queries with multiple functionalities:
+ * getUserList,
+ * userLogin validation for both username and its password
+ * userValid for entered username that checks it in database
+ * passValid for entered password that checks it in database
+ * get user ID from username
+ */
 public class UserDAO {
 
+    /**
+     * getUserList() method has sql query that get ObservableList of all users from database
+     * @return userList
+     */
     public  static ObservableList<User> getUserList() {
         ObservableList<User> userList = FXCollections.observableArrayList();
         try {
@@ -31,6 +43,12 @@ public class UserDAO {
         return userList;
     }
 
+    /**
+     * userLogin() method has sql query that checks username and related password from database
+     * @param username
+     * @param password
+     * @return true
+     */
     public static boolean userLogin(String username, String password) {
         try (PreparedStatement ps = JDBC.connection.prepareStatement("SELECT * FROM users WHERE User_Name = ? AND Password = ?")) {
             ps.setString(1, username);
@@ -45,6 +63,11 @@ public class UserDAO {
         return false;
     }
 
+    /**
+     * userValid() method has sql query that checks username from database
+     * @param username
+     * @return true
+     */
     public static boolean userValid(String username) {
         try (PreparedStatement ps = JDBC.connection.prepareStatement("SELECT * FROM users WHERE BINARY User_Name = ?")) {
             ps.setString(1, username);
@@ -57,7 +80,11 @@ public class UserDAO {
         }
         return false;
     }
-
+    /**
+     * passValid() method has sql query that checks password from database
+     * @param password
+     * @return true
+     */
     public static boolean passValid(String password) {
         try (PreparedStatement ps = JDBC.connection.prepareStatement("SELECT * FROM users WHERE BINARY Password = ?")) {
             ps.setString(1, password);
@@ -71,6 +98,12 @@ public class UserDAO {
         return false;
     }
 
+    /**
+     * getUserId() method has sql query that returns user data from username from database
+     * @param userName
+     * @return userID
+     * @throws SQLException
+     */
     public static int getUserId(String userName) throws SQLException {
         int userID = 0;
         String sqlStatement = "SELECT User_ID, User_Name from users where User_Name = '" + userName + "'";
@@ -84,6 +117,11 @@ public class UserDAO {
         return userID;
     }
 
+    /**
+     * returnUserID() method that has sql query that returns userdata from user ID
+     * @param userID
+     * @return u
+     */
     public static User returnUserID(int userID) {
         try {
             String sql = "SELECT User_ID, User_Name FROM users WHERE User_ID = ?";

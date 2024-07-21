@@ -301,6 +301,7 @@ public class AppointmentDAO {
 
     /**
      * getContactAppoint() method has SQL query that returns ObservableList with all appointments for specific contact
+     * from database
      * @param contactID
      * @return contactAppointment
      */

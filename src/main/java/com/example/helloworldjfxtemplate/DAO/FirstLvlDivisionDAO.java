@@ -12,8 +12,19 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * FirstLvlDivisionDAO has queries to display all divisions for related country ID from database.
+ * Also, returns division name for division ID.
+ */
 public class FirstLvlDivisionDAO {
 
+    /**
+     * displayDivision() method has sql query that returns ObservableList of all divisions for a specific country ID
+     * from database.
+     * @param countryID
+     * @return divisionCountryOptions
+     * @throws SQLException
+     */
     public static ObservableList<FirstLVLDivision> displayDivision(int countryID) throws SQLException {
         ObservableList<FirstLVLDivision> divisionCountryOptions = FXCollections.observableArrayList();
         String sql = "SELECT * FROM first_level_divisions WHERE Country_ID = " + countryID;
@@ -38,6 +49,11 @@ public class FirstLvlDivisionDAO {
         return divisionCountryOptions;
     }
 
+    /**
+     * returnDivLvl() method has sql query that return division name from specific division ID from database.
+     * @param divisionID
+     * @return s
+     */
     public static FirstLVLDivision returnDivLvl(int divisionID) {
         FirstLVLDivision s = null;
         try {
