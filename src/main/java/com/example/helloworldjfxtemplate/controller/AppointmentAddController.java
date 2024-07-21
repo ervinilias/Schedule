@@ -29,7 +29,13 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
+/**
+ * AppointmentsAddController class adds appointment to the appointments table
+ *  First it checks appointment for empty text fields, then checks for overlaps, pastdates and business hours.
+ *  If errors found, sends error popup. In the end it returns user to appointment menu.
+ *  LAMBDA EXPRESSIONS LINE 86-87
+ * @author Ervin Iliasov C195
+ */
 public class AppointmentAddController implements Initializable {
     @FXML
     private Button btn_menu;
@@ -61,9 +67,14 @@ public class AppointmentAddController implements Initializable {
     private TextField tf_appointType;
     private final int daysToAdd = 0;
 
-    public AppointmentAddController() {
-    }
-
+    /**
+     * initialize() method initializes ID comboboxes for customer, user and contact.
+     * Adds 30 minutes for end time picker from start time picker.
+     * LAMBDA Line 86: Data Picker: takes value from start date and sets the value in end date picker
+     * LAMBDA Line 87:  Time Combo: takes  time selected in the start combo and sets the value plus 30 minutes
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cb_appointStartTime.setItems(Appointment.getTime());
@@ -76,6 +87,14 @@ public class AppointmentAddController implements Initializable {
         cb_appointStartTime.valueProperty().addListener((ov1, oldValueTime, newValueTime) -> cb_appointEndTime.setValue(newValueTime.plusMinutes(30)));
        }
 
+    /**
+     * setBtn_save() method
+     * First it checks appointment for empty text fields, then checks for overlaps, pastdates and business hours.
+     * If errors found, sends error popup. In the end it adds appointment to the list and returns user to appointment menu.
+     * @param event
+     * @throws SQLException
+     * @throws IOException
+     */
     @FXML
     void setBtn_save(ActionEvent event) throws SQLException, IOException {
         String appointTitle = tf_appointTitle.getText();
@@ -151,6 +170,11 @@ public class AppointmentAddController implements Initializable {
         }
     }
 
+    /**
+     * backToAppoint() method sends user to "Appointment" menu.
+     * @param event
+     * @throws IOException
+     */
     public void backToAppoint(ActionEvent event) throws IOException {
         Parent parent = FXMLLoader.load(MainApplication.class.getResource("appointments.fxml"));
         Scene scene = new Scene(parent);
@@ -160,6 +184,12 @@ public class AppointmentAddController implements Initializable {
         stage.show();
 
     }
+
+    /**
+     * setBtn_cancel() method raises alert to confirm leaving and utilizes backToAppoint if OK was pressed
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void setBtn_cancel(ActionEvent event) throws IOException {
 

@@ -30,49 +30,47 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
+/**
+ * AppointmentsModify Controller class populates selected appoitments from TableView and modifies it
+ * First it checks appointment for empty text fields, then checks for overlaps, pastdates and business hours.
+ * If errors found, sends error popup. In the end it returns modified user to appointment menu.
+ * @author Ervin Iliasov C195
+ */
 public class AppointmentModifyController implements Initializable {
     @FXML
     private Button btn_menu;
-
     @FXML
     private Button btn_save;
-
     @FXML
     private ComboBox<Contact> cb_contID;
-
     @FXML
     private ComboBox<LocalTime> cb_appointmentEndTime;
-
     @FXML
     private ComboBox<LocalTime> cb_appointmentStartTime;
-
     @FXML
     private ComboBox<Customer> cb_custID;
-
     @FXML
     private ComboBox<User> cb_userID;
-
     @FXML
     private DatePicker dp_appointmentEndDate;
-
     @FXML
     private DatePicker dp_appointmentStartDate;
-
     @FXML
     private TextField tf_appointID;
-
     @FXML
     private TextField tf_appointmentDesc;
-
     @FXML
     private TextField tf_appointmentLoc;
-
     @FXML
     private TextField tf_appointmentTitle;
-
     @FXML
     private TextField tf_appointmentType;
+
+    /**
+     * initialize() method initializes ID comboboxes for customer, user and contact.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cb_contID.setItems(ContactDAO.getAllContacts());
@@ -82,6 +80,14 @@ public class AppointmentModifyController implements Initializable {
         cb_userID.setItems(UserDAO.getUserList());
         cb_userID.setVisibleRowCount(10);
     }
+
+    /**
+     * setBtn_save() method
+     * First it checks appointment for empty text fields, then checks for overlaps, pastdates and business hours.
+     * If errors found, sends error popup. In the end it adds modified appointment to the list and returns user to appointment menu.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void setBtn_save(ActionEvent event) throws IOException {
         int appointID = Integer.parseInt(tf_appointID.getText());
@@ -155,6 +161,13 @@ public class AppointmentModifyController implements Initializable {
 
     }
 
+    /**
+     * getAppointInfo() method sends data for selected appointment to the "Modify" screed.
+     * It populates all textfields and set comboboxes values with help of returnContactList, returnCustomerList, returnUserID
+     * methods.
+     * @param selectedAppoint
+     * @throws SQLException
+     */
     public void getAppointInfo(Appointment selectedAppoint) throws SQLException {
         cb_appointmentStartTime.setItems(Appointment.getTime());
         cb_appointmentEndTime.setItems(Appointment.getTime());
@@ -174,6 +187,12 @@ public class AppointmentModifyController implements Initializable {
         User u = UserDAO.returnUserID(selectedAppoint.getAppointUserID());
         cb_userID.setValue(u);
     }
+
+    /**
+     * backToAppoint() method sends user to "Appointment" menu.
+     * @param event
+     * @throws IOException
+     */
     public void backToAppoint(ActionEvent event) throws IOException {
         Parent parent = FXMLLoader.load(MainApplication.class.getResource("appointments.fxml"));
         Scene scene = new Scene(parent);
@@ -183,6 +202,12 @@ public class AppointmentModifyController implements Initializable {
         stage.show();
 
     }
+
+    /**
+     * setBtn_cancel() method raises alert to confirm leaving and utilizes backToAppoint if OK was pressed
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void setBtn_cancel(ActionEvent event) throws IOException {
 

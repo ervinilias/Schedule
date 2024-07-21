@@ -26,40 +26,45 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static java.time.LocalDateTime.now;
-
+/**
+ *  CustomerModifyController class modifies existing customer and sends it to the customer table
+ *  First it checks customer for empty text fields and gets data from all textfields.
+ *  If errors found, sends error popup. In the end it returns modifies user to customer menu.
+ */
 public class CustomerModifyController implements Initializable {
     @FXML
     private Button btn_cancel;
-
     @FXML
     private Button btn_save;
-
     @FXML
     private ComboBox<Country> cb_custCountry;
-
     @FXML
     private ComboBox<FirstLVLDivision> cb_custDivision;
-
     @FXML
     private TextField tf_custAddr;
-
     @FXML
     private TextField tf_custID;
-
     @FXML
     private TextField tf_custName;
-
     @FXML
     private TextField tf_custPhone;
-
     @FXML
     private TextField tf_custPost;
 
+    /**
+     * initialize() method populates all countries in country combobox
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cb_custCountry.setItems(CountryDAO.getAllCountry());
     }
 
+    /**
+     * setCb_custCountry() method populates all divisions in related combobox depending on what country was selected
+     * @param event
+     */
     public void setCb_custCountry(ActionEvent event) {
         Country c = cb_custCountry.getValue();
         try {
@@ -69,6 +74,12 @@ public class CustomerModifyController implements Initializable {
         }
     }
 
+    /**
+     * setBtn_save() method checks customer for empty text fields and gets data from all textfields.
+     * If errors found, sends error popup. In the end it updates customer and returns user to customer menu.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void setBtn_save(ActionEvent event) {
         try {
@@ -99,6 +110,11 @@ public class CustomerModifyController implements Initializable {
         }
     }
 
+    /**
+     * backToCustomers() method  sends user to "Customer" menu.
+     * @param event
+     * @throws IOException
+     */
     public void backToCustomers(ActionEvent event) throws  IOException {
         Parent parent = FXMLLoader.load(MainApplication.class.getResource("customers.fxml"));
         Scene scene = new Scene(parent);
@@ -108,6 +124,12 @@ public class CustomerModifyController implements Initializable {
         stage.show();
 
     }
+
+    /**
+     * setBtn_cancel() method raises alert to confirm leaving and utilizes backToCustomers if OK was pressed
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void setBtn_cancel(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Leave Without Saving?");
@@ -118,6 +140,12 @@ public class CustomerModifyController implements Initializable {
         }
     }
 
+    /**
+     * getCustInfo() method is used to transfer all data of selected customer from list to "Modify" screen.
+     * Then it populates data in division and country comboboxes.
+     * @param selectedCust
+     * @throws SQLException
+     */
     public void getCustInfo(Customer selectedCust) throws SQLException {
         tf_custID.setText(Integer.toString(selectedCust.getCustID()));
         tf_custName.setText(selectedCust.getCustName());

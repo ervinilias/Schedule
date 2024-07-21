@@ -26,31 +26,30 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+/**
+ * LoginController class has multiple functionalities:
+ * Gets zoneid and translates login screen depending on location.
+ * Verifies user login data and sends him to the main menu.
+ * Checks if there is scheduled appointment within 15 minutes
+ * Writes a logfile of successful logins
+ */
 public class LoginController implements Initializable {
     @FXML
     private Button btn_exit;
-
     @FXML
     private Button btn_login;
-
     @FXML
     private Label lbl_location;
-
     @FXML
     private Label lbl_userloc;
-
     @FXML
     private Label lbl_name;
-
     @FXML
     private Label lbl_password;
-
     @FXML
     private Label lbl_username;
-
     @FXML
     private TextField tf_password;
-
     @FXML
     private TextField tf_username;
     boolean loginSuccess = false;
@@ -60,6 +59,11 @@ public class LoginController implements Initializable {
     ZonedDateTime LDTUTC = LDTConvert.withZoneSameInstant(ZoneId.of("Etc/UTC"));
     ResourceBundle langBundle = ResourceBundle.getBundle("lang");
 
+    /**
+     * initialize() get zoneid for users location and translates all labels depending on it
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ZoneId zoneId = ZoneId.systemDefault();
@@ -71,9 +75,16 @@ public class LoginController implements Initializable {
         lbl_password.setText(langBundle.getString("Password"));
         btn_login.setText(langBundle.getString("Login"));
         btn_exit.setText(langBundle.getString("Exit"));
-
     }
 
+    /**
+     * setBtn_login() method checks if fields are empty, validates username and password and sends him to main menu.
+     * If there is an error, popup will appear. After login, it checks for scheduled appointment within 15 minutes
+     * and shows related popup depending on scheduling. Also writes successful/unsuccessful login attempts in the file
+     * @param event
+     * @throws IOException
+     * @throws SQLException
+     */
     @FXML
     void setBtn_login(ActionEvent event) throws IOException, SQLException {
         String username = tf_username.getText();
@@ -133,6 +144,10 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * setBtn_exit() method closes application with all related popups.
+     * @param event
+     */
     @FXML
     void setBtn_exit(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.WARNING, langBundle.getString("Cancel"));
@@ -149,14 +164,24 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Interface to get file name for lambda on line 177-179
+     */
     interface LogActivity {
         public String getFileName();
     }
 
+    /**
+     * LAMBDA EXPRESSION: LINES 177-179 to get file name for  login activity
+     */
     LogActivity logActivity = () -> {
         return "login_activity.txt";
     };
 
+    /**
+     * loginActivity() method records login activity to the textfile and uses lambda on 177-179 to get the filename
+     * @throws IOException
+     */
     public void loginActivity() throws IOException {
         FileWriter fwritter = new FileWriter(logActivity.getFileName(), true);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy hh:mm:ss");

@@ -26,36 +26,32 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+/**
+ * AppointmentsController class initializes TableView for all/week/month appointments
+ * Provides a way to visually manupulate an appointment add/modify/delete
+ * @author Ervin Iliasov C195
+ */
 public class AppointmentsController implements Initializable {
     @FXML
     private TableView<Appointment> appointTableView;
     @FXML
     private TableColumn<Appointment, Integer> col_appointCont;
-
     @FXML
     private TableColumn<Appointment, String> col_appointDesc;
-
     @FXML
     private TableColumn<Appointment, Timestamp> col_appointEndDate;
-
     @FXML
     private TableColumn<Appointment, Integer> col_appointID;
-
     @FXML
     private TableColumn<Appointment, String> col_appointLoc;
-
     @FXML
     private TableColumn<Appointment, Timestamp> col_appointStartDate;
-
     @FXML
     private TableColumn<Appointment, String> col_appointTitle;
-
     @FXML
     private TableColumn<Appointment, String> col_appointType;
-
     @FXML
     private TableColumn<Appointment, Integer> col_custID;
-
     @FXML
     private TableColumn<Appointment, Integer> col_userID;
     @FXML
@@ -74,6 +70,13 @@ public class AppointmentsController implements Initializable {
     private RadioButton rb_week;
 
     ObservableList<Appointment> appointList = FXCollections.observableArrayList();
+
+    /**
+     * initialize() method populates appointTableView
+     * and shows appointments depending on selected radiobutton
+     * @param url
+     * @param resourceBundle
+     */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (rb_appoint.isSelected()) {
             appointTableView.setItems(AppointmentDAO.getAppointmentList());
@@ -94,6 +97,11 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /**
+     * setBtn_addAppoint() method transfers user to appointmentsadd screen
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void setBtn_addAppoint(ActionEvent event) throws IOException {
         Parent parent = FXMLLoader.load(MainApplication.class.getResource("appointmentsadd.fxml"));
@@ -105,6 +113,15 @@ public class AppointmentsController implements Initializable {
         stage.show();
     }
 
+    /**
+     * setBtn_updtAppoint method transfers user to appointmentsmodify screen
+     * With help of getAppointInfo() method, method takes selected appointment object from tableview
+     * and transfers it to appointmentsmodify screen.
+     * If nothing was selected, popup will appear.
+     * @param event
+     * @throws IOException
+     * @throws SQLException
+     */
     @FXML
     void setBtn_updtAppoint(ActionEvent event) throws IOException, SQLException {
         if (appointTableView.getSelectionModel().getSelectedItem() != null) {
@@ -122,6 +139,13 @@ public class AppointmentsController implements Initializable {
             Alerts.getError(6);
         }
     }
+
+    /**
+     * setBtn_delAppoint() method removes selected appointment.
+     * If there are no selection for appointment, warning popup will appear.
+     * Before removal, confirmation popup will appear.
+     * @param event
+     */
     @FXML
     void setBtn_delAppoint(ActionEvent event) {
         Appointment selectAppoint = appointTableView.getSelectionModel().getSelectedItem();
@@ -153,24 +177,40 @@ public class AppointmentsController implements Initializable {
         }
     }
 
-
+    /**
+     * setRb_appoint() method sets tableview with all appointments.
+     * @param event
+     */
     @FXML
     void setRb_appoint(ActionEvent event) {
         appointTableView.setItems(AppointmentDAO.getAppointmentList());
     }
 
+    /**
+     * setRb_month() method sets tableview with monthly appointments.
+     * @param event
+     */
     @FXML
     void setRb_month(ActionEvent event) {
         appointTableView.setItems(AppointmentDAO.getMonthlyAppointments());
         appointTableView.setPlaceholder(new Label("No appointments within next month"));
     }
 
+    /**
+     * setRb_week() method sets tableview with weekly appointments.
+     * @param event
+     */
     @FXML
     void setRb_week(ActionEvent event) {
         appointTableView.setItems(AppointmentDAO.getWeeklyAppointments());
         appointTableView.setPlaceholder(new Label("No appointments within next week"));
     }
 
+    /**
+     * setBtn_menu() method sends user to "Menu" screen.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void setBtn_menu(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Leave To The Previous Menu?");

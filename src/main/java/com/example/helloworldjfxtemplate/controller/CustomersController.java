@@ -24,44 +24,43 @@ import java.util.ResourceBundle;
 import com.example.helloworldjfxtemplate.DAO.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
+/**
+ * CustomersController class initializes TableView for customers
+ * Provides a way to visually manupulate an appointment add/modify/delete
+ * @author Ervin Iliasov C195
+ */
 public class CustomersController implements Initializable {
     @FXML
     private Button btn_addCust;
-
     @FXML
     private Button btn_delCust;
-
     @FXML
     private Button btn_updtCust;
-
     @FXML
     private Button btn_menu;
     @FXML
     private TableView<Customer> custTableView;
-
     @FXML
     private TableColumn<Customer, Integer> col_custID;
-
     @FXML
     private TableColumn<Customer, String> col_custName;
-
     @FXML
     private TableColumn<Customer, String> col_custPhone;
-
     @FXML
     private TableColumn<Customer, String> col_custAddr;
-
     @FXML
     private TableColumn<Customer, String> col_custPost;
-
     @FXML
     private TableColumn<Customer, String> col_custState;
-
     @FXML
     private TableColumn<Customer, String> col_custCountry;
     ObservableList<Customer> custList = CustomerDAO.getCustomerList();
 
+    /**
+     * initialize() method populates customerTableView with data
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Connection connection = JDBC.makeConnection();
@@ -76,6 +75,11 @@ public class CustomersController implements Initializable {
         col_custCountry.setCellValueFactory(new PropertyValueFactory<>("custCountryName"));
     }
 
+    /**
+     * setBtn_addCust() method sends user to "Customer Add" screen
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void setBtn_addCust(ActionEvent event) throws IOException {
         Parent parent = FXMLLoader.load(MainApplication.class.getResource("customeradd.fxml"));
@@ -87,6 +91,13 @@ public class CustomersController implements Initializable {
         stage.show();
     }
 
+    /**
+     * setBtn_updtCust takes a selection from tableview and sends user to "Modify" screen with help of getCustInfo
+     * If nothing was selected, popup will appear.
+     * @param event
+     * @throws IOException
+     * @throws SQLException
+     */
     @FXML
     void setBtn_updtCust(ActionEvent event) throws IOException, SQLException {
         if (custTableView.getSelectionModel().getSelectedItem() != null) {
@@ -106,6 +117,12 @@ public class CustomersController implements Initializable {
 
     }
 
+    /**
+     * setBtn_delCust() method removes selected customer from customer list.
+     * If selected customer has appointments, we remove all associated appointments first, and after - the customer.
+     * If selected customer has no appointments, we remove the customer.
+     * @param event
+     */
     @FXML
     void setBtn_delCust(ActionEvent event) {
         int delCount = 0;
@@ -167,6 +184,11 @@ public class CustomersController implements Initializable {
         }
     }
 
+    /**
+     * setBtn_menu() method sends user to "Menu" screen.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void setBtn_menu(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Leave To The Previous Menu?");

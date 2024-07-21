@@ -26,6 +26,12 @@ import java.sql.Timestamp;
 import java.util.ResourceBundle;
 import java.util.Timer;
 
+/**
+ * ReportsController has multiple reporting functionalities:
+ *  Shows total appointments for month and type.
+ *  Shows all appointments for a specific Contact
+ *  Shows total customers for a specific country.
+ */
 public class ReportsController implements Initializable {
     @FXML
     private TableView<Appointment> appMonthTableView;
@@ -79,6 +85,11 @@ public class ReportsController implements Initializable {
     private Button btn_menu;
     ObservableList<Contact> contList = ContactDAO.getAllContacts();
 
+    /**
+     * initialize() method initializes tableview for Appointment Totals, Contact Schedule and Customer Total tabs.
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //Appointment Totals Tab -> Appointment Type and Totals
@@ -114,6 +125,12 @@ public class ReportsController implements Initializable {
         appointCountryTotal.setCellValueFactory(new PropertyValueFactory<>("countryMonthTotal"));
     }
 
+    /**
+     * setCb_contPopulate populates contacts and displays associated appointments in tableview.
+     * If there is no appointments, placeholder will notify about it.
+     * @param event
+     * @throws SQLException
+     */
     @FXML
     void setCb_contPopulate(ActionEvent event) throws SQLException {
         String contactName = String.valueOf(cb_contact.getValue());
@@ -130,6 +147,11 @@ public class ReportsController implements Initializable {
         }
     }
 
+    /**
+     * setBtn_menu() method sends user to "Menu" screen.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void setBtn_menu(ActionEvent event) throws IOException {
         new FXMLLoader();

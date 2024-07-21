@@ -11,7 +11,15 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * AppointmentDAO class has sql queries to get appointment date from database
+ */
 public class AppointmentDAO {
+
+    /**
+     * getAppointmentList() has SQL query to get obervable list of all appointments in database.
+     * @return appointmentList
+     */
     public static ObservableList<Appointment> getAppointmentList() {
         ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
         try {
@@ -44,6 +52,23 @@ public class AppointmentDAO {
         return appointmentList;
     }
 
+    /**
+     * addAppoint() method has SQL query to add appointment to the database
+     * @param appointmentTitle
+     * @param appointmentDescription
+     * @param appointmentLocation
+     * @param appointmentType
+     * @param appointmentStart
+     * @param appointmentEnd
+     * @param appointmentCreateDate
+     * @param appointmentCreatedBy
+     * @param appointmentLastUpdate
+     * @param appointmentUpdatedBy
+     * @param appointmentCustomerID
+     * @param appointmentUserID
+     * @param appointmentContact
+     * @throws SQLException
+     */
     public static void addAppoint(String appointmentTitle, String appointmentDescription, String appointmentLocation,
                                       String appointmentType, LocalDateTime appointmentStart, LocalDateTime appointmentEnd,
                                       LocalDateTime appointmentCreateDate, String appointmentCreatedBy, LocalDateTime appointmentLastUpdate,
@@ -70,6 +95,21 @@ public class AppointmentDAO {
         insertAppoint.executeUpdate();
     }
 
+    /**
+     * updtAppoint() method has SQL query to update existing appointment in the database
+     * @param appointmentTitle
+     * @param appointmentDescription
+     * @param appointmentLocation
+     * @param appointmentType
+     * @param appointmentStart
+     * @param appointmentEnd
+     * @param appointmentLastUpdate
+     * @param appointmentUpdatedBy
+     * @param appointmentCustomerID
+     * @param appointmentUserID
+     * @param appointmentContact
+     * @param appointmentID
+     */
     public static void updtAppoint(String appointmentTitle, String appointmentDescription,
                                          String appointmentLocation, String appointmentType, LocalDateTime appointmentStart,
                                          LocalDateTime appointmentEnd, LocalDateTime appointmentLastUpdate,
@@ -97,6 +137,11 @@ public class AppointmentDAO {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * delAppoint() method has SQL query that removes appointment from database
+     * @param appointmentID
+     */
     public static void delAppoint(int appointmentID) {
         try {
             String sqldelete = "DELETE FROM appointments WHERE Appointment_ID = ?";
@@ -108,6 +153,10 @@ public class AppointmentDAO {
         }
     }
 
+    /**
+     * getWeeklyAppointments() method has SQL query that returns ObservableList with all appointments sorted weekly
+     * @return weeklyList
+     */
     public static ObservableList<Appointment> getWeeklyAppointments() {
         ObservableList<Appointment> weeklyList = FXCollections.observableArrayList();
         try {
@@ -137,11 +186,15 @@ public class AppointmentDAO {
         return weeklyList;
     }
 
+    /**
+     * getMonthlyAppointments() method has SQL query that returns ObservableList with all appointments sorted monthly
+     * @return monthlyList
+     */
     public static ObservableList<Appointment> getMonthlyAppointments() {
         ObservableList<Appointment> monthlyList = FXCollections.observableArrayList();
         try {
             String sql = "SELECT * FROM appointments INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID " +
-                    "WHERE MONTH(START) = MONTH(NOW()) ORDER BY appointments.Appointment_ID";
+                    "WHERE MONTH(Start) = MONTH(NOW()) ORDER BY appointments.Appointment_ID";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -167,6 +220,11 @@ public class AppointmentDAO {
         return monthlyList;
     }
 
+    /**
+     * getUserAppointments method has SQL query that returns ObservableList with all appointments for specific user
+     * @param userID
+     * @return userAppointments
+     */
     public static ObservableList<Appointment> getUserAppointments(int userID) {
         ObservableList<Appointment> userAppointments = FXCollections.observableArrayList();
         try {
@@ -194,6 +252,11 @@ public class AppointmentDAO {
         return userAppointments;
     }
 
+    /**
+     * getAppointTypeMonth() method has SQL query that returns ObservableList with total number of appointments
+     * for current month
+     * @return appTypeMonthTotal
+     */
     public static ObservableList<Appointment> getAppointTypeMonth() {
         ObservableList<Appointment> appTypeMonthTotal = FXCollections.observableArrayList();
         try {
@@ -212,6 +275,12 @@ public class AppointmentDAO {
         }
         return appTypeMonthTotal;
     }
+
+    /**
+     * getAppointmentType() method has SQL query that returns ObservableList with total number of appointments
+     * for specific type
+     * @return appointmentListType
+     */
     public static ObservableList<Appointment> getAppointmentType() {
         ObservableList<Appointment> appointmentListType = FXCollections.observableArrayList();
         try {
@@ -230,6 +299,11 @@ public class AppointmentDAO {
         return appointmentListType;
     }
 
+    /**
+     * getContactAppoint() method has SQL query that returns ObservableList with all appointments for specific contact
+     * @param contactID
+     * @return contactAppointment
+     */
     public static ObservableList<Appointment> getContactAppoint(int contactID) {
         ObservableList<Appointment> contactAppointment = FXCollections.observableArrayList();
         try {
