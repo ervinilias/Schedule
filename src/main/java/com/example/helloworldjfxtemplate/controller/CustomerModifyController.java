@@ -68,6 +68,7 @@ public class CustomerModifyController implements Initializable {
     public void setCb_custCountry(ActionEvent event) {
         Country c = cb_custCountry.getValue();
         try {
+            cb_custDivision.setValue(null);
             cb_custDivision.setItems(FirstLvlDivisionDAO.displayDivision(c.getCountryID()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -91,6 +92,13 @@ public class CustomerModifyController implements Initializable {
                 Alerts.getError(9);
             } else if (tf_custPost.getText().isEmpty() || tf_custPost.getText().isBlank()) {
                 Alerts.getError(10);
+            } else if (cb_custDivision.getValue() == null) {
+                Country c = cb_custCountry.getValue();
+                if (c == null) {
+                    Alerts.getError(11);
+                } else if (cb_custDivision.getValue() == null) {
+                    Alerts.getError(23);
+                }
             } else {
                 int customerID = Integer.parseInt(tf_custID.getText());
                 String customerName = tf_custName.getText();

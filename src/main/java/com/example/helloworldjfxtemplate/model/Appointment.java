@@ -365,7 +365,7 @@ public class Appointment {
      */
     public static boolean checkPastDate(LocalDateTime appointStart, LocalDateTime appointEnd) {
         LocalDateTime currentDate = LocalDateTime.now();
-        if (appointStart.isBefore(currentDate) || appointEnd.isBefore(currentDate)) {
+        if ((appointStart.isBefore(currentDate) || appointEnd.isBefore(currentDate)) || (appointEnd.isBefore(appointStart))) {
             Alerts.getWarning(4);
             return true;
         } else {
@@ -386,19 +386,20 @@ public class Appointment {
         for (Appointment a : appointList) {
             checkApptStart = a.getAppointStart();
             checkApptEnd = a.getAppointEnd();
-            if (custID == a.getAppointCustID()) {
-                break;
-            } else if (checkApptStart.isEqual(appointStart) || checkApptEnd.isEqual(appointEnd)) {
-                    Alerts.getWarning(1);
-                    return true;
+            if (checkApptStart.isEqual(appointStart) || checkApptEnd.isEqual(appointEnd)) {
+                Alerts.getWarning(1);
+                return true;
             } else if (appointStart.isAfter(checkApptStart) && appointStart.isBefore(checkApptEnd)) {
-                    Alerts.getWarning(2);
-                    return true;
+                Alerts.getWarning(2);
+                return true;
             } else if (appointEnd.isAfter(checkApptStart) && appointEnd.isBefore(checkApptEnd)) {
-                    Alerts.getWarning(3);
-                    return true;
-                }
+                Alerts.getWarning(3);
+                return true;
+            } else if (appointStart.isBefore(checkApptStart) && appointEnd.isAfter(checkApptEnd)) {
+                Alerts.getWarning(5);
+                return true;
             }
+        }
         return false;
     }
 

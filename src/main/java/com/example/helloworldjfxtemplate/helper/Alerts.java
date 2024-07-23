@@ -150,6 +150,12 @@ public class Alerts {
                 alert.showAndWait();
                 break;
 
+            case 23:
+                alert.setTitle("Division Field Issue");
+                alert.setContentText("Please check the division field.");
+                alert.showAndWait();
+                break;
+
             default:
                 throw new IllegalStateException("Unexpected value: " + numError);
 
@@ -236,7 +242,13 @@ public class Alerts {
 
             case 4:
                 alert.setTitle("Warning Dialog");
-                alert.setContentText("Past Date Issue: Please pick present day or next.");
+                alert.setContentText("Past Date Issue: Please check the date for logical error.");
+                alert.showAndWait();
+                break;
+
+            case 5:
+                alert.setTitle("Warning Dialog");
+                alert.setContentText("ERROR: Your appointment must not overlap existing customer appointment");
                 alert.showAndWait();
                 break;
 

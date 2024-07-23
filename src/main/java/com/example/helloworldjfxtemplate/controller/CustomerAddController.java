@@ -66,6 +66,7 @@ public class CustomerAddController implements Initializable {
     public void setCb_custCountry(ActionEvent event) {
         Country c = cb_custCountry.getValue();
         try {
+            cb_custDivision.setValue(null);
             cb_custDivision.setItems(FirstLvlDivisionDAO.displayDivision(c.getCountryID()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -93,6 +94,8 @@ public class CustomerAddController implements Initializable {
                 Country c = cb_custCountry.getValue();
                 if (c == null) {
                     Alerts.getError(11);
+                } else if (cb_custDivision.getValue() == null) {
+                    Alerts.getError(23);
                 }
             } else {
                 String customerName = tf_custName.getText();
