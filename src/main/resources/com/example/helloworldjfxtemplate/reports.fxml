@@ -42,16 +42,15 @@
                         <ComboBox fx:id="cb_contact" layoutX="121.0" layoutY="10.0" onAction="#setCb_contPopulate" prefWidth="150.0" />
                         <TableView fx:id="contAppTableView" layoutY="40.0" prefHeight="227.0" prefWidth="900.0">
                            <columns>
-                              <TableColumn fx:id="col_appointID" prefWidth="90.0" text="Appointment ID" />
-                              <TableColumn fx:id="col_appointTitle" prefWidth="90.0" text="Title" />
-                              <TableColumn fx:id="col_appointDesc" prefWidth="90.0" text="Description" />
-                              <TableColumn fx:id="col_appointLoc" prefWidth="90.0" text="Location" />
-                              <TableColumn fx:id="col_appointCont" prefWidth="90.0" text="Contact" />
-                              <TableColumn fx:id="col_appointType" prefWidth="90.0" text="Type" />
-                              <TableColumn fx:id="col_appointStartDate" prefWidth="90.0" text="Start date / Time" />
-                              <TableColumn fx:id="col_appointEndDate" prefWidth="90.0" text="End date / Time" />
-                              <TableColumn fx:id="col_custID" prefWidth="90.0" text="Customer ID" />
-                              <TableColumn fx:id="col_userID" prefWidth="90.0" text="User ID" />
+                              <TableColumn fx:id="col_appointID" prefWidth="100.0" text="Appointment ID" />
+                              <TableColumn fx:id="col_appointTitle" prefWidth="100.0" text="Title" />
+                              <TableColumn fx:id="col_appointDesc" prefWidth="100.0" text="Description" />
+                              <TableColumn fx:id="col_appointCont" prefWidth="100.0" text="Contact" />
+                              <TableColumn fx:id="col_appointType" prefWidth="100.0" text="Type" />
+                              <TableColumn fx:id="col_appointStartDate" prefWidth="100.0" text="Start date / Time" />
+                              <TableColumn fx:id="col_appointEndDate" prefWidth="100.0" text="End date / Time" />
+                              <TableColumn fx:id="col_custID" prefWidth="100.0" text="Customer ID" />
+                              <TableColumn fx:id="col_userID" prefWidth="100.0" text="User ID" />
                            </columns>
                         </TableView>
                      </children>
