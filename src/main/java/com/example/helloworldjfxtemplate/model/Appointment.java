@@ -387,7 +387,7 @@ public class Appointment {
             checkApptStart = a.getAppointStart();
             checkApptEnd = a.getAppointEnd();
             if ((custID == (a.getAppointCustID())) && (checkApptStart.isEqual(appointStart) && checkApptEnd.isEqual(appointEnd))) {
-                System.out.println("Check!");
+                System.out.println("Check Modification Without Time Change!");
                 break;
             } else if (checkApptStart.isEqual(appointStart) || checkApptEnd.isEqual(appointEnd)) {
                 Alerts.getWarning(1);
