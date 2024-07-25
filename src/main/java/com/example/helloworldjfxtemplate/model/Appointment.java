@@ -386,21 +386,23 @@ public class Appointment {
         for (Appointment a : appointList) {
             checkApptStart = a.getAppointStart();
             checkApptEnd = a.getAppointEnd();
-            if ((custID == (a.getAppointCustID())) && (checkApptStart.isEqual(appointStart) && checkApptEnd.isEqual(appointEnd))) {
-                System.out.println("Check Modification Without Time Change!");
-                break;
-            } else if (checkApptStart.isEqual(appointStart) || checkApptEnd.isEqual(appointEnd)) {
-                Alerts.getWarning(1);
-                return true;
-            } else if (appointStart.isAfter(checkApptStart) && appointStart.isBefore(checkApptEnd)) {
-                Alerts.getWarning(2);
-                return true;
-            } else if (appointEnd.isAfter(checkApptStart) && appointEnd.isBefore(checkApptEnd)) {
-                Alerts.getWarning(3);
-                return true;
-            } else if (appointStart.isBefore(checkApptStart) && appointEnd.isAfter(checkApptEnd)) {
-                Alerts.getWarning(5);
-                return true;
+            if (custID == (a.getAppointCustID())) {
+                if ((checkApptStart.isEqual(appointStart) && checkApptEnd.isEqual(appointEnd))) {
+                    Alerts.getWarning(1);
+                    return true;
+                }  if (checkApptStart.isEqual(appointStart) || checkApptEnd.isEqual(appointEnd)) {
+                    Alerts.getWarning(1);
+                    return true;
+                }  if (appointStart.isAfter(checkApptStart) && appointStart.isBefore(checkApptEnd)) {
+                    Alerts.getWarning(2);
+                    return true;
+                }  if (appointEnd.isAfter(checkApptStart) && appointEnd.isBefore(checkApptEnd)) {
+                    Alerts.getWarning(3);
+                    return true;
+                }  if (appointStart.isBefore(checkApptStart) && appointEnd.isAfter(checkApptEnd)) {
+                    Alerts.getWarning(5);
+                    return true;
+                }
             }
         }
         return false;
