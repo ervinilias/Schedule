@@ -386,7 +386,10 @@ public class Appointment {
         for (Appointment a : appointList) {
             checkApptStart = a.getAppointStart();
             checkApptEnd = a.getAppointEnd();
-            if (checkApptStart.isEqual(appointStart) || checkApptEnd.isEqual(appointEnd)) {
+            if ((custID == (a.getAppointCustID())) && (checkApptStart.isEqual(appointStart) && checkApptEnd.isEqual(appointEnd))) {
+                System.out.println("Check!");
+                break;
+            } else if (checkApptStart.isEqual(appointStart) || checkApptEnd.isEqual(appointEnd)) {
                 Alerts.getWarning(1);
                 return true;
             } else if (appointStart.isAfter(checkApptStart) && appointStart.isBefore(checkApptEnd)) {

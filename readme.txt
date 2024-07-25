@@ -11,7 +11,7 @@ Access client_schedule database and add visual functionality for adding/updating
 ## Author: Ervin Iliasov
 
 ## Student ID: 001011674
-## App Version: 3.0 (After 3 VM failures)
+## App Version: 3.1
 ## Date: 07/21/24
 ## IDE Version: INTELIJ 2023.2.2
 ## JDK Version: 17.0.1
