@@ -380,29 +380,26 @@ public class Appointment {
      * @param appointEnd
      * @return true
      */
-    public static boolean checkOverlap(int custID, LocalDateTime appointStart, LocalDateTime appointEnd) {
+    public static boolean checkOverlap(int appointID, int custID, LocalDateTime appointStart, LocalDateTime appointEnd) {
         ObservableList<Appointment> appointList = AppointmentDAO.getAppointmentList();
         LocalDateTime checkApptStart, checkApptEnd;
         for (Appointment a : appointList) {
             checkApptStart = a.getAppointStart();
             checkApptEnd = a.getAppointEnd();
-            if (custID == (a.getAppointCustID())) {
-                if ((checkApptStart.isEqual(appointStart) && checkApptEnd.isEqual(appointEnd))) {
-                    Alerts.getWarning(1);
-                    return true;
-                }  if (checkApptStart.isEqual(appointStart) || checkApptEnd.isEqual(appointEnd)) {
-                    Alerts.getWarning(1);
-                    return true;
-                }  if (appointStart.isAfter(checkApptStart) && appointStart.isBefore(checkApptEnd)) {
-                    Alerts.getWarning(2);
-                    return true;
-                }  if (appointEnd.isAfter(checkApptStart) && appointEnd.isBefore(checkApptEnd)) {
-                    Alerts.getWarning(3);
-                    return true;
-                }  if (appointStart.isBefore(checkApptStart) && appointEnd.isAfter(checkApptEnd)) {
-                    Alerts.getWarning(5);
-                    return true;
-                }
+            if ((appointID == a.getAppointID()) && (checkApptStart.isEqual(appointStart) && checkApptEnd.isEqual(appointEnd))) {
+                break;
+            } else if (checkApptStart.isEqual(appointStart) || checkApptEnd.isEqual(appointEnd)) {
+                Alerts.getWarning(1);
+                return true;
+            } else if (appointStart.isAfter(checkApptStart) && appointStart.isBefore(checkApptEnd)) {
+                Alerts.getWarning(2);
+                return true;
+            } else if (appointEnd.isAfter(checkApptStart) && appointEnd.isBefore(checkApptEnd)) {
+                Alerts.getWarning(3);
+                return true;
+            } else if (appointStart.isBefore(checkApptStart) && appointEnd.isAfter(checkApptEnd)) {
+                Alerts.getWarning(5);
+                return true;
             }
         }
         return false;

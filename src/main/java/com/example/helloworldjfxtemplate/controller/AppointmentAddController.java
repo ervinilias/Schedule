@@ -66,6 +66,7 @@ public class AppointmentAddController implements Initializable {
     @FXML
     private TextField tf_appointType;
     private final int daysToAdd = 0;
+    private int appointID = -1;
 
     /**
      * initialize() method initializes ID comboboxes for customer, user and contact.
@@ -159,7 +160,7 @@ public class AppointmentAddController implements Initializable {
             return;
         } else if (Appointment.checkPastDate(appointStart,appointEnd)) {
             return;
-        } else if (Appointment.checkOverlap(appointCustID, appointStart, appointEnd)) {
+        } else if (Appointment.checkOverlap(appointID, appointCustID, appointStart, appointEnd)) {
             return;
         } else {
             AppointmentDAO.addAppoint(appointTitle, appointDesc, appointLoc, appointType, appointStart, appointEnd,

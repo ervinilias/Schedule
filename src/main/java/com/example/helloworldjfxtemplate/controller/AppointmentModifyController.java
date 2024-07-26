@@ -150,7 +150,7 @@ public class AppointmentModifyController implements Initializable {
             return;
         } else if (Appointment.checkPastDate(appointStart,appointEnd)) {
             return;
-        } else if (Appointment.checkOverlap(appointCustID, appointStart, appointEnd)) {
+        } else if (Appointment.checkOverlap(appointID, appointCustID, appointStart, appointEnd)) {
             return;
         } else {
             AppointmentDAO.updtAppoint(appointTitle, appointDesc, appointLoc, appointType, appointStart, appointEnd,
